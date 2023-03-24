@@ -61,8 +61,7 @@ class DrawerMenuMail extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 // Get.toNamed(MailRoutes.mailSend);
               }),
-
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

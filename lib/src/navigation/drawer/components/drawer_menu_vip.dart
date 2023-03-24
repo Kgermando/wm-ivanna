@@ -51,10 +51,9 @@ class DrawerMenuVip extends GetView<DepartementNotifyCOntroller> {
               style: bodyMedium,
               onTap: () {
                 Get.toNamed(VipRoutes.venteVip);
-              }), 
+              }),
           DrawerWidget(
-              selected:
-                  currentRoute == VipRoutes.tableCommandeVip,
+              selected: currentRoute == VipRoutes.tableCommandeVip,
               icon: Icons.table_bar_outlined,
               sizeIcon: 20.0,
               title: 'Commandes',
@@ -63,8 +62,7 @@ class DrawerMenuVip extends GetView<DepartementNotifyCOntroller> {
                 Get.toNamed(VipRoutes.tableCommandeVip);
               }),
           DrawerWidget(
-              selected:
-                  currentRoute == VipRoutes.tableConsommationVip,
+              selected: currentRoute == VipRoutes.tableConsommationVip,
               icon: Icons.table_bar,
               sizeIcon: 20.0,
               title: 'Consommations',
@@ -99,7 +97,7 @@ class DrawerMenuVip extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(VipRoutes.ventEffectueVip);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

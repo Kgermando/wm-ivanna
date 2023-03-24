@@ -18,8 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeController controller = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final HomeController controller = Get.put(HomeController());
   String title = "Acceuil";
 
   @override

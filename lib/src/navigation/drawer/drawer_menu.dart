@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart'; 
+import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
@@ -27,8 +27,8 @@ class DrawerMenu extends GetView<DepartementNotifyCOntroller> {
               height: 100,
             )),
           ),
-         
-          // if (Platform.isWindows)
+
+          // if (GetPlatform.isWindows)
           //   UpdateNav(
           //     currentRoute: currentRoute,
           //     user: user,

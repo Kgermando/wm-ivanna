@@ -51,10 +51,9 @@ class DrawerMenuLivraison extends GetView<DepartementNotifyCOntroller> {
               style: bodyMedium,
               onTap: () {
                 Get.toNamed(LivraisonRoutes.venteLivraison);
-              }), 
+              }),
           DrawerWidget(
-              selected:
-                  currentRoute == LivraisonRoutes.tableCommandeLivraison,
+              selected: currentRoute == LivraisonRoutes.tableCommandeLivraison,
               icon: Icons.table_bar_outlined,
               sizeIcon: 20.0,
               title: 'Commandes',
@@ -99,7 +98,7 @@ class DrawerMenuLivraison extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(LivraisonRoutes.ventEffectueLivraison);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

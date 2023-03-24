@@ -84,9 +84,9 @@ class DrawerMenuFinance extends GetView<CaisseNameController> {
           //   controller: controller,
           //   caisseNameController: caisseNameController,
           // ),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
-              currentRoute: currentRoute, 
+              currentRoute: currentRoute,
             )
         ],
       );

@@ -14,7 +14,7 @@
 //   if (Platform.isAndroid ||
 //       Platform.isIOS ||
 //       Platform.isLinux ||
-//       Platform.isWindows) {
+//       GetPlatform.isWindows) {
 //     final Directory directory =
 //       await path_provider.getApplicationSupportDirectory();
 //     path = directory.path;
@@ -23,13 +23,13 @@
 //         .getApplicationSupportPath();
 //   }
  
-//   final String fileLocation = Platform.isWindows ? '$path\\$fileName' : '$path/$fileName';
+//   final String fileLocation = GetPlatform.isWindows ? '$path\\$fileName' : '$path/$fileName';
 //   final File file = File(fileLocation);
 //   await file.writeAsBytes(bytes, flush: true);
 
 //   if (Platform.isAndroid || Platform.isIOS) { 
 //     await OpenAppFile.open(fileLocation);
-//   } else if (Platform.isWindows) {
+//   } else if (GetPlatform.isWindows) {
 //     await Process.run('start', <String>[fileLocation], runInShell: true);
 //   } else if (Platform.isMacOS) {
 //     await Process.run('open', <String>[fileLocation], runInShell: true);

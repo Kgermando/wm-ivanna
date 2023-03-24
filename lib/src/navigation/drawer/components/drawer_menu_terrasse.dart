@@ -51,10 +51,9 @@ class DrawerMenuTerrasse extends GetView<DepartementNotifyCOntroller> {
               style: bodyMedium,
               onTap: () {
                 Get.toNamed(TerrasseRoutes.venteTerrasse);
-              }), 
+              }),
           DrawerWidget(
-              selected:
-                  currentRoute == TerrasseRoutes.tableCommandeTerrasse,
+              selected: currentRoute == TerrasseRoutes.tableCommandeTerrasse,
               icon: Icons.table_bar_outlined,
               sizeIcon: 20.0,
               title: 'Commandes',
@@ -99,7 +98,7 @@ class DrawerMenuTerrasse extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(TerrasseRoutes.ventEffectueTerrasse);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

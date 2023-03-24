@@ -14,46 +14,46 @@ main() async {
   await GetStorage.init();
   runApp(
     GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        popGesture: true,
-        title: InfoSystem().name(),
-        initialBinding: SplashBinding(),
-        initialRoute: SettingsRoutes.splash,
-        unknownRoute: GetPage(
-            name: '/not-found',
-            page: () => const PageNotFound(),
-            transition: Transition.fadeIn),
-        getPages: getPages,
-        theme: ThemeData(
-          useMaterial3: true,
-          pageTransitionsTheme: const PageTransitionsTheme(
-            builders: {
-              TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-              TargetPlatform.android: ZoomPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
-            },
-          ),
-          scaffoldBackgroundColor: Colors.blue.shade50,
-          primaryColor: Colors.white,
-          primarySwatch: roleThemeSwatch(1),
-          fontFamily: 'Poppins',
-          colorScheme: ColorScheme.light(
-            primary: mainColor,
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all(5.0),
-              shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
-                return RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0));
-              }),
-              textStyle: MaterialStateProperty.all(const TextStyle(
-                color: Colors.white,
-              )),
-              backgroundColor: MaterialStateProperty.all(mainColor),
-            ),
-          ),
-          // visualDensity: VisualDensity.adaptivePlatformDensity,
-        )),
+    debugShowCheckedModeBanner: false,
+    popGesture: true,
+    title: InfoSystem().name(),
+    initialBinding: SplashBinding(),
+    initialRoute: SettingsRoutes.splash,
+    unknownRoute: GetPage(
+        name: '/not-found',
+        page: () => const PageNotFound(),
+        transition: Transition.fadeIn),
+    getPages: getPages,
+    theme: ThemeData(
+      useMaterial3: true,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+        },
+      ),
+      scaffoldBackgroundColor: Colors.blue.shade50,
+      primaryColor: Colors.white,
+      primarySwatch: roleThemeSwatch(1),
+      fontFamily: 'Poppins',
+      colorScheme: ColorScheme.light(
+        primary: mainColor,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(5.0),
+          shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
+            return RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0));
+          }),
+          textStyle: MaterialStateProperty.all(const TextStyle(
+            color: Colors.white,
+          )),
+          backgroundColor: MaterialStateProperty.all(mainColor),
+        ),
+      ),
+      // visualDensity: VisualDensity.adaptivePlatformDensity,
+    )),
   );
 }

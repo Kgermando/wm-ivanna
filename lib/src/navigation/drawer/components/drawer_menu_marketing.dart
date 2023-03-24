@@ -62,7 +62,7 @@ class DrawerMenuMarketing extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(MarketingRoutes.marketingAgenda);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

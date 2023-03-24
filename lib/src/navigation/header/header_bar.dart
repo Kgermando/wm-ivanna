@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -33,26 +31,27 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
     leadingWidth: 100,
     leading: Responsive.isDesktop(context)
         ? InkWell(
-          onTap: () => Get.toNamed(HomeRoutes.home),
-          child: Image.asset(
-              InfoSystem().logoIcon(),
-              width: 20,
-              height: 20,
-            ),
-        )
-        : (currentRoute == HomeRoutes.home) 
-          ? InkWell(
-              onTap: () => Get.toNamed(HomeRoutes.home),
+            onTap: () => Get.toNamed(HomeRoutes.home),
             child: Image.asset(
               InfoSystem().logoIcon(),
               width: 20,
               height: 20,
             ),
-          ) : IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            scaffoldKey.currentState!.openDrawer();
-          }),
+          )
+        : (currentRoute == HomeRoutes.home)
+            ? InkWell(
+                onTap: () => Get.toNamed(HomeRoutes.home),
+                child: Image.asset(
+                  InfoSystem().logoIcon(),
+                  width: 20,
+                  height: 20,
+                ),
+              )
+            : IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  scaffoldKey.currentState!.openDrawer();
+                }),
     title: Responsive.isMobile(context)
         ? Container()
         : InkWell(
@@ -80,7 +79,7 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
             ),
           ),
     actions: [
-      if (Platform.isWindows &&
+      if (GetPlatform.isWindows &&
           updateController.updateVersionList.isNotEmpty &&
           updateController.sumVersionCloud > updateController.sumLocalVersion)
         Obx(() => IconButton(

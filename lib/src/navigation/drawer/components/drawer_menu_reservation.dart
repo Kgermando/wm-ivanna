@@ -52,8 +52,7 @@ class DrawerMenuReservation extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(ReservationRoutes.reservation);
               }),
-
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

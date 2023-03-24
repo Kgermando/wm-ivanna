@@ -70,7 +70,7 @@ class DrawerMenuCommercial extends GetView<DepartementNotifyCOntroller> {
               style: bodyMedium,
               onTap: () {
                 Get.toNamed(ComRoutes.comCart);
-              }), 
+              }),
           DrawerWidget(
               selected: currentRoute == ComRoutes.comFacture,
               icon: Icons.receipt_long,
@@ -109,9 +109,9 @@ class DrawerMenuCommercial extends GetView<DepartementNotifyCOntroller> {
                 onTap: () {
                   Get.toNamed(ComRoutes.comHistoryRavitaillement);
                 }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
-              currentRoute: currentRoute, 
+              currentRoute: currentRoute,
             )
         ],
       );

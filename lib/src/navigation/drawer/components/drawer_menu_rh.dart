@@ -61,7 +61,7 @@ class DrawerMenuRH extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(RhRoutes.rhUserActif);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )

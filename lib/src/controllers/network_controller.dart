@@ -1,42 +1,30 @@
-import 'dart:async';
-
-import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:get/get.dart'; 
+import 'package:connectivity_listener/connectivity_listener.dart';
 
 class NetworkController extends GetxController {
   static NetworkController to = Get.find();
 
-  //Stream to keep listening to network change state
-  // late StreamSubscription _streamSubscription;
+final _connectionListener = ConnectionListener();
+
 
   final _connectionStatus = 0.obs;
   int get connectionStatus => _connectionStatus.value;
 
-  late StreamSubscription<InternetConnectionStatus> _listener;
 
   @override
   void onInit() {
     super.onInit();
 
-    _listener = InternetConnectionChecker()
-        .onStatusChange
-        .listen((InternetConnectionStatus status) {
-      switch (status) {
-        case InternetConnectionStatus.connected:
-          _connectionStatus.value = 1;
-          break;
-        case InternetConnectionStatus.disconnected:
-          _connectionStatus.value = 0;
-          break;
-      }
-    }); 
+     _connectionListener.init(
+      onConnected: () => print("CONNECTED"),
+      onReconnected: () => print("RECONNECTED"),
+      onDisconnected: () => print("DISCONNECTED"),
+    );
   }
 
   @override
-  void onClose() {
-    //stop listening to network state when app is closed
-    // _streamSubscription.cancel();
-    _listener.cancel();
-    super.onClose();
+  void dispose() {
+    // _connectionListener.dispose();
+    super.dispose();
   }
 }

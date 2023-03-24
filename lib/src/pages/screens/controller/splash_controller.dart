@@ -47,6 +47,7 @@ import 'package:wm_com_ivanna/src/pages/terrasse/controller/prod_model_terrasse_
 import 'package:wm_com_ivanna/src/pages/terrasse/controller/table_terrasse_controller.dart';
 import 'package:wm_com_ivanna/src/pages/terrasse/controller/terrasse_controller.dart';
 import 'package:wm_com_ivanna/src/pages/terrasse/controller/ventes_effectue_terrasse_controller.dart';
+import 'package:wm_com_ivanna/src/pages/update/controller/update_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/controller/factures/creance_vip_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/controller/factures/facture_vip_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/controller/prod_model_vip_controller.dart';
@@ -146,7 +147,7 @@ class SplashController extends GetxController {
       Get.lazyPut(() => AnnuaireController());
 
       // Update Version
-      // Get.lazyPut(() => UpdateController());
+      Get.lazyPut(() => UpdateController());
 
       isLoggIn();
     } else {

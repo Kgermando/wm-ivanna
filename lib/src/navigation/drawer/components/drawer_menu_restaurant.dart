@@ -51,7 +51,7 @@ class DrawerMenuRestaurant extends GetView<DepartementNotifyCOntroller> {
               style: bodyMedium,
               onTap: () {
                 Get.toNamed(RestaurantRoutes.venteRestaurant);
-              }), 
+              }),
           DrawerWidget(
               selected:
                   currentRoute == RestaurantRoutes.tableCommandeRestaurant,
@@ -99,7 +99,7 @@ class DrawerMenuRestaurant extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(RestaurantRoutes.ventEffectueRestaurant);
               }),
-          if (Platform.isWindows)
+          if (GetPlatform.isWindows)
             UpdateNav(
               currentRoute: currentRoute,
             )
