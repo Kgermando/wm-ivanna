@@ -29,9 +29,7 @@ class NetworkController extends GetxController {
           _connectionStatus.value = 0;
           break;
       }
-    });
-
-    print("connectionStatus $connectionStatus");
+    }); 
   }
 
   @override

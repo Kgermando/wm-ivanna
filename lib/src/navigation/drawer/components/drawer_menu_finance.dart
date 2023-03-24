@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
+import 'package:wm_com_ivanna/src/navigation/drawer/components/update_nav.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/drawer_widget.dart';
 import 'package:wm_com_ivanna/src/pages/finance/controller/caisses/caisse_name_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
@@ -73,7 +76,7 @@ class DrawerMenuFinance extends GetView<CaisseNameController> {
                         arguments: element);
                   });
             }).toList(),
-          )
+          ),
           // FinanceCaisseNav(
           //   currentRoute: currentRoute,
           //   user: user,
@@ -81,11 +84,10 @@ class DrawerMenuFinance extends GetView<CaisseNameController> {
           //   controller: controller,
           //   caisseNameController: caisseNameController,
           // ),
-          // if (Platform.isWindows)
-          //   UpdateNav(
-          //     currentRoute: currentRoute,
-          //     user: user,
-          //   )
+          if (Platform.isWindows)
+            UpdateNav(
+              currentRoute: currentRoute, 
+            )
         ],
       );
     }));

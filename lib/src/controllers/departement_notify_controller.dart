@@ -34,6 +34,8 @@ class DepartementNotifyCOntroller extends GetxController {
   void onInit() {
     super.onInit();
     getDataNotify();
+
+    print("connectionStatus ${networkController.connectionStatus}");
   }
 
   void getDataNotify() async { 

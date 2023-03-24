@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
+import 'package:wm_com_ivanna/src/navigation/drawer/components/update_nav.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/drawer_widget.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
@@ -59,11 +62,10 @@ class DrawerMenuMarketing extends GetView<DepartementNotifyCOntroller> {
               onTap: () {
                 Get.toNamed(MarketingRoutes.marketingAgenda);
               }),
-          // if (Platform.isWindows)
-          //   UpdateNav(
-          //     currentRoute: currentRoute,
-          //     user: user,
-          //   )
+          if (Platform.isWindows)
+            UpdateNav(
+              currentRoute: currentRoute,
+            )
         ],
       );
     }));
