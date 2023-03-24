@@ -168,6 +168,7 @@ class UpdateController extends GetxController
         created: DateTime.now(),
         isActive: 'true',
         motif: motifController.text,
+        business: InfoSystem().business()
       );
       await updateVersionApi.insertData(dataItem).then((value) {
         clear();
