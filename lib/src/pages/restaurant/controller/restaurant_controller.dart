@@ -17,6 +17,7 @@ import 'package:wm_com_ivanna/src/models/restaurant/vente_restaurant_model.dart'
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/restaurant/components/factures/pdf_a6/creance_restaurant_a6_pdf.dart';
 import 'package:wm_com_ivanna/src/pages/restaurant/components/factures/pdf_a6/facture_restaurant_a6_pdf.dart';
+import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class RestaurantController extends GetxController
@@ -227,7 +228,7 @@ class RestaurantController extends GetxController
             factureCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
-        Get.back();
+        Get.toNamed(RestaurantRoutes.tableConsommationRestaurant);
         restaurantList.clear();
       });
       _isFactureLoading.value = false;
@@ -305,7 +306,7 @@ class RestaurantController extends GetxController
             creanceCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
-        Get.back();
+        Get.toNamed(RestaurantRoutes.tableConsommationRestaurant);
         _isCreanceLoading.value = false;
       });
     } catch (e) {

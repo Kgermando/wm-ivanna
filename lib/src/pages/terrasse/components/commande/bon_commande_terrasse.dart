@@ -70,21 +70,14 @@ class BonCommandeTerrassePDFA6 extends GetxController {
         ],
       );
 
-  static Widget buildInvoice(
+   static Widget buildInvoice(
       List<RestaurantModel> restaurants, String monnaie) {
-    final headers = ['Qté', 'Designation', 'PVU', 'Montant'];
+    final headers = ['Qté', 'Designation'];
 
     final data = restaurants.map((item) {
-      double priceTotal = 0;
-
-      priceTotal += double.parse(item.price) * double.parse(item.qty);
-
       return [
         (NumberFormat.decimalPattern('fr').format(double.parse(item.qty))),
         item.identifiant,
-        NumberFormat.decimalPattern('fr').format(double.parse(item.price)),
-        (NumberFormat.decimalPattern('fr')
-            .format(double.parse(priceTotal.toStringAsFixed(2)))),
       ];
     }).toList();
 
@@ -101,8 +94,6 @@ class BonCommandeTerrassePDFA6 extends GetxController {
       cellAlignments: {
         0: Alignment.centerLeft,
         1: Alignment.centerLeft,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight
       },
     );
   } 

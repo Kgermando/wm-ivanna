@@ -16,7 +16,8 @@ import 'package:wm_com_ivanna/src/models/restaurant/restaurant_model.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/vente_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/terrasse/components/factures/pdf_a6/creance_terrasse_a6_pdf.dart';
-import 'package:wm_com_ivanna/src/pages/terrasse/components/factures/pdf_a6/facture_terrasse_a6_pdf.dart'; 
+import 'package:wm_com_ivanna/src/pages/terrasse/components/factures/pdf_a6/facture_terrasse_a6_pdf.dart';
+import 'package:wm_com_ivanna/src/routes/routes.dart'; 
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class TerrasseController extends GetxController
@@ -227,7 +228,7 @@ class TerrasseController extends GetxController
             factureCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);  
-        Get.back();
+        Get.toNamed(TerrasseRoutes.tableConsommationTerrasse);
       });
       _isFactureLoading.value = false;
     } catch (e) {
@@ -304,7 +305,7 @@ class TerrasseController extends GetxController
             creanceCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
-        Get.back();
+        Get.toNamed(TerrasseRoutes.tableConsommationTerrasse);
         _isCreanceLoading.value = false;
       });
     } catch (e) {

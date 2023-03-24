@@ -24,7 +24,7 @@ final _connectionListener = ConnectionListener();
 
   @override
   void dispose() {
-    // _connectionListener.dispose();
+    _connectionListener.dispose();
     super.dispose();
   }
 }

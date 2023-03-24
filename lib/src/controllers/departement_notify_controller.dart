@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
+import 'package:connectivity_listener/connectivity_listener.dart';
 import 'package:wm_com_ivanna/src/global/store/commercial/cart_store.dart';
 import 'package:wm_com_ivanna/src/global/store/marketing/agenda_store.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -13,8 +13,7 @@ class DepartementNotifyCOntroller extends GetxController {
   Timer? timerCommercial;
   final getStorge = GetStorage();
   final ProfilController profilController = Get.put(ProfilController());
-  final NetworkController networkController = Get.put(NetworkController());
-
+  final _connectionListener = ConnectionListener();
   // Header
   CartStore cartStore = CartStore();
   // MailsNotifyApi mailsNotifyApi = MailsNotifyApi();
@@ -34,9 +33,20 @@ class DepartementNotifyCOntroller extends GetxController {
   void onInit() {
     super.onInit();
     getDataNotify();
-
-    print("connectionStatus ${networkController.connectionStatus}");
+     _connectionListener.init(
+      onConnected: () => print("CONNECTED"),
+      onReconnected: () => print("RECONNECTED"),
+      onDisconnected: () => print("DISCONNECTED"),
+    );
   }
+
+@override
+  void dispose() {
+    timerCommercial!.cancel();
+    _connectionListener.dispose();
+    super.dispose();
+  }
+ 
 
   void getDataNotify() async { 
     String? idToken = getStorge.read(InfoSystem.keyIdToken);
@@ -55,11 +65,6 @@ class DepartementNotifyCOntroller extends GetxController {
     }
   }
 
-  @override
-  void dispose() {
-    timerCommercial!.cancel();
-    super.dispose();
-  }
 
   // Header
   void getCountCart() async {
