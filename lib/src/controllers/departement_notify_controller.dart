@@ -167,7 +167,34 @@ class DepartementNotifyCOntroller extends GetxController {
       if (result == true) {
         print('Online');
         String? idToken = getStorge.read(InfoSystem.keyIdToken);
-        if (idToken != null) {}
+        if (idToken != null) {
+          // Commercial
+
+
+          // Restaurant
+
+
+          // Livraison
+
+
+          // Vip
+
+
+          // Terrasse
+          
+
+
+          // Annuaire
+          
+
+
+          // Caisses
+          
+
+
+          // RH & Users
+
+        }
       } else {
         print('No internet :( Reason:');
         // print(InternetConnectionChecker().lastTryResults);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
-import 'package:wm_com_ivanna/src/constants/responsive.dart'; 
+import 'package:wm_com_ivanna/src/constants/responsive.dart';
+import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
 import 'package:wm_com_ivanna/src/pages/home/components/home_list.dart';
 import 'package:wm_com_ivanna/src/pages/home/controller/home_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
+import 'package:wm_com_ivanna/src/widgets/barre_connection_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/loading.dart';
 import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/title_widget.dart';
@@ -26,137 +28,141 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        appBar: headerBar(context, scaffoldKey, title, ''), 
+        appBar: headerBar(context, scaffoldKey, title, ''),
         body: controller.obx(
             onLoading: loadingPage(context),
             onEmpty: const Text('Aucune donnée'),
             onError: (error) => loadingError(context, error!),
-            (state) => Container(
-                margin: EdgeInsets.only(
-                    top: Responsive.isMobile(context) ? 0.0 : p20,
-                    right: Responsive.isMobile(context) ? 0.0 : p20,
-                    left: Responsive.isMobile(context) ? 0.0 : p20,
-                    bottom: p8),
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: SingleChildScrollView(
-                  controller: ScrollController(),
-                  physics: const ScrollPhysics(),
-                  child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TitleWidget(title: '💒 Home'.toUpperCase()),
-                          // botomSheetWidget()
-                        ],
-                      ),
-                      const SizedBox(height: p20),
-                      Wrap(
-                        runSpacing: p20,
-                        spacing: p20,
-                        alignment: WrapAlignment.center,
-                        runAlignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.start,
+            (state) => SingleChildScrollView(
+              controller: ScrollController(),
+              physics: const ScrollPhysics(),
+              child: Column(
+                children: [
+                  const BarreConnectionWidget(),
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: Responsive.isMobile(context) ? 0.0 : p20,
+                          right: Responsive.isMobile(context) ? 0.0 : p20,
+                          left: Responsive.isMobile(context) ? 0.0 : p20,
+                          bottom: p8),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [ 
-                          ServiceHome(
-                              title: 'Commercial',
-                              icon: Icons.store,
-                              color: Colors.orange,
-                              onPress: () {
-                                Get.toNamed(ComRoutes.comDashboard);
-                              }),
-                          ServiceHome(
-                              title: 'Reservation',
-                              icon: Icons.room,
-                              color: Colors.blueGrey,
-                              onPress: () {
-                                Get.toNamed(ReservationRoutes.dashboardReservation);
-                              }),
-                          ServiceHome(
-                            title: 'Restaurant',
-                            icon: Icons.restaurant,
-                            color: Colors.pink,
-                            onPress: () {
-                              Get.toNamed(
-                                  RestaurantRoutes.dashboardRestaurant);
-                            }
-                          ), 
-                          ServiceHome(
-                            title: 'Terrasse',
-                            icon: Icons.nightlife,
-                            color: Colors.grey,
-                            onPress: () {
-                              Get.toNamed(TerrasseRoutes.dashboardTerrasse);
-                            }
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TitleWidget(title: '💒 Home'.toUpperCase()),
+                              // botomSheetWidget()
+                            ],
                           ),
-                          ServiceHome(
-                              title: 'VIP',
-                              icon: Icons.food_bank,
-                              color: Colors.red,
-                              onPress: () {
-                                Get.toNamed(
-                                    VipRoutes.dashboardVip);
-                              }),
-                          ServiceHome(
-                              title: 'Livraison',
-                              icon: Icons.delivery_dining,
-                              color: Colors.lightGreen,
-                              onPress: () {
-                                Get.toNamed(LivraisonRoutes.dashboardLivraison);
-                              }),
-                          // ServiceHome(
-                          //     title: 'Glace',
-                          //     icon: Icons.icecream,
-                          //     color: Colors.cyan,
-                          //     onPress: () {}),
-                          // ServiceHome(
-                          //     title: 'Buffet',
-                          //     icon: Icons.emoji_food_beverage,
-                          //     color: Colors.purple,
-                          //     onPress: () {}),
-                          ServiceHome(
-                              title: 'Caisse',
-                              icon: Icons.savings,
-                              color: Colors.green,
-                              onPress: () {
-                                Get.toNamed(
-                                    FinanceRoutes.transactionsCaisseDashbaord);
-                              }),
-                          ServiceHome(
-                              title: 'Archive',
-                              icon: Icons.archive,
-                              color: Colors.brown,
-                              onPress: () {
-                                Get.toNamed(ArchiveRoutes.archivesFolder);
-                              }),
-                          ServiceHome(
-                              title: 'RH',
-                              icon: Icons.group,
-                              color: Colors.blue,
-                              onPress: () {
-                                Get.toNamed(RhRoutes.rhPersonnelsPage);
-                              }), 
-                          // Wrap(
-                          //   runSpacing: p20,
-                          //   spacing: p20,
-                          //   alignment: WrapAlignment.center,
-                          //   runAlignment: WrapAlignment.center,
-                          //   crossAxisAlignment: WrapCrossAlignment.start,
-                          //   children: List.generate(state!.length, (index) {
-                          //     var serviceHomeModel = state[index];
-                          //     var color = listColors[index];
-                          //     return HomeList(
-                          //         serviceHomeModel: serviceHomeModel,
-                          //         color: color);
-                          //   }),
-                          // ),
+                          const SizedBox(height: p20),
+                          Wrap(
+                            runSpacing: p20,
+                            spacing: p20,
+                            alignment: WrapAlignment.center,
+                            runAlignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            children: [
+                              ServiceHome(
+                                  title: 'Commercial',
+                                  icon: Icons.store,
+                                  color: Colors.orange,
+                                  onPress: () {
+                                    Get.toNamed(ComRoutes.comDashboard);
+                                  }),
+                              ServiceHome(
+                                  title: 'Reservation',
+                                  icon: Icons.room,
+                                  color: Colors.blueGrey,
+                                  onPress: () {
+                                    Get.toNamed(
+                                        ReservationRoutes.dashboardReservation);
+                                  }),
+                              ServiceHome(
+                                  title: 'Restaurant',
+                                  icon: Icons.restaurant,
+                                  color: Colors.pink,
+                                  onPress: () {
+                                    Get.toNamed(
+                                        RestaurantRoutes.dashboardRestaurant);
+                                  }),
+                              ServiceHome(
+                                  title: 'Terrasse',
+                                  icon: Icons.nightlife,
+                                  color: Colors.grey,
+                                  onPress: () {
+                                    Get.toNamed(TerrasseRoutes.dashboardTerrasse);
+                                  }),
+                              ServiceHome(
+                                  title: 'VIP',
+                                  icon: Icons.food_bank,
+                                  color: Colors.red,
+                                  onPress: () {
+                                    Get.toNamed(VipRoutes.dashboardVip);
+                                  }),
+                              ServiceHome(
+                                  title: 'Livraison',
+                                  icon: Icons.delivery_dining,
+                                  color: Colors.lightGreen,
+                                  onPress: () {
+                                    Get.toNamed(LivraisonRoutes.dashboardLivraison);
+                                  }),
+                              // ServiceHome(
+                              //     title: 'Glace',
+                              //     icon: Icons.icecream,
+                              //     color: Colors.cyan,
+                              //     onPress: () {}),
+                              // ServiceHome(
+                              //     title: 'Buffet',
+                              //     icon: Icons.emoji_food_beverage,
+                              //     color: Colors.purple,
+                              //     onPress: () {}),
+                              ServiceHome(
+                                  title: 'Caisse',
+                                  icon: Icons.savings,
+                                  color: Colors.green,
+                                  onPress: () {
+                                    Get.toNamed(
+                                        FinanceRoutes.transactionsCaisseDashbaord);
+                                  }),
+                              ServiceHome(
+                                  title: 'Archive',
+                                  icon: Icons.archive,
+                                  color: Colors.brown,
+                                  onPress: () {
+                                    Get.toNamed(ArchiveRoutes.archivesFolder);
+                                  }),
+                              ServiceHome(
+                                  title: 'RH',
+                                  icon: Icons.group,
+                                  color: Colors.blue,
+                                  onPress: () {
+                                    Get.toNamed(RhRoutes.rhPersonnelsPage);
+                                  }),
+                              // Wrap(
+                              //   runSpacing: p20,
+                              //   spacing: p20,
+                              //   alignment: WrapAlignment.center,
+                              //   runAlignment: WrapAlignment.center,
+                              //   crossAxisAlignment: WrapCrossAlignment.start,
+                              //   children: List.generate(state!.length, (index) {
+                              //     var serviceHomeModel = state[index];
+                              //     var color = listColors[index];
+                              //     return HomeList(
+                              //         serviceHomeModel: serviceHomeModel,
+                              //         color: color);
+                              //   }),
+                              // ),
+                            ],
+                          ),
+                          
                         ],
-                      ),
-                    ],
-                  ),
-                ))));
+                      )),
+                ],
+              ),
+            )));
   }
 
   Widget nameWidget() {
@@ -273,4 +279,5 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+ 
 }

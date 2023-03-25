@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
+import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
 import 'package:wm_com_ivanna/src/pages/archives/controller/archive_controller.dart';
 import 'package:wm_com_ivanna/src/pages/archives/controller/archive_folder_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/change_password_controller.dart';
@@ -71,6 +72,7 @@ class SplashController extends GetxController {
 
     String? idToken = getStorge.read(InfoSystem.keyIdToken);
     if (idToken != null) {
+      Get.lazyPut(() => NetworkController());
       Get.lazyPut(() => ProfilController());
       Get.lazyPut(() => HomeController(), fenix: true);
       Get.lazyPut(() => ChangePasswordController());
