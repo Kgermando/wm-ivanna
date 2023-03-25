@@ -1174,19 +1174,20 @@ List<GetPage<dynamic>>? getPages = [
       transitionDuration: const Duration(seconds: 1)),
 
   // Update version
+  // GetPage(
+  //     name: UpdateRoutes.updatePage,
+  //     page: () => const UpdatePage(),
+  //     binding: UpdateBinding(),
+  //     transition: Transition.cupertino,
+  //     transitionDuration: const Duration(seconds: 1)),
   GetPage(
-      name: UpdateRoutes.updatePage,
-      page: () => const UpdatePage(),
-      binding: UpdateBinding(),
-      transition: Transition.cupertino,
-      transitionDuration: const Duration(seconds: 1)),
-  GetPage(
-      name: UpdateRoutes.updateDetail,
-      binding: UpdateBinding(),
-      page: () {
-        final UpdateModel updateModel = Get.arguments as UpdateModel;
-        return DetailUpdate(updateModel: updateModel);
-      },
-      transition: Transition.cupertino,
-      transitionDuration: const Duration(seconds: 1)),
+    name: '/update/:id',
+    binding: UpdateBinding(),
+    page: () {
+      final UpdateModel updateModel = Get.arguments as UpdateModel;
+      return DetailUpdate(updateModel: updateModel);
+    },
+    transition: Transition.cupertino,
+    transitionDuration: const Duration(seconds: 1),
+  ), 
 ];

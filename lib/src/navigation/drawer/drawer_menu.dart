@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
+import 'package:wm_com_ivanna/src/navigation/drawer/components/update_nav.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
@@ -11,6 +12,7 @@ class DrawerMenu extends GetView<DepartementNotifyCOntroller> {
   @override
   Widget build(BuildContext context) {
     final ProfilController profilController = Get.find();
+    final currentRoute = Get.currentRoute;
     return Drawer(
         child: profilController.obx(
             onLoading: loadingDrawer(),
@@ -28,11 +30,10 @@ class DrawerMenu extends GetView<DepartementNotifyCOntroller> {
             )),
           ),
 
-          // if (GetPlatform.isWindows)
-          //   UpdateNav(
-          //     currentRoute: currentRoute,
-          //     user: user,
-          //   )
+          if (GetPlatform.isWindows)
+            UpdateNav(
+              currentRoute: currentRoute
+            )
         ],
       );
     }));

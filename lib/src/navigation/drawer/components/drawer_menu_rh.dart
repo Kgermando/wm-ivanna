@@ -62,9 +62,9 @@ class DrawerMenuRH extends GetView<DepartementNotifyCOntroller> {
                 Get.toNamed(RhRoutes.rhUserActif);
               }),
           if (GetPlatform.isWindows)
-            UpdateNav(
-              currentRoute: currentRoute,
-            )
+          UpdateNav(
+            currentRoute: currentRoute,
+          )
         ],
       );
     }));

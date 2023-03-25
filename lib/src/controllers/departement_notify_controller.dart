@@ -24,6 +24,7 @@ import 'package:wm_com_ivanna/src/global/api/livraison/facture_livraison_api.dar
 import 'package:wm_com_ivanna/src/global/api/livraison/livraison_api.dart';
 import 'package:wm_com_ivanna/src/global/api/livraison/table_livraison_api.dart';
 import 'package:wm_com_ivanna/src/global/api/livraison/vente_effectuee_livraison_api.dart';
+import 'package:wm_com_ivanna/src/global/api/marketing/annuaire_api.dart';
 import 'package:wm_com_ivanna/src/global/api/reservation/paiement_reservation_api.dart';
 import 'package:wm_com_ivanna/src/global/api/reservation/reservation_api.dart';
 import 'package:wm_com_ivanna/src/global/api/restaurant/creance_rest_api.dart';
@@ -45,6 +46,9 @@ import 'package:wm_com_ivanna/src/global/api/vip/vente_effectuee_vip_api.dart';
 import 'package:wm_com_ivanna/src/global/api/vip/vip_api.dart';
 import 'package:wm_com_ivanna/src/global/store/commercial/cart_store.dart';
 import 'package:wm_com_ivanna/src/global/store/marketing/agenda_store.dart';
+import 'package:wm_com_ivanna/src/global/store/marketing/annuaire_store.dart';
+import 'package:wm_com_ivanna/src/global/store/rh/personnel_store.dart';
+import 'package:wm_com_ivanna/src/global/store/rh/users_store.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
@@ -54,30 +58,40 @@ class DepartementNotifyCOntroller extends GetxController {
   final ProfilController profilController = Get.put(ProfilController());
   final NetworkController networkController = Get.put(NetworkController());
 
+  final _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+
   // Header
   CartStore cartStore = CartStore();
   // MailsNotifyApi mailsNotifyApi = MailsNotifyApi();
   AgendaStore agendaStore = AgendaStore();
+  AnnuaireApi annuaireApi = AnnuaireApi();
+  AnnuaireStore annuaireStore = AnnuaireStore();
 
+  final PersonnelsApi personnelsApi = PersonnelsApi();
+  final PersonnelStore personnelsStore = PersonnelStore();
   final UserApi userApi = UserApi();
+  final UsersStore userStore = UsersStore();
 
   final AchatApi achatApi = AchatApi();
   final CartApi cartApi = CartApi();
   final CreanceFactureApi creanceFactureApi = CreanceFactureApi();
   final FactureApi factureApi = FactureApi();
   final GainApi gainApi = GainApi();
-  final HistoryRavitaillementApi historyRavitaillementApi = HistoryRavitaillementApi();
+  final HistoryRavitaillementApi historyRavitaillementApi =
+      HistoryRavitaillementApi();
   final NumberFactureApi numberFactureApi = NumberFactureApi();
   final ProduitModelApi produitModelApi = ProduitModelApi();
   final SuccursaleApi succursaleApi = SuccursaleApi();
   final VenteCartApi venteCartApi = VenteCartApi();
   final VenteGainApi venteGainApi = VenteGainApi();
-  
+
   final CreanceLivraisonApi creanceLivraisonApi = CreanceLivraisonApi();
   final FactureLivraisonApi factureLivraisonApi = FactureLivraisonApi();
   final LivraisonApi livraisonApi = LivraisonApi();
   final TableLivraisonApi tableLivraisonApi = TableLivraisonApi();
-  final VenteEffectueLivraisonApi venteEffectueLivraisonApi = VenteEffectueLivraisonApi();
+  final VenteEffectueLivraisonApi venteEffectueLivraisonApi =
+      VenteEffectueLivraisonApi();
   final CreanceRestApi creanceRestApi = CreanceRestApi();
   final FactureRestApi factureRestApi = FactureRestApi();
   final RestaurantApi restaurantApi = RestaurantApi();
@@ -87,7 +101,8 @@ class DepartementNotifyCOntroller extends GetxController {
   final FactureTerrasseApi factureTerrasseApi = FactureTerrasseApi();
   final TableTerrasseApi tableTerrasseApi = TableTerrasseApi();
   final TerrasseApi terrasseApi = TerrasseApi();
-  final VenteEffectueTerrasseApi venteEffectueTerrasseApi = VenteEffectueTerrasseApi();
+  final VenteEffectueTerrasseApi venteEffectueTerrasseApi =
+      VenteEffectueTerrasseApi();
   final CreanceVipApi creanceVipApi = CreanceVipApi();
   final FactureVipApi factureVipApi = FactureVipApi();
   final TableVipApi tableVipApi = TableVipApi();
@@ -97,8 +112,8 @@ class DepartementNotifyCOntroller extends GetxController {
   final CaisseNameApi caisseNameApi = CaisseNameApi();
   final CaisseApi caisseApi = CaisseApi();
   final ReservationApi reservationApi = ReservationApi();
-  final PaiementReservationApi paiementReservationApi = PaiementReservationApi();
-  final PersonnelsApi personnelsApi = PersonnelsApi(); 
+  final PaiementReservationApi paiementReservationApi =
+      PaiementReservationApi();
 
   // Header
   final _cartItemCount = 0.obs;
@@ -114,8 +129,6 @@ class DepartementNotifyCOntroller extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     getDataNotify();
-
-    
   }
 
   @override
@@ -163,43 +176,63 @@ class DepartementNotifyCOntroller extends GetxController {
 
   void syncData() async {
     if (!GetPlatform.isWeb) {
+      _isLoading.value = true;
       bool result = await InternetConnectionChecker().hasConnection;
       if (result == true) {
-        print('Online');
         String? idToken = getStorge.read(InfoSystem.keyIdToken);
         if (idToken != null) {
-          // Commercial
+          // Marketing
+          int annuaireStoreCount = await annuaireStore.getCount();
+          var annuaireStoreList = await annuaireStore.getAllData();
+          var annuaireList = await annuaireApi.getAllData();
+          var isUpdateDataList = annuaireStoreList
+              .where((element) =>
+                  element.created.millisecondsSinceEpoch !=
+                  element.updateCreated.millisecondsSinceEpoch)
+              .toList();
+          if (annuaireList.isEmpty || annuaireList.length != annuaireStoreCount ||
+              isUpdateDataList.isNotEmpty) {
+            var annuaireAddList = [];
+            for (final local in annuaireStoreList) {
+              bool found = false;
+              for (final cloud in annuaireList) {
+                if (local.nomPostnomPrenom == cloud.nomPostnomPrenom) {
+                  found = true;
+                  print("annuaire found $found");
+                  break;
+                }
+              }
+              if (!found) {
+                annuaireAddList.add(local);
+                print("annuaire local $local");
+                await annuaireApi.insertData(local);
+              }
+            } 
+          }
+          
 
+          // Commercial
 
           // Restaurant
 
-
           // Livraison
-
 
           // Vip
 
-
           // Terrasse
-          
-
 
           // Annuaire
-          
-
 
           // Caisses
-          
-
 
           // RH & Users
 
+          _isLoading.value = false;
         }
       } else {
         print('No internet :( Reason:');
         // print(InternetConnectionChecker().lastTryResults);
       }
     }
-    
   }
 }

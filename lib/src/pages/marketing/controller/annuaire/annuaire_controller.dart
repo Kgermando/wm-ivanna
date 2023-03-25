@@ -175,6 +175,7 @@ class AnnuaireController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+        updateCreated: DateTime.now(),
       );
       await annuaireStore.insertData(dataItem).then((value) {
         clear();
@@ -214,6 +215,7 @@ class AnnuaireController extends GetxController
         signature: profilController.user.matricule,
         created: data.created,
         business: data.business,
+        updateCreated: DateTime.now(),
       );
       await annuaireStore.updateData(dataItem).then((value) {
         clear();

@@ -15,6 +15,7 @@ class AnnuaireModel {
   late String signature;
   late DateTime created;
   late String business;
+  late DateTime updateCreated;
 
   AnnuaireModel(
       {this.id,
@@ -30,7 +31,8 @@ class AnnuaireModel {
       required this.succursale,
       required this.signature,
       required this.created,
-      required this.business});
+      required this.business,
+      required this.updateCreated});
 
   factory AnnuaireModel.fromSQL(List<dynamic> row) {
     return AnnuaireModel(
@@ -47,7 +49,8 @@ class AnnuaireModel {
         succursale: row[10],
         signature: row[11],
         created: row[12],
-        business: row[13]);
+        business: row[13],
+        updateCreated: row[14]);
   }
 
   factory AnnuaireModel.fromJson(Map<String, dynamic> json) {
@@ -65,7 +68,9 @@ class AnnuaireModel {
         succursale: json['succursale'],
         signature: json['signature'],
         created: DateTime.parse(json['created']),
-        business: json['business']);
+        business: json['business'],
+      updateCreated: DateTime.parse(json['updateCreated']),
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -83,7 +88,8 @@ class AnnuaireModel {
       'succursale': succursale,
       'signature': signature,
       'created': created.toIso8601String(),
-      'business': business
+      'business': business,
+      'updateCreated': updateCreated.toIso8601String(),
     };
   }
 

@@ -2,11 +2,13 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
 import 'package:wm_com_ivanna/src/models/archive/archive_model.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/drawer_menu.dart';
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
+import 'package:wm_com_ivanna/src/pages/archives/controller/archive_controller.dart';
 import 'package:wm_com_ivanna/src/pages/archives/controller/archive_folder_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
@@ -26,6 +28,7 @@ class ArchiveFolderPage extends StatefulWidget {
 
 class _ArchiveFolderPageState extends State<ArchiveFolderPage> {
   final ArchiveFolderController controller = Get.put(ArchiveFolderController());
+  final ArchiveController archiveController = Get.put(ArchiveController());
   final ProfilController profilController = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   String title = "Archives";
@@ -109,21 +112,36 @@ class _ArchiveFolderPageState extends State<ArchiveFolderPage> {
         ));
   }
 
-  Widget cardFolder(ArchiveFolderModel data, Color color) {
+  Widget cardFolder(ArchiveFolderModel data, Color color) { 
     return GestureDetector(
         onDoubleTap: () {
-          Get.toNamed(ArchiveRoutes.archiveTable, arguments: data);
+          Get.toNamed(ArchiveRoutes.archiveTable, 
+            arguments: data);
         },
-        child: Column(
-          children: [
-            Icon(
-              Icons.folder,
-              color: color,
-              size: 100.0,
-            ),
-            Text(data.folderName.toUpperCase())
-          ],
-        ));
+        child: archiveController.obx(
+          onLoading: loadingPage(context),
+          onEmpty: const Icon(Icons.close),
+          (state) {
+          int archiveCount = state!.where((element) => element.reference == data.id!).length;
+          return badges.Badge(
+          showBadge:(archiveCount >= 1)
+            ? true
+            : false,
+          badgeContent: Text(
+            archiveCount.toString(),
+            style: const TextStyle(color: Colors.white)),
+          child: Column(
+            children: [
+              Icon(
+                Icons.folder,
+                color: color,
+                size: 100.0,
+              ),
+              Text(data.folderName.toUpperCase())
+            ],
+          ),
+        );
+        }) );
   }
 
   detailAgentDialog(ArchiveFolderController controller) {

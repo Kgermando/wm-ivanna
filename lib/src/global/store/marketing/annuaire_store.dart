@@ -49,4 +49,10 @@ class AnnuaireStore {
     await store.delete(await _db,
         finder: Finder(filter: Filter.equals('id', id)));
   }
+
+  Future<int> getCount() async {
+    var dataList = await getAllData();
+    int count = dataList.length;
+    return count;
+  }
 }

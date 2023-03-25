@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
-import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
 import 'package:wm_com_ivanna/src/pages/home/components/home_list.dart';
 import 'package:wm_com_ivanna/src/pages/home/controller/home_controller.dart';

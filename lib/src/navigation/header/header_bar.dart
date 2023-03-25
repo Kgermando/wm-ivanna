@@ -1,4 +1,3 @@
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,6 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
   final NetworkController networkController = Get.put(NetworkController());
   final currentRoute = Get.currentRoute;
   final bodyLarge = Theme.of(context).textTheme.bodyLarge;
-  
 
   return AppBar(
     leadingWidth: 100,
@@ -83,25 +81,31 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
             ),
           ),
     actions: [
-      Obx(() => (networkController.connectionStatus == 1 && GetPlatform.isWindows &&
-            updateController.updateVersionList.isNotEmpty &&
-            updateController.sumVersionCloud >
-                updateController.sumLocalVersion)
-        ? IconButton(
-            iconSize: 40,
-            tooltip: 'Téléchargement',
-            onPressed: () {
-              // updateController.downloadNetworkSoftware(
-              //     url: updateController.updateVersionList.last.urlUpdate);
-              Get.toNamed(UpdateRoutes.updatePage);
-            },
-            icon: (updateController.isDownloading)
-                ? (updateController.progressString == "100%")
-                    ? const Icon(Icons.check)
-                    : Obx(() => AutoSizeText(updateController.progressString,
-                        maxLines: 1, style: const TextStyle(fontSize: 12.0)))
-                : Icon(Icons.download, color: Colors.red.shade700))
-        : Container()),
+      Obx(() => departementNotifyCOntroller.isLoading ? loadingMini() : IconButton(
+        onPressed: () {
+          departementNotifyCOntroller.syncData();
+        },
+        icon: const Icon(Icons.sync, color: Colors.green))) ,
+      Obx(() => (networkController.connectionStatus == 1 &&
+              GetPlatform.isWindows &&
+              updateController.updateVersionList.isNotEmpty &&
+              updateController.sumVersionCloud >
+                  updateController.sumLocalVersion)
+          ? IconButton(
+              iconSize: 40,
+              tooltip: 'Téléchargement',
+              onPressed: () {
+                // updateController.downloadNetworkSoftware(
+                //     url: updateController.updateVersionList.last.urlUpdate);
+                Get.toNamed(UpdateRoutes.updatePage);
+              },
+              icon: (updateController.isDownloading)
+                  ? (updateController.progressString == "100%")
+                      ? const Icon(Icons.check)
+                      : Obx(() => AutoSizeText(updateController.progressString,
+                          maxLines: 1, style: const TextStyle(fontSize: 12.0)))
+                  : Icon(Icons.download, color: Colors.red.shade700))
+          : Container()),
       profilController.obx(onLoading: loadingMini(), (state) {
         final String firstLettter = state!.prenom[0];
         final String firstLettter2 = state.nom[0];
