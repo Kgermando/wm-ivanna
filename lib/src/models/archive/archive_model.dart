@@ -7,36 +7,31 @@ class ArchiveFolderModel {
   late String business;
 
   ArchiveFolderModel(
-    { 
-      this.id,
+      {this.id,
       required this.departement,
       required this.folderName,
       required this.signature,
       required this.created,
-    required this.business
-    }
-  );
+      required this.business});
 
   factory ArchiveFolderModel.fromSQL(List<dynamic> row) {
     return ArchiveFolderModel(
-      id: row[0],
-      departement: row[1],
-      folderName: row[2],
-      signature: row[3],
-      created: row[4],
-      business: row[5]
-    );
+        id: row[0],
+        departement: row[1],
+        folderName: row[2],
+        signature: row[3],
+        created: row[4],
+        business: row[5]);
   }
 
   factory ArchiveFolderModel.fromJson(Map<String, dynamic> json) {
     return ArchiveFolderModel(
-      id: json['id'],
-      departement: json['departement'],
-      folderName: json['folderName'],
-      signature: json['signature'],
-      created: DateTime.parse(json['created']),
-      business: json['business']
-    );
+        id: json['id'],
+        departement: json['departement'],
+        folderName: json['folderName'],
+        signature: json['signature'],
+        created: DateTime.parse(json['created']),
+        business: json['business']);
   }
 
   Map<String, dynamic> toJson() {
@@ -51,8 +46,7 @@ class ArchiveFolderModel {
   }
 }
 
-
-class ArchiveModel { 
+class ArchiveModel {
   late int? id;
   late String departement;
   late String folderName;
@@ -63,48 +57,49 @@ class ArchiveModel {
   late DateTime created;
   late int reference;
   late String level;
+  late String business;
 
-  ArchiveModel({
-    this.id,
-    required this.departement,
-    required this.folderName,
-    required this.nomDocument,
-    required this.description,
-    required this.fichier,
-    required this.signature,
-    required this.created,
-    required this.reference,
-      required this.level
-  });
+  ArchiveModel(
+      {this.id,
+      required this.departement,
+      required this.folderName,
+      required this.nomDocument,
+      required this.description,
+      required this.fichier,
+      required this.signature,
+      required this.created,
+      required this.reference,
+      required this.level,
+      required this.business});
 
   factory ArchiveModel.fromSQL(List<dynamic> row) {
     return ArchiveModel(
-      id: row[0],
-      departement: row[1],
-      folderName: row[2],
-      nomDocument: row[3],
-      description: row[4],
-      fichier: row[5],
-      signature: row[6],
-      created: row[7],
-      reference: row[8],
-      level: row[9]
-    );
+        id: row[0],
+        departement: row[1],
+        folderName: row[2],
+        nomDocument: row[3],
+        description: row[4],
+        fichier: row[5],
+        signature: row[6],
+        created: row[7],
+        reference: row[8],
+        level: row[9],
+        business: row[10]);
   }
 
   factory ArchiveModel.fromJson(Map<String, dynamic> json) {
     return ArchiveModel(
-      id: json['id'],
-      departement: json['departement'],
-      folderName: json['folderName'],
-      nomDocument: json['nomDocument'],
-      description: json['description'],
-      fichier: json['fichier'],
-      signature: json['signature'],
-      created: DateTime.parse(json['created']),
-      reference: json['reference'],
-      level: json['level']
-    );
+        id: json['id'],
+        departement: json['departement'],
+        folderName: json['folderName'],
+        nomDocument: json['nomDocument'],
+        description: json['description'],
+        fichier: json['fichier'],
+        signature: json['signature'],
+        created: DateTime.parse(json['created']),
+        reference: json['reference'],
+        level: json['level'],
+        business: json['business']);
   }
 
   Map<String, dynamic> toJson() {
@@ -118,7 +113,8 @@ class ArchiveModel {
       'signature': signature,
       'created': created.toIso8601String(),
       'reference': reference,
-      'level': level
+      'level': level,
+      'business': business
     };
   }
 }

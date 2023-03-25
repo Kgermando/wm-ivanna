@@ -25,6 +25,7 @@ import 'package:wm_com_ivanna/src/pages/archives/components/add_archive.dart';
 import 'package:wm_com_ivanna/src/pages/archives/components/archive_image_reader.dart';
 import 'package:wm_com_ivanna/src/pages/archives/components/archive_pdf_viewer.dart';
 import 'package:wm_com_ivanna/src/pages/archives/components/detail_archive.dart';
+import 'package:wm_com_ivanna/src/pages/archives/components/update_archive.dart';
 import 'package:wm_com_ivanna/src/pages/archives/views/archive_folder_page.dart';
 import 'package:wm_com_ivanna/src/pages/archives/views/archives.dart';
 import 'package:wm_com_ivanna/src/pages/auth/bindings/auth_binding.dart';
@@ -314,6 +315,15 @@ List<GetPage<dynamic>>? getPages = [
       page: () {
         ArchiveModel archiveModel = Get.arguments as ArchiveModel;
         return DetailArchive(archiveModel: archiveModel);
+      },
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(seconds: 1)),
+  GetPage(
+      name: ArchiveRoutes.archivesUpdate,
+      binding: ArchiveBinding(),
+      page: () {
+        ArchiveModel archiveModel = Get.arguments as ArchiveModel;
+        return UpdateArchive(archiveModel: archiveModel);
       },
       transition: Transition.cupertino,
       transitionDuration: const Duration(seconds: 1)),

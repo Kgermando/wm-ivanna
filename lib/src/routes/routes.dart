@@ -190,6 +190,7 @@ class ArchiveRoutes {
   static const archiveTable = "/archives-table";
   static const addArchives = "/archives-add";
   static const archivesDetail = "/archives-detail";
+  static const archivesUpdate = "/archives-update";
   static const archivePdf = "/archives-pdf";
   static const archiveImage = "/archives-image";
 }

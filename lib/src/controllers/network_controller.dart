@@ -1,11 +1,11 @@
-import 'package:get/get.dart'; 
-import 'package:connectivity_listener/connectivity_listener.dart';
+import 'dart:async';
 
-class NetworkController extends GetxController {
-  static NetworkController to = Get.find();
+import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-final _connectionListener = ConnectionListener();
+class NetworkController extends GetxController { 
 
+  late StreamSubscription<InternetConnectionStatus> _listener;
 
   final _connectionStatus = 0.obs;
   int get connectionStatus => _connectionStatus.value;
@@ -14,17 +14,26 @@ final _connectionListener = ConnectionListener();
   @override
   void onInit() {
     super.onInit();
-
-     _connectionListener.init(
-      onConnected: () => print("CONNECTED"),
-      onReconnected: () => print("RECONNECTED"),
-      onDisconnected: () => print("DISCONNECTED"),
-    );
+    if (!GetPlatform.isWeb) {
+      _listener = InternetConnectionChecker()
+          .onStatusChange
+          .listen((InternetConnectionStatus status) {
+        switch (status) {
+          case InternetConnectionStatus.connected:
+            _connectionStatus.value = 1;
+            break;
+          case InternetConnectionStatus.disconnected:
+            _connectionStatus.value = 0;
+            break;
+        }
+      });
+    }
+    
   }
 
   @override
-  void dispose() {
-    _connectionListener.dispose();
-    super.dispose();
+  void onClose() { 
+    _listener.cancel();
+    super.onClose();
   }
 }

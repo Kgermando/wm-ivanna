@@ -4,7 +4,7 @@ import 'package:wm_com_ivanna/src/global/api/archives/archive_api.dart';
 import 'package:wm_com_ivanna/src/global/api/upload_file_api.dart';
 import 'package:wm_com_ivanna/src/models/archive/archive_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
-import 'package:wm_com_ivanna/src/utils/dropdown.dart';
+import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class ArchiveController extends GetxController
     with StateMixin<List<ArchiveModel>> {
@@ -16,10 +16,8 @@ class ArchiveController extends GetxController
   final _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
 
-  final List<String> departementList = Dropdown().departement;
-
   TextEditingController nomDocumentController = TextEditingController();
-  String? departement;
+
   String? level;
   TextEditingController descriptionController = TextEditingController();
 
@@ -60,7 +58,6 @@ class ArchiveController extends GetxController
   }
 
   void clear() {
-    departement = null;
     uploadedFileUrl = null;
     nomDocumentController.clear();
     descriptionController.clear();
@@ -117,7 +114,8 @@ class ArchiveController extends GetxController
           signature: profilController.user.matricule,
           created: DateTime.now(),
           reference: data.id!,
-          level: level.toString());
+          level: level.toString(),
+          business: InfoSystem().business());
       await archiveApi.insertData(archiveModel).then((value) {
         clear();
         archiveList.clear();
@@ -147,16 +145,18 @@ class ArchiveController extends GetxController
           departement: data.departement,
           folderName: data.folderName,
           nomDocument: (nomDocumentController.text == "")
-              ? nomDocumentController.text
-              : data.nomDocument,
+              ? data.nomDocument
+              : nomDocumentController.text,
           description: (descriptionController.text == "")
-              ? descriptionController.text
-              : data.description,
-          fichier: (uploadedFileUrl == '') ? '-' : uploadedFileUrl.toString(),
+              ? data.description
+              : descriptionController.text,
+          fichier: (uploadedFileUrl == null) ? data.fichier : uploadedFileUrl.toString(),
           signature: profilController.user.matricule,
           created: DateTime.now(),
           reference: data.reference,
-          level: level.toString());
+          level: level.toString(),
+          business: data.business,
+      );
       await archiveApi.updateData(archiveModel).then((value) {
         clear();
         archiveList.clear();

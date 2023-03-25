@@ -1,3 +1,4 @@
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:wm_com_ivanna/src/constants/app_theme.dart';
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
 import 'package:wm_com_ivanna/src/constants/style.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
+import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
 import 'package:wm_com_ivanna/src/models/menu_item.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/login_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -24,8 +26,10 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
   final DepartementNotifyCOntroller departementNotifyCOntroller =
       Get.put(DepartementNotifyCOntroller());
   final UpdateController updateController = Get.put(UpdateController());
+  final NetworkController networkController = Get.put(NetworkController());
   final currentRoute = Get.currentRoute;
   final bodyLarge = Theme.of(context).textTheme.bodyLarge;
+  
 
   return AppBar(
     leadingWidth: 100,
@@ -79,10 +83,11 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
             ),
           ),
     actions: [
-      if (GetPlatform.isWindows &&
-          updateController.updateVersionList.isNotEmpty &&
-          updateController.sumVersionCloud > updateController.sumLocalVersion)
-        Obx(() => IconButton(
+      Obx(() => (networkController.connectionStatus == 1 && GetPlatform.isWindows &&
+            updateController.updateVersionList.isNotEmpty &&
+            updateController.sumVersionCloud >
+                updateController.sumLocalVersion)
+        ? IconButton(
             iconSize: 40,
             tooltip: 'Téléchargement',
             onPressed: () {
@@ -95,7 +100,8 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
                     ? const Icon(Icons.check)
                     : Obx(() => AutoSizeText(updateController.progressString,
                         maxLines: 1, style: const TextStyle(fontSize: 12.0)))
-                : Icon(Icons.download, color: Colors.red.shade700))),
+                : Icon(Icons.download, color: Colors.red.shade700))
+        : Container()),
       profilController.obx(onLoading: loadingMini(), (state) {
         final String firstLettter = state!.prenom[0];
         final String firstLettter2 = state.nom[0];

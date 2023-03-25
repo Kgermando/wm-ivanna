@@ -11,6 +11,7 @@ import 'package:wm_com_ivanna/src/pages/archives/controller/archive_controller.d
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/title_widget.dart';
 
 class DetailArchive extends StatefulWidget {
   const DetailArchive({super.key, required this.archiveModel});
@@ -69,24 +70,30 @@ class _DetailArchiveState extends State<DetailArchive> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                const TitleWidget(title: "Archive"),
                                 Column(
                                   children: [
                                     Row(
                                       children: [
-                                        IconButton(
-                                            onPressed: () async {
-                                              refresh().then((value) =>
-                                                  Navigator.pushNamed(
-                                                      context,
-                                                      ArchiveRoutes
-                                                          .archivesDetail,
-                                                      arguments: value));
-                                            },
-                                            icon: const Icon(Icons.refresh,
-                                                color: Colors.green)),
-                                        if (userRole <= 2) deleteButton()
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () async {
+                                                  refresh().then((value) =>
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          ArchiveRoutes
+                                                              .archivesDetail,
+                                                          arguments: value));
+                                                },
+                                                icon: const Icon(Icons.refresh,
+                                                    color: Colors.green)),
+                                            if (userRole <= 2) editButton(),
+                                            if (userRole <= 2) deleteButton()
+                                          ],
+                                        ),
                                       ],
                                     ),
                                     SelectableText(
@@ -231,9 +238,9 @@ class _DetailArchiveState extends State<DetailArchive> {
             ),
             TextButton(
               onPressed: () {
-                Get.toNamed(ArchiveRoutes.archivesDetail,
+                Get.toNamed(ArchiveRoutes.archivesUpdate,
                     arguments: widget.archiveModel);
-                // Navigator.pop(context);
+                Navigator.pop(context, 'ok');
               },
               child: const Text('OK'),
             ),
