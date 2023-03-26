@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:wm_com_ivanna/src/global/api/livraison/vente_effectuee_livraison_api.dart';
 import 'package:wm_com_ivanna/src/global/api/livraison/vente_livraison_api.dart'; 
 import 'package:wm_com_ivanna/src/global/store/livraison/livraison_store.dart';
@@ -9,8 +10,8 @@ import 'package:wm_com_ivanna/src/models/restaurant/vente_chart_restaurant_model
 
 class DashboardLivraisonController extends GetxController {
   final VenteLivraisonApi venteApi = VenteLivraisonApi();
-  final VenteEffectueLivraisonApi venteEffectueRestApi = VenteEffectueLivraisonApi();
-  final LivraisonStore livraisonStore = LivraisonStore();
+  final VenteEffectueLivraisonApi venteEffectueApi = VenteEffectueLivraisonApi();
+  final LivraisonStore store = LivraisonStore();
 
   // 10 produits le plus vendu
   var venteChartList = <VenteChartRestaurantModel>[].obs;
@@ -40,42 +41,85 @@ class DashboardLivraisonController extends GetxController {
     getData();
   }
 
-  Future<void> getData() async {
-    await venteApi.getVenteChart().then((value) {
-      venteChartList.value = value;
-    });
+ Future<void> getData() async {
+    if (!GetPlatform.isWeb) {
+      bool result = await InternetConnectionChecker().hasConnection;
+      if (result == true) {
+        await venteApi.getVenteChart().then((value) {
+          venteChartList.value = value;
+        });
 
-    await venteApi.getAllDataVenteDay().then((value) {
-      venteDayList.value = value;
-    });
+        await venteApi.getAllDataVenteDay().then((value) {
+          venteDayList.value = value;
+        });
 
-    await venteApi.getAllDataVenteMouth().then((value) {
-      venteMouthList.value = value;
-    });
-    await venteApi.getAllDataVenteYear().then((value) {
-      venteYearList.value = value;
-    });
+        await venteApi.getAllDataVenteMouth().then((value) {
+          venteMouthList.value = value;
+        });
+        await venteApi.getAllDataVenteYear().then((value) {
+          venteYearList.value = value;
+        });
 
-    await venteEffectueRestApi.getAllData().then((value) {
-      // Ventes
-      var dataPriceVente = value
-          .where((element) => element.created.day == DateTime.now().day)
-          .map((e) => double.parse(e.priceTotalCart))
-          .toList();
-      for (var data in dataPriceVente) {
-        _sumVente.value += data;
+        await venteEffectueApi.getAllData().then((value) {
+          // Ventes
+          var dataPriceVente = value
+              .where((element) => element.created.day == DateTime.now().day)
+              .map((e) => double.parse(e.priceTotalCart))
+              .toList();
+          for (var data in dataPriceVente) {
+            _sumVente.value += data;
+          }
+        });
+
+        await store.getCountCommande().then((value) {
+          _tableCommandeCount.value = value;
+        });
+        await store.getCountConsommation().then((value) {
+          _tableConsommationCount.value = value;
+        });
+        await store.getCount().then((value) {
+          _tableTotalCount.value = value;
+        });
       }
-    });
+    }
 
-    await livraisonStore.getCountCommande().then((value) {
-      _tableCommandeCount.value = value;
-    });
-    await livraisonStore.getCountConsommation().then((value) {
-      _tableConsommationCount.value = value;
-    });
-    await livraisonStore.getCount().then((value) {
-      _tableTotalCount.value = value;
-    });
+    if (GetPlatform.isWeb) {
+      await venteApi.getVenteChart().then((value) {
+        venteChartList.value = value;
+      });
+
+      await venteApi.getAllDataVenteDay().then((value) {
+        venteDayList.value = value;
+      });
+
+      await venteApi.getAllDataVenteMouth().then((value) {
+        venteMouthList.value = value;
+      });
+      await venteApi.getAllDataVenteYear().then((value) {
+        venteYearList.value = value;
+      });
+
+      await venteEffectueApi.getAllData().then((value) {
+        // Ventes
+        var dataPriceVente = value
+            .where((element) => element.created.day == DateTime.now().day)
+            .map((e) => double.parse(e.priceTotalCart))
+            .toList();
+        for (var data in dataPriceVente) {
+          _sumVente.value += data;
+        }
+      });
+
+      await store.getCountCommande().then((value) {
+        _tableCommandeCount.value = value;
+      });
+      await store.getCountConsommation().then((value) {
+        _tableConsommationCount.value = value;
+      });
+      await store.getCount().then((value) {
+        _tableTotalCount.value = value;
+      });
+    }
 
     // await creanceFactureApi.getAllData();
     // // Créances
