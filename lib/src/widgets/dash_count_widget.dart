@@ -34,7 +34,7 @@ class DashCountWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Container(
-          width: Responsive.isMobile(context) ? double.infinity : 200,
+          width: Responsive.isMobile(context) ? double.infinity : 250,
           height: 100,
           color: color,
           padding: const EdgeInsets.all(16.0 * 0.75),

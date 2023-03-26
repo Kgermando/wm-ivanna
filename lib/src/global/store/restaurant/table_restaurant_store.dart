@@ -56,10 +56,6 @@ class TableRestaurantStore {
   deleteDataAll() async {
     await store.delete(await _db);
   }
+ 
 
-  Future<int> getCount() async {
-    var dataList = await getAllData();
-    int count = dataList.length;
-    return count;
-  }
 }

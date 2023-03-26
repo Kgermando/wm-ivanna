@@ -43,13 +43,13 @@ class _FactureRestPageState extends State<FactureRestPage> {
                     length: 2,
                     child: Column(
                       children: [
-                        const SizedBox(
+                       SizedBox(
                           height: 30,
                           child: TabBar(
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             tabs: [
-                              Tab(text: "Facture au comptant"),
-                              Tab(text: "Facture à crédit")
+                              Tab(text: "$title Facture au comptant"),
+                              Tab(text: "$title Facture à crédit")
                             ],
                           ),
                         ),
@@ -62,49 +62,25 @@ class _FactureRestPageState extends State<FactureRestPage> {
                                   onEmpty: const Text('Aucune donnée'),
                                   onError: (error) =>
                                       loadingError(context, error!),
-                                  (state) => Container(
-                                      margin: EdgeInsets.only(
-                                          top: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          bottom: p8,
-                                          right: Responsive.isDesktop(context)
-                                              ? p20
-                                              : 0,
-                                          left: Responsive.isDesktop(context)
-                                              ? p20
-                                              : 0),
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      child: TableFactureRestaurant(
-                                          factureList: state!,
-                                          controller: controller,
-                                          profilController: profilController))),
+                                  (state) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TableFactureRestaurant(
+                                        factureList: state!,
+                                        controller: controller,
+                                        profilController: profilController),
+                                  )),
                               factureCreanceController.obx(
                                   onLoading: loadingPage(context),
                                   onEmpty: const Text('Aucune donnée'),
                                   onError: (error) =>
                                       loadingError(context, error!),
-                                  (state) => Container(
-                                      margin: EdgeInsets.only(
-                                          top: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          right: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          left: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          bottom: p8),
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      child: TableCreanceRestaurant(
-                                          creanceRestaurantList: state!,
-                                          controller: factureCreanceController,
-                                          profilController: profilController)))
+                                  (state) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TableCreanceRestaurant(
+                                        creanceRestaurantList: state!,
+                                        controller: factureCreanceController,
+                                        profilController: profilController),
+                                  ))
                             ],
                           ),
                         ),

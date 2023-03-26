@@ -59,4 +59,16 @@ class RestaurantStore {
     int count = dataList.length;
     return count;
   }
+ 
+  Future<int> getCountCommande() async {
+    var dataList = await getAllData();
+    int count = dataList.where((e) => e.statutCommande == 'false').length;
+    return count;
+  }
+
+  Future<int> getCountConsommation() async {
+    var dataList = await getAllData();
+    int count = dataList.where((e) => e.statutCommande == 'true').length;
+    return count;
+  }
 }

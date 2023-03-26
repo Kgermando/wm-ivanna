@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:wm_com_ivanna/src/pages/livraison/controller/dashboard_livraison_controller.dart';
 import 'package:wm_com_ivanna/src/pages/livraison/controller/factures/creance_livraison_controller.dart';
 import 'package:wm_com_ivanna/src/pages/livraison/controller/factures/facture_livraison_controller.dart';
 import 'package:wm_com_ivanna/src/pages/livraison/controller/prod_model_livraison_controller.dart';
@@ -9,6 +10,7 @@ import 'package:wm_com_ivanna/src/pages/livraison/controller/livraison_controlle
 class LivraisonBinding extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => DashboardLivraisonController());
     Get.lazyPut(() => ProdModelLivraisonController());
     Get.lazyPut(() => LivraisonController());
     Get.lazyPut(() => TableLivraisonController());

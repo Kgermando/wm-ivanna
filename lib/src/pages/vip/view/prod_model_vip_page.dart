@@ -44,6 +44,7 @@ class _ProdModelVipPageState extends State<ProdModelVipPage> {
                   Get.toNamed(VipRoutes.prodModelVipAdd);
                 }),
         body: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Visibility(
                 visible: !Responsive.isMobile(context),
@@ -54,20 +55,14 @@ class _ProdModelVipPageState extends State<ProdModelVipPage> {
                     onLoading: loadingPage(context),
                     onEmpty: const Text('Aucune donnée'),
                     onError: (error) => loadingError(context, error!),
-                    (data) => Container(
-                        margin: EdgeInsets.only(
-                            top: Responsive.isMobile(context) ? 0.0 : p20,
-                            bottom: p8,
-                            right: Responsive.isDesktop(context) ? p20 : 0,
-                            left: Responsive.isDesktop(context) ? p20 : 0),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: TableProduitVipModel(
-                          produitModelList: controller.produitModelList,
-                          controller: controller,
-                          title: title,
-                        )))),
+                    (data) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TableProduitVipModel(
+                        produitModelList: controller.produitModelList,
+                        controller: controller,
+                        title: title,
+                      ),
+                    ))),
           ],
         ));
   }

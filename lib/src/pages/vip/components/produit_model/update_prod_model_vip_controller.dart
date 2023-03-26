@@ -77,9 +77,9 @@ class _UpdateProdModelVipState extends State<UpdateProdModelVip> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const TitleWidget(
+                                  TitleWidget(
                                       title:
-                                          "Modification de l'identifiant Produit"),
+                                          "Modification de l'identifiant Produit $title"),
                                   const SizedBox(
                                     height: p20,
                                   ),

@@ -33,6 +33,7 @@ class _FactureVipPageState extends State<FactureVipPage> {
         appBar: headerBar(context, scaffoldKey, title, subTitle),
         drawer: const DrawerMenuVip(),
         body: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Visibility(
                 visible: !Responsive.isMobile(context),
@@ -43,13 +44,13 @@ class _FactureVipPageState extends State<FactureVipPage> {
                     length: 2,
                     child: Column(
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           height: 30,
                           child: TabBar(
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             tabs: [
-                              Tab(text: "Facture au comptant"),
-                              Tab(text: "Facture à crédit")
+                              Tab(text: "Facture au comptant $title"),
+                              Tab(text: "Facture à crédit $title")
                             ],
                           ),
                         ),
@@ -62,49 +63,25 @@ class _FactureVipPageState extends State<FactureVipPage> {
                                   onEmpty: const Text('Aucune donnée'),
                                   onError: (error) =>
                                       loadingError(context, error!),
-                                  (state) => Container(
-                                      margin: EdgeInsets.only(
-                                          top: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          bottom: p8,
-                                          right: Responsive.isDesktop(context)
-                                              ? p20
-                                              : 0,
-                                          left: Responsive.isDesktop(context)
-                                              ? p20
-                                              : 0),
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      child: TableFactureVip(
-                                          factureList: state!,
-                                          controller: controller,
-                                          profilController: profilController))),
+                                  (state) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TableFactureVip(
+                                        factureList: state!,
+                                        controller: controller,
+                                        profilController: profilController),
+                                  )),
                               factureCreanceController.obx(
                                   onLoading: loadingPage(context),
                                   onEmpty: const Text('Aucune donnée'),
                                   onError: (error) =>
                                       loadingError(context, error!),
-                                  (state) => Container(
-                                      margin: EdgeInsets.only(
-                                          top: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          right: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          left: Responsive.isMobile(context)
-                                              ? 0.0
-                                              : p20,
-                                          bottom: p8),
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      child: TableCreanceVip(
-                                          creanceRestaurantList: state!,
-                                          controller: factureCreanceController,
-                                          profilController: profilController)))
+                                  (state) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TableCreanceVip(
+                                        creanceRestaurantList: state!,
+                                        controller: factureCreanceController,
+                                        profilController: profilController),
+                                  ))
                             ],
                           ),
                         ),

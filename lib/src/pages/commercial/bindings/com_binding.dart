@@ -4,6 +4,7 @@ import 'package:wm_com_ivanna/src/pages/commercial/components/factures/pdf_a6/fa
 import 'package:wm_com_ivanna/src/pages/commercial/controller/achats/achat_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/achats/ravitaillement_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/cart/cart_controller.dart';
+import 'package:wm_com_ivanna/src/pages/commercial/controller/dashboard/dashboard_com_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/factures/facture_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/factures/facture_creance_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/factures/numero_facture_controller.dart';
@@ -18,6 +19,7 @@ import 'package:wm_com_ivanna/src/pages/finance/controller/caisses/caisse_name_c
 class ComBinding extends Bindings {
   @override
   void dependencies() { 
+    Get.lazyPut(() => DashboardComController());
     Get.lazyPut(() => AchatController());
     Get.lazyPut(() => CartController());
     Get.lazyPut(() => FactureController());

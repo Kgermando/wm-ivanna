@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'package:wm_com_ivanna/src/helpers/monnaire_storage.dart';
 import 'package:wm_com_ivanna/src/models/commercial/vente_cart_model.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/components/drawer_menu_commercial.dart';
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
+import 'package:wm_com_ivanna/src/pages/commercial/components/vente_effectue/vente_effectue_com_xlsx.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/produit_model/produit_model_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/vente_effectue/ventes_effectue_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
@@ -69,14 +71,56 @@ class _VenteEffectueState extends State<VenteEffectue> {
                                   children: [
                                     const TitleWidget(
                                         title: "Historique de ventes"),
-                                    IconButton(
-                                        onPressed: () {
-                                          controller.getList();
-                                          Navigator.pushNamed(context,
-                                              ComRoutes.comVenteEffectue);
-                                        },
-                                        icon: const Icon(Icons.refresh,
-                                            color: Colors.green))
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () async {
+                                            final values =
+                                              await showCalendarDatePicker2Dialog(
+                                                context: context,
+                                                config:
+                                                  CalendarDatePicker2WithActionButtonsConfig(
+                                                calendarType:
+                                                    CalendarDatePicker2Type
+                                                        .range,
+                                              ),
+                                              dialogSize: const Size(325, 400),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              // initialValue: [],
+                                              dialogBackgroundColor:
+                                                  Colors.white,
+                                            );
+                                            DateTime? date1 = values![0];
+                                            DateTime? date2 = values[1];
+                                            var reppoting = state!
+                                                .where((element) =>
+                                                    element.created
+                                                            .millisecondsSinceEpoch >=
+                                                        date1!
+                                                            .millisecondsSinceEpoch &&
+                                                    element.created
+                                                            .millisecondsSinceEpoch <=
+                                                        date2!
+                                                            .millisecondsSinceEpoch)
+                                                .toList();
+                                            VenteEffectueComXlsx()
+                                                .exportToExcel(
+                                                    title, reppoting);
+                                          },
+                                          icon:
+                                              const Icon(Icons.install_desktop),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              controller.getList();
+                                              Navigator.pushNamed(context,
+                                                  ComRoutes.comVenteEffectue);
+                                            },
+                                            icon: const Icon(Icons.refresh,
+                                                color: Colors.green)),
+                                      ],
+                                    )
                                   ],
                                 ),
                                 treeView(state!)

@@ -55,7 +55,7 @@ class _TableConsommationLivraisonPageState extends State<TableConsommationLivrai
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const TitleWidget(title: 'Table consommations'),
+                                  TitleWidget(title: '$title Table consommations'),
                                   IconButton(
                                       onPressed: () {
                                         controller.getList();

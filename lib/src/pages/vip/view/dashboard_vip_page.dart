@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
+import 'package:wm_com_ivanna/src/helpers/monnaire_storage.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/components/drawer_menu_vip.dart'; 
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
-import 'package:wm_com_ivanna/src/pages/vip/controller/prod_model_vip_controller.dart'; 
-import 'package:wm_com_ivanna/src/widgets/loading.dart';
+import 'package:wm_com_ivanna/src/pages/vip/components/dashboard/arcticle_plus_vendus_vip.dart';
+import 'package:wm_com_ivanna/src/pages/vip/components/dashboard/courbe_vente_gain_day_vip.dart';
+import 'package:wm_com_ivanna/src/pages/vip/components/dashboard/courbe_vente_gain_mounth_vip.dart';
+import 'package:wm_com_ivanna/src/pages/vip/components/dashboard/courbe_vente_gain_year_vip.dart';
+import 'package:wm_com_ivanna/src/pages/vip/controller/dashboard_vip_controller.dart';
+import 'package:wm_com_ivanna/src/routes/routes.dart';
+import 'package:wm_com_ivanna/src/widgets/dash_count_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/dash_number_widget.dart'; 
+import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/title_widget.dart';
 
 class DashboardVipPage extends StatefulWidget {
   const DashboardVipPage({super.key});
@@ -15,39 +25,114 @@ class DashboardVipPage extends StatefulWidget {
 }
 
 class _DashboardVipPageState extends State<DashboardVipPage> {
+  final DashboardVipController controller = Get.find();
+  final MonnaieStorage monnaieStorage = Get.put(MonnaieStorage()); 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   String title = "Vip";
   String subTitle = "Dashboard";
 
   @override
   Widget build(BuildContext context) {
-    final ProdModelVipController controller =
-        Get.put(ProdModelVipController());
     return Scaffold(
         key: scaffoldKey,
         appBar: headerBar(context, scaffoldKey, title, subTitle),
         drawer: const DrawerMenuVip(),
         body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Visibility(
                 visible: !Responsive.isMobile(context),
                 child: const Expanded(flex: 1, child: DrawerMenuVip())),
             Expanded(
                 flex: 5,
-                child: controller.obx(
-                    onLoading: loadingPage(context),
-                    onEmpty: const Text('Aucune donnée'),
-                    onError: (error) => loadingError(context, error!),
-                    (data) => Container(
-                        margin: EdgeInsets.only(
-                            top: Responsive.isMobile(context) ? 0.0 : p20,
-                            bottom: p8,
-                            right: Responsive.isDesktop(context) ? p20 : 0,
-                            left: Responsive.isDesktop(context) ? p20 : 0),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Container()))),
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  physics: const ScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Obx(() => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TitleWidget(title: title),
+                              const SizedBox(height: p10),
+                              Wrap(
+                                alignment: WrapAlignment.spaceEvenly,
+                                children: [
+                                  DashNumberWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(ComRoutes.comVente);
+                                      },
+                                      number:
+                                          '${NumberFormat.decimalPattern('fr').format(controller.sumVente)} ${monnaieStorage.monney}',
+                                      title: 'Ventes journalières',
+                                      icon: Icons.shopping_cart,
+                                      color: Colors.green.shade700),
+                                  DashNumberWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(ComRoutes.comCreance);
+                                      },
+                                      number:
+                                          '${NumberFormat.decimalPattern('fr').format(controller.sumDCreance)} ${monnaieStorage.monney}',
+                                      title: 'Créances',
+                                      icon: Icons.money_off_outlined,
+                                      color: Colors.pink.shade700),
+                                  DashCountWidget(
+                                    title: 'Commande en cours',
+                                    count1: controller.tableCommandeCount
+                                        .toString(),
+                                    count2:
+                                        controller.tableTotalCount.toString(),
+                                    icon: Icons.table_bar,
+                                    color: Colors.blue.shade700,
+                                    gestureTapCallback: () {
+                                      Get.toNamed(VipRoutes
+                                          .tableCommandeVip);
+                                    },
+                                  ),
+                                  DashCountWidget(
+                                    title: 'Consommation en cours',
+                                    count1: controller.tableConsommationCount
+                                        .toString(),
+                                    count2:
+                                        controller.tableTotalCount.toString(),
+                                    icon: Icons.table_bar,
+                                    color: Colors.orange.shade700,
+                                    gestureTapCallback: () {
+                                      Get.toNamed(VipRoutes
+                                          .tableConsommationVip);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              ResponsiveChildWidget(
+                                child1: CourbeVenteGainDayVip(
+                                  controller: controller,
+                                  monnaieStorage: monnaieStorage,
+                                ),
+                                child2: CourbeVenteGainMounthVip(
+                                  controller: controller,
+                                  monnaieStorage: monnaieStorage,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              CourbeVenteGainYearVip(
+                                controller: controller,
+                                monnaieStorage: monnaieStorage,
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              ArticlePlusVendusVip(
+                                  state: controller.venteChartList,
+                                  monnaieStorage: monnaieStorage)
+                            ])),
+                  ),
+                ))
           ],
         ));
   }

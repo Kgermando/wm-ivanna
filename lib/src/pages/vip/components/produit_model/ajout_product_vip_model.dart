@@ -64,8 +64,8 @@ class _AjoutProdModelVipState extends State<AjoutProdModelVip> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const TitleWidget(
-                                      title: 'Identifiant Produit'),
+                                  TitleWidget(
+                                      title: 'Identifiant Produit $title'),
                                   const SizedBox(
                                     height: p20,
                                   ),

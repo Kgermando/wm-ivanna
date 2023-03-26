@@ -58,6 +58,7 @@ class _ReservationPageState extends State<ReservationPage> {
                             Expanded(
                               child: Card(
                                 child: SfCalendar(
+                                  viewNavigationMode: ViewNavigationMode.snap,
                                   view: CalendarView.month,
                                   dataSource: SuivisDataSource(state!),
                                   onTap: (calendarTapDetails) {

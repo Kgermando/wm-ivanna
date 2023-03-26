@@ -129,19 +129,19 @@ var addBonsConsommationUrl =
 
 // Chart Commercial
 var venteChartsUrl =
-    Uri.parse("$mainUrl/ventes/vente-chart/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/ventes/vente-chart/${InfoSystem().business()}");
 var venteChartDayUrl =
-    Uri.parse("$mainUrl/ventes/vente-chart-day/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/ventes/vente-chart-day/${InfoSystem().business()}");
 var venteChartMonthsUrl =
-    Uri.parse("$mainUrl/ventes/vente-chart-month/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/ventes/vente-chart-month/${InfoSystem().business()}");
 var venteChartYearsUrl =
-    Uri.parse("$mainUrl/ventes/vente-chart-year/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/ventes/vente-chart-year/${InfoSystem().business()}");
 var gainChartDayUrl =
-    Uri.parse("$mainUrl/gains/gain-chart-day/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/gains/gain-chart-day/${InfoSystem().business()}");
 var gainChartMonthsUrl =
-    Uri.parse("$mainUrl/gains/gain-chart-month/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/gains/gain-chart-month/${InfoSystem().business()}");
 var gainChartYearsUrl =
-    Uri.parse("$mainUrl/gains/gain-chart-year/${InfoSystem().business()}/");
+    Uri.parse("$mainUrl/gains/gain-chart-year/${InfoSystem().business()}");
 
 var gainsUrl = Uri.parse("$mainUrl/gains/${InfoSystem().business()}/");
 var addGainsUrl = Uri.parse("$mainUrl/gains/insert-new-gain");
@@ -168,6 +168,15 @@ var addHistoryLivraisonUrl =
 
 
 // Restaurant
+var venteChartRestaurantUrl =
+    Uri.parse("$mainUrl/vente-effectuee-rests/vente-chart/${InfoSystem().business()}");
+var venteChartDayRestaurantUrl =
+    Uri.parse("$mainUrl/vente-effectuee-rests/vente-chart-day/${InfoSystem().business()}");
+var venteChartMonthsRestaurantUrl =
+    Uri.parse("$mainUrl/vente-effectuee-rests/vente-chart-month/${InfoSystem().business()}");
+var venteChartYearsRestaurantUrl =
+    Uri.parse("$mainUrl/vente-effectuee-rests/vente-chart-year/${InfoSystem().business()}");
+
 var restaurantUrl =
     Uri.parse("$mainUrl/restaurants/${InfoSystem().business()}/");
 var addrestaurantUrl =
@@ -194,6 +203,15 @@ var addVenteEffectueeRestaurantUrl =
     Uri.parse("$mainUrl/vente-effectuee-rests/insert-new-vente");
 
 // Vip
+var venteChartVipUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-vips/vente-chart/${InfoSystem().business()}");
+var venteChartDayVipUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-vips/vente-chart-day/${InfoSystem().business()}");
+var venteChartMonthsVipUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-vips/vente-chart-month/${InfoSystem().business()}");
+var venteChartYearsVipUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-vips/vente-chart-year/${InfoSystem().business()}");
+
 var vipUrl =
     Uri.parse("$mainUrl/vips/${InfoSystem().business()}/");
 var addVipUrl = Uri.parse("$mainUrl/vips/insert-new-vip");
@@ -218,6 +236,15 @@ var addVenteEffectueeVipUrl =
     Uri.parse("$mainUrl/vente-effectuee-vips/insert-new-vente");
 
 // Terrasse
+var venteChartTerrasseUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-terrasses/vente-chart/${InfoSystem().business()}");
+var venteChartDayTerrasseUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-terrasses/vente-chart-day/${InfoSystem().business()}");
+var venteChartMonthsTerrasseUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-terrasses/vente-chart-month/${InfoSystem().business()}");
+var venteChartYearsTerrasseUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-terrasses/vente-chart-year/${InfoSystem().business()}");
+
 var terrasseUrl = Uri.parse("$mainUrl/terrasses/${InfoSystem().business()}/");
 var addTerrasseUrl = Uri.parse("$mainUrl/terrasses/insert-new-terrasse");
 
@@ -238,6 +265,16 @@ var addVenteEffectueeTerrasseUrl =
     Uri.parse("$mainUrl/vente-effectuee-terrasses/insert-new-vente");
 
 // Livraison
+var venteChartLivraisonUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-livraisons/vente-chart/${InfoSystem().business()}");
+var venteChartDayLivraisonUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-livraisons/vente-chart-day/${InfoSystem().business()}");
+var venteChartMonthsLivraisonUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-livraisons/vente-chart-month/${InfoSystem().business()}");
+var venteChartYearsLivraisonUrl = Uri.parse(
+    "$mainUrl/vente-effectuee-livraisons/vente-chart-year/${InfoSystem().business()}");
+
+
 var livraisonUrl = Uri.parse("$mainUrl/livraisons/${InfoSystem().business()}/");
 var addLivraisonUrl = Uri.parse("$mainUrl/livraisons/insert-new-livraison");
 
@@ -295,6 +332,8 @@ var addUpdateVerionrUrl =
 // Reservation
 var reservationUrl =
     Uri.parse("$mainUrl/reservations/${InfoSystem().business()}/");
+var reservationChartPieUrl =
+    Uri.parse("$mainUrl/reservations/chart-pie/${InfoSystem().business()}/");
 var addReservationUrl =
     Uri.parse("$mainUrl/reservations/insert-new-reservation");
 

@@ -50,12 +50,12 @@ class _TableConsommationVipPageState extends State<TableConsommationVipPage> {
                           physics: const ScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: [ 
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const TitleWidget(title: 'Table consommations'),
+                                  TitleWidget(title: '$title Table consommations'),
                                   IconButton(
                                       onPressed: () {
                                         controller.getList();

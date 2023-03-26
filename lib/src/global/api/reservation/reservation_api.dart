@@ -7,6 +7,7 @@ import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:wm_com_ivanna/src/models/reservation/reservation_model.dart';
+import 'package:wm_com_ivanna/src/models/rh/agent_count_model.dart';
 
 class ReservationApi extends GetConnect {
   var client = http.Client();
@@ -21,6 +22,22 @@ class ReservationApi extends GetConnect {
       List<ReservationModel> data = [];
       for (var u in bodyList) {
         data.add(ReservationModel.fromJson(u));
+      }
+      return data;
+    } else {
+      throw Exception(resp.statusCode);
+    }
+  }
+
+  Future<List<ReservationPieChartModel>> getChartPie() async {
+    Map<String, String> header = headers;
+
+    var resp = await client.get(reservationChartPieUrl, headers: header);
+    if (resp.statusCode == 200) {
+      List<dynamic> bodyList = json.decode(resp.body);
+      List<ReservationPieChartModel> data = [];
+      for (var row in bodyList) {
+        data.add(ReservationPieChartModel.fromJson(row));
       }
       return data;
     } else {

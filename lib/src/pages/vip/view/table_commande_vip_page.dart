@@ -65,7 +65,7 @@ class _TableCommandeVipPageState extends State<TableCommandeVipPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const TitleWidget(title: 'Table commandes'),
+                                  TitleWidget(title: '$title Table commandes'),
                                   IconButton(
                                       onPressed: () {
                                         controller.getList();

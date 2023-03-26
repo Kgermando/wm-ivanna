@@ -65,7 +65,7 @@ class _TableCommandeTerrassePageState extends State<TableCommandeTerrassePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const TitleWidget(title: 'Table commandes'),
+                                    TitleWidget(title: '$title Table commandes'),
                                   IconButton(
                                       onPressed: () {
                                         controller.getList();

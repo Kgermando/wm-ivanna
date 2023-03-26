@@ -144,7 +144,6 @@ import 'package:wm_com_ivanna/src/pages/terrasse/view/vente_effectue_terrasse_pa
 import 'package:wm_com_ivanna/src/pages/terrasse/view/vente_terrasse_page.dart';
 import 'package:wm_com_ivanna/src/pages/update/binding/update_binfing.dart';
 import 'package:wm_com_ivanna/src/pages/update/components/detail_update.dart';
-import 'package:wm_com_ivanna/src/pages/update/view/update_page.dart';
 import 'package:wm_com_ivanna/src/pages/vip/bindings/vip_binding.dart';
 import 'package:wm_com_ivanna/src/pages/vip/components/commande/detail_commande_vip.dart';
 import 'package:wm_com_ivanna/src/pages/vip/components/consommation/detail_consommation_vip.dart';
@@ -350,7 +349,7 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(
       name: ComRoutes.comDashboard,
       binding: ComBinding(),
-      page: () => const DashboardComPage(),
+      page: () => const DashboardCommPage(),
       transition: Transition.cupertino,
       transitionDuration: const Duration(seconds: 1)),
   GetPage(
