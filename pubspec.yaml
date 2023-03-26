@@ -1,7 +1,7 @@
 name: wm_com_ivanna
 description: A new Flutter project.
 publish_to: 'none'
-version: 2.2.2
+version: 2.2.3
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -79,7 +79,7 @@ msix_config:
   display_name: Ivanna
   publisher_display_name: wm_com_ivanna
   identity_name: com.eventdrcTechnology.WorkManagement
-  msix_version: 2.2.0.2
+  msix_version: 2.2.0.3
   certificate_path: C:\Users\K-GERMANDO\Documents\DEVELOPER\FLUTTER\CERTIFICAT\wm_commercial_certifat\CERTIFICATE.pfx
   certificate_password: tMvBcb4KGAIX9xIF
   publisher: CN=Germain kataku, O=Eventdrc Technology

@@ -15,6 +15,7 @@ import 'package:wm_com_ivanna/src/pages/commercial/controller/history/history_ve
 import 'package:wm_com_ivanna/src/routes/routes.dart'; 
 import 'package:wm_com_ivanna/src/widgets/dash_number_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/title_widget.dart';
 
 class DashboardCommPage extends StatefulWidget {
   const DashboardCommPage({super.key});
@@ -61,6 +62,8 @@ class _DashboardCommPageState extends State<DashboardCommPage> {
                               Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    TitleWidget(title: title),
+                                    const SizedBox(height: p10),
                                     Wrap(
                                       alignment: WrapAlignment.spaceEvenly,
                                       children: [

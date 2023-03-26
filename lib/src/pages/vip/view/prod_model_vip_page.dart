@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/constants/app_theme.dart';
+import 'package:get/get.dart'; 
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/components/drawer_menu_vip.dart'; 
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';  

@@ -118,6 +118,7 @@ import 'package:wm_com_ivanna/src/pages/rh/components/add_personnel.dart';
 import 'package:wm_com_ivanna/src/pages/rh/components/detail._user.dart';
 import 'package:wm_com_ivanna/src/pages/rh/components/detail_personne.dart';
 import 'package:wm_com_ivanna/src/pages/rh/components/update_personnel.dart';
+import 'package:wm_com_ivanna/src/pages/rh/view/dashboard_rh.dart';
 import 'package:wm_com_ivanna/src/pages/rh/view/personnel_page.dart';
 import 'package:wm_com_ivanna/src/pages/rh/view/users_page.dart';
 import 'package:wm_com_ivanna/src/pages/screens/binding/setting_binfing.dart';
@@ -1040,6 +1041,12 @@ List<GetPage<dynamic>>? getPages = [
 
 
   // RH
+  GetPage(
+      name: RhRoutes.rhDashboard,
+      binding: PersonnelBinding(),
+      page: () => const DashboardRH(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(seconds: 1)),
   GetPage(
       name: RhRoutes.rhPersonnelsPage,
       binding: PersonnelBinding(),
