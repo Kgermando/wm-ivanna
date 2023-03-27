@@ -120,7 +120,10 @@ class LoginController extends GetxController {
       createdAt: DateTime.parse("2023-01-05T11:30:06.571153Z"),
       passwordHash: "1234",
       succursale: "-",
-      business: "ivanna");
+      business: "ivanna",
+      sync: '-',
+      async: '-',
+      );
       usersController.usersStore.insertData(user);
       if (kDebugMode) {
         print("login user $user");

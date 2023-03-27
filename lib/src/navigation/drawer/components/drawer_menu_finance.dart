@@ -32,34 +32,25 @@ class DrawerMenuFinance extends GetView<CaisseNameController> {
               height: 100,
             )),
           ),
-          // DrawerWidget(
-          //     selected: currentRoute == RhRoutes.comDashboard,
-          //     icon: Icons.dashboard,
-          //     sizeIcon: 15.0,
-          //     title: 'Dashboard',
-          //     style: bodyMedium!,
-          //     onTap: () {
-          //       Get.toNamed(RhRoutes.comDashboard);
-          //     }),
-          DrawerWidget(
-              selected: false,
-              icon: Icons.add_circle_outline_sharp,
-              sizeIcon: 20.0,
-              title: 'Nouvelle caisse',
-              style: bodyMedium!,
-              onTap: () {
-                caisseDialog(context, controller);
-              }),
-          DrawerWidget(
+           DrawerWidget(
               selected:
                   currentRoute == FinanceRoutes.transactionsCaisseDashbaord,
               icon: Icons.dashboard,
               sizeIcon: 20.0,
               title: 'Dashbaord',
-              style: bodyMedium,
+              style: bodyMedium!,
               onTap: () {
                 Get.toNamed(FinanceRoutes.transactionsCaisseDashbaord);
               }),
+          DrawerWidget(
+            selected: false,
+            icon: Icons.add_circle_outline_sharp,
+            sizeIcon: 20.0,
+            title: 'Nouvelle caisse',
+            style: bodyMedium,
+            onTap: () {
+              caisseDialog(context, controller);
+            }), 
           Column(
             children: state!.map((element) {
               return DrawerWidget(
@@ -114,7 +105,7 @@ class DrawerMenuFinance extends GetView<CaisseNameController> {
                         padding: const EdgeInsets.all(p16),
                         child: ListView(
                           children: [
-                            Text("Création d'une Caisse", style: titleLarge),
+                            Text("Création d'une nouvelle Caisse", style: titleLarge),
                             const SizedBox(
                               height: p20,
                             ),

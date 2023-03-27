@@ -16,6 +16,8 @@ class AnnuaireModel {
   late DateTime created;
   late String business;
   late DateTime updateCreated;
+  late String sync;
+  late String async;
 
   AnnuaireModel(
       {this.id,
@@ -32,7 +34,10 @@ class AnnuaireModel {
       required this.signature,
       required this.created,
       required this.business,
-      required this.updateCreated});
+      required this.updateCreated,
+    required this.sync,
+    required this.async,
+  });
 
   factory AnnuaireModel.fromSQL(List<dynamic> row) {
     return AnnuaireModel(
@@ -50,7 +55,9 @@ class AnnuaireModel {
         signature: row[11],
         created: row[12],
         business: row[13],
-        updateCreated: row[14]);
+        updateCreated: row[14],
+        sync: row[15],
+        async: row[16]);
   }
 
   factory AnnuaireModel.fromJson(Map<String, dynamic> json) {
@@ -70,6 +77,8 @@ class AnnuaireModel {
         created: DateTime.parse(json['created']),
         business: json['business'],
       updateCreated: DateTime.parse(json['updateCreated']),
+      sync: json['sync'],
+      async: json['async'],
     );
   }
 
@@ -90,6 +99,8 @@ class AnnuaireModel {
       'created': created.toIso8601String(),
       'business': business,
       'updateCreated': updateCreated.toIso8601String(),
+      'sync': sync,
+      'async': async,
     };
   }
 

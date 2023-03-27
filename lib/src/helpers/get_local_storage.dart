@@ -34,7 +34,9 @@ class GetLocalStorage extends GetxController {
           createdAt: DateTime.now(),
           passwordHash: '-',
           succursale: '-',
-          business: '-');
+          business: '-',
+          sync: '-',
+          async: '-');
       return user;
     }
   }

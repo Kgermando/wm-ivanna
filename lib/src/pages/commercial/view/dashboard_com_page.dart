@@ -12,7 +12,8 @@ import 'package:wm_com_ivanna/src/pages/commercial/components/dashboard/courbe_v
 import 'package:wm_com_ivanna/src/pages/commercial/components/dashboard/courbe_vente_gain_year.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/dashboard/dashboard_com_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/history/history_vente_controller.dart';
-import 'package:wm_com_ivanna/src/routes/routes.dart'; 
+import 'package:wm_com_ivanna/src/routes/routes.dart';
+import 'package:wm_com_ivanna/src/widgets/barre_connection_widget.dart'; 
 import 'package:wm_com_ivanna/src/widgets/dash_number_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/title_widget.dart';
@@ -49,79 +50,79 @@ class _DashboardCommPageState extends State<DashboardCommPage> {
                 child: SingleChildScrollView(
                   controller: ScrollController(),
                   physics: const ScrollPhysics(),
-                  child: Container(
-                      margin: EdgeInsets.only(
-                          top: Responsive.isMobile(context) ? 0.0 : p20,
-                          bottom: p8,
-                          right: Responsive.isMobile(context) ? 0.0 : p8,
-                          left: Responsive.isMobile(context) ? 0.0 : p8),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: GetBuilder(
-                          builder: (DashboardComController controller) =>
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TitleWidget(title: title),
-                                    const SizedBox(height: p10),
-                                    Wrap(
-                                      alignment: WrapAlignment.spaceEvenly,
-                                      children: [
-                                        DashNumberWidget(
-                                            gestureTapCallback: () {
-                                              Get.toNamed(ComRoutes.comVente);
-                                            },
-                                            number:
-                                                '${NumberFormat.decimalPattern('fr').format(controller.sumVente)} ${monnaieStorage.monney}',
-                                            title: 'Ventes',
-                                            icon: Icons.shopping_cart,
-                                            color: Colors.purple.shade700),
-                                        DashNumberWidget(
-                                            gestureTapCallback: () {
-                                              Get.toNamed(ComRoutes.comVente);
-                                            },
-                                            number:
-                                                '${NumberFormat.decimalPattern('fr').format(controller.sumGain)} ${monnaieStorage.monney}',
-                                            title: 'Gains',
-                                            icon: Icons.grain,
-                                            color: Colors.green.shade700),
-                                        // DashNumberWidget(
-                                        //     gestureTapCallback: () {
-                                        //       Get.toNamed(ComRoutes.comCreance);
-                                        //     },
-                                        //     number:
-                                        //         '${NumberFormat.decimalPattern('fr').format(controller.sumDCreance)} ${monnaieStorage.monney}',
-                                        //     title: 'Créances',
-                                        //     icon: Icons.money_off_outlined,
-                                        //     color: Colors.pink.shade700), 
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    ResponsiveChildWidget(
-                                        child1: CourbeVenteGainDay(
-                                          controller: controller,
-                                          monnaieStorage: monnaieStorage,
-                                        ),
-                                        child2: CourbeVenteGainMounth(
-                                          controller: controller,
-                                          monnaieStorage: monnaieStorage,
-                                        )),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    CourbeVenteGainYear(
-                                      controller: controller,
-                                      monnaieStorage: monnaieStorage,
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    ArticlePlusVendus(
-                                        state: controller.venteChartList,
-                                        monnaieStorage: monnaieStorage)
-                                  ]))),
+                  child: Column(
+                    children: [
+                      const BarreConnectionWidget(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GetBuilder(
+                            builder: (DashboardComController controller) =>
+                                Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      TitleWidget(title: title),
+                                      const SizedBox(height: p10),
+                                      Wrap(
+                                        alignment: WrapAlignment.spaceEvenly,
+                                        children: [
+                                          DashNumberWidget(
+                                              gestureTapCallback: () {
+                                                Get.toNamed(ComRoutes.comVente);
+                                              },
+                                              number:
+                                                  '${NumberFormat.decimalPattern('fr').format(controller.sumVente)} ${monnaieStorage.monney}',
+                                              title: 'Ventes',
+                                              icon: Icons.shopping_cart,
+                                              color: Colors.purple.shade700),
+                                          DashNumberWidget(
+                                              gestureTapCallback: () {
+                                                Get.toNamed(ComRoutes.comVente);
+                                              },
+                                              number:
+                                                  '${NumberFormat.decimalPattern('fr').format(controller.sumGain)} ${monnaieStorage.monney}',
+                                              title: 'Gains',
+                                              icon: Icons.grain,
+                                              color: Colors.green.shade700),
+                                          // DashNumberWidget(
+                                          //     gestureTapCallback: () {
+                                          //       Get.toNamed(ComRoutes.comCreance);
+                                          //     },
+                                          //     number:
+                                          //         '${NumberFormat.decimalPattern('fr').format(controller.sumDCreance)} ${monnaieStorage.monney}',
+                                          //     title: 'Créances',
+                                          //     icon: Icons.money_off_outlined,
+                                          //     color: Colors.pink.shade700), 
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      ResponsiveChildWidget(
+                                          child1: CourbeVenteGainDay(
+                                            controller: controller,
+                                            monnaieStorage: monnaieStorage,
+                                          ),
+                                          child2: CourbeVenteGainMounth(
+                                            controller: controller,
+                                            monnaieStorage: monnaieStorage,
+                                          )),
+                                      const SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      CourbeVenteGainYear(
+                                        controller: controller,
+                                        monnaieStorage: monnaieStorage,
+                                      ),
+                                      const SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      ArticlePlusVendus(
+                                          state: controller.venteChartList,
+                                          monnaieStorage: monnaieStorage)
+                                    ])),
+                      ),
+                    ],
+                  ),
                 ))
           ],
         ));

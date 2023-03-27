@@ -129,7 +129,9 @@ class ProdModelLivraisonController extends GetxController
           idProduct: idProductform.replaceAll(' ', '').toUpperCase(),
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await prodModellivraisonStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -171,7 +173,9 @@ class ProdModelLivraisonController extends GetxController
           idProduct: idProductform.replaceAll(' ', '').toUpperCase(),
           signature: profilController.user.matricule,
           created: data.created,
-          business: data.business);
+          business: data.business,
+          sync: "update",
+          async: "async");
       await prodModellivraisonStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();

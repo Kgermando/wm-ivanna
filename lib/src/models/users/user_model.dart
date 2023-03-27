@@ -17,6 +17,8 @@ class UserModel {
   late String passwordHash;
   late String succursale;
   late String business;
+  late String sync; // new, update, sync
+  late String async;
 
   UserModel({
     this.id,
@@ -35,6 +37,8 @@ class UserModel {
     required this.passwordHash,
     required this.succursale,
     required this.business,
+    required this.sync,
+    required this.async,
   });
 
   factory UserModel.fromSQL(List<dynamic> row) {
@@ -54,7 +58,9 @@ class UserModel {
         createdAt: row[12],
         passwordHash: row[13],
         succursale: row[14],
-      business: row[15]
+      business: row[15],
+        sync: row[16],
+        async: row[17]
     );
   }
 
@@ -75,7 +81,10 @@ class UserModel {
       createdAt: DateTime.parse(json["createdAt"]),
       passwordHash: json["passwordHash"],
       succursale: json["succursale"],
-      business: json['business']);
+      business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -96,6 +105,8 @@ class UserModel {
       'passwordHash': passwordHash,
       'succursale': succursale,
       'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
 
@@ -115,7 +126,9 @@ class UserModel {
         createdAt = DateTime.parse(snapshot.value['createdAt'] as String),
         passwordHash = snapshot.value['passwordHash'] as String,
         succursale = snapshot.value['succursale'] as String,
-        business = snapshot.value['business'] as String;
+        business = snapshot.value['business'] as String,
+        sync = snapshot.value['sync'] as String,
+        async = snapshot.value['async'] as String;
 
 
 }

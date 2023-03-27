@@ -19,26 +19,31 @@ class BonLivraisonModel {
   late String signature; // celui qui fait le document
   late DateTime created;
   late String business;
+  late String sync; // new, update, sync
+  late String async;
 
-  BonLivraisonModel(
-      {this.id,
-      required this.idProduct,
-      required this.quantityAchat,
-      required this.priceAchatUnit,
-      required this.prixVenteUnit,
-      required this.unite,
-      required this.firstName,
-      required this.lastName,
-      required this.tva,
-      required this.remise,
-      required this.qtyRemise,
-      required this.accuseReception,
-      required this.accuseReceptionFirstName,
-      required this.accuseReceptionLastName,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business});
+  BonLivraisonModel({
+    this.id,
+    required this.idProduct,
+    required this.quantityAchat,
+    required this.priceAchatUnit,
+    required this.prixVenteUnit,
+    required this.unite,
+    required this.firstName,
+    required this.lastName,
+    required this.tva,
+    required this.remise,
+    required this.qtyRemise,
+    required this.accuseReception,
+    required this.accuseReceptionFirstName,
+    required this.accuseReceptionLastName,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
+    required this.sync,
+    required this.async,
+  });
 
   factory BonLivraisonModel.fromSQL(List<dynamic> row) {
     return BonLivraisonModel(
@@ -59,29 +64,34 @@ class BonLivraisonModel {
         succursale: row[14],
         signature: row[15],
         created: row[16],
-        business: row[17]);
+        business: row[17],
+        sync: row[18],
+        async: row[19]);
   }
 
   factory BonLivraisonModel.fromJson(Map<String, dynamic> json) {
     return BonLivraisonModel(
-        id: json['id'],
-        idProduct: json['idProduct'],
-        quantityAchat: json['quantityAchat'],
-        priceAchatUnit: json['priceAchatUnit'],
-        prixVenteUnit: json['prixVenteUnit'],
-        unite: json['unite'],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        tva: json["tva"],
-        remise: json["remise"],
-        qtyRemise: json["qtyRemise"],
-        accuseReception: json["accuseReception"],
-        accuseReceptionFirstName: json["accuseReceptionFirstName"],
-        accuseReceptionLastName: json["accuseReceptionLastName"],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        business: json['business']);
+      id: json['id'],
+      idProduct: json['idProduct'],
+      quantityAchat: json['quantityAchat'],
+      priceAchatUnit: json['priceAchatUnit'],
+      prixVenteUnit: json['prixVenteUnit'],
+      unite: json['unite'],
+      firstName: json["firstName"],
+      lastName: json["lastName"],
+      tva: json["tva"],
+      remise: json["remise"],
+      qtyRemise: json["qtyRemise"],
+      accuseReception: json["accuseReception"],
+      accuseReceptionFirstName: json["accuseReceptionFirstName"],
+      accuseReceptionLastName: json["accuseReceptionLastName"],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -103,7 +113,9 @@ class BonLivraisonModel {
       'succursale': succursale,
       'signature': signature,
       'created': created.toIso8601String(),
-      'business': business
+      'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
 }

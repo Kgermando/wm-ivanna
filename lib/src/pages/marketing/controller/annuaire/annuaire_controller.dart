@@ -176,6 +176,8 @@ class AnnuaireController extends GetxController
         created: DateTime.now(),
         business: InfoSystem().business(),
         updateCreated: DateTime.now(),
+          sync: "new",
+          async: "async"
       );
       await annuaireStore.insertData(dataItem).then((value) {
         clear();
@@ -216,6 +218,8 @@ class AnnuaireController extends GetxController
         created: data.created,
         business: data.business,
         updateCreated: DateTime.now(),
+          sync: "update",
+          async: "async"
       );
       await annuaireStore.updateData(dataItem).then((value) {
         clear();

@@ -14,20 +14,23 @@ class ProfilController extends GetxController with StateMixin<UserModel> {
 
   // late UserModel user;
   final _user = UserModel(
-          nom: '-',
-          prenom: '-',
-          email: '-',
-          telephone: '-',
-          matricule: '-',
-          departement: '-',
-          servicesAffectation: '-',
-          fonctionOccupe: '-',
-          role: '5',
-          isOnline: 'false',
-          createdAt: DateTime.now(),
-          passwordHash: '-',
-          succursale: '-',
-          business: InfoSystem().business())
+    nom: '-',
+    prenom: '-',
+    email: '-',
+    telephone: '-',
+    matricule: '-',
+    departement: '-',
+    servicesAffectation: '-',
+    fonctionOccupe: '-',
+    role: '5',
+    isOnline: 'false',
+    createdAt: DateTime.now(),
+    passwordHash: '-',
+    succursale: '-',
+    business: InfoSystem().business(),
+    sync: '-',
+    async: '-',
+  )
       .obs;
 
   UserModel get user => _user.value;
@@ -43,20 +46,23 @@ class ProfilController extends GetxController with StateMixin<UserModel> {
 
   Future<UserModel> userData() async {
     var userModel = UserModel(
-        nom: '-',
-        prenom: '-',
-        email: '-',
-        telephone: '-',
-        matricule: '-',
-        departement: '-',
-        servicesAffectation: '-',
-        fonctionOccupe: '-',
-        role: '5',
-        isOnline: 'false',
-        createdAt: DateTime.now(),
-        passwordHash: '-',
-        succursale: '-',
-        business: InfoSystem().business());
+      nom: '-',
+      prenom: '-',
+      email: '-',
+      telephone: '-',
+      matricule: '-',
+      departement: '-',
+      servicesAffectation: '-',
+      fonctionOccupe: '-',
+      role: '5',
+      isOnline: 'false',
+      createdAt: DateTime.now(),
+      passwordHash: '-',
+      succursale: '-',
+      business: InfoSystem().business(),
+      sync: '-',
+      async: '-',
+  );
 
     String? idToken = getStorge.read(InfoSystem.keyIdToken);
 

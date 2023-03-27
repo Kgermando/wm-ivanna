@@ -115,7 +115,10 @@ class CaisseController extends GetxController
           caisseName: data.nomComplet,
           created: DateTime.now(),
           montantDecaissement: "0",
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
+      );
       await caisseStore.insertData(dataItem).then((value) {
         clear();
         caisseList.clear();
@@ -154,6 +157,8 @@ class CaisseController extends GetxController
         created: DateTime.now(),
         montantDecaissement: montantController.text,
         business: InfoSystem().business(),
+        sync: "new",
+        async: "async"
       );
       await caisseStore.insertData(dataItem).then((value) {
         clear();

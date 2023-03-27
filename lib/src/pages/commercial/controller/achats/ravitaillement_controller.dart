@@ -87,7 +87,9 @@ class RavitaillementController extends GetxController {
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: stock.created,
-          business: InfoSystem().business()
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await historyRavitaillementController.historyRavitaillementstore
           .insertData(historyRavitaillementModel)
@@ -109,7 +111,9 @@ class RavitaillementController extends GetxController {
           succursale: stock.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business()
+          business: InfoSystem().business(),
+            sync: "upadte",
+            async: "async"
         );
         achatController.stockStore.updateData(achatModel).then((value) {
           clear();

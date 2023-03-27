@@ -81,7 +81,9 @@ class TableLivraisonController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await tablelivraisonStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -111,7 +113,9 @@ class TableLivraisonController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await tablelivraisonStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -141,7 +145,9 @@ class TableLivraisonController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: data.created,
-          business: data.business);
+          business: data.business,
+          sync: "update",
+          async: "async");
       await tablelivraisonStore.updateData(dataItem).then((value) {
         getList();
         Get.back();

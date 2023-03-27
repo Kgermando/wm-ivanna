@@ -80,7 +80,9 @@ class FactureCreanceController extends GetxController
           succursale: data.succursale,
           signature: data.signature,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await factureStore.insertData(dataItem).then((value) {
         deleteData(data.id!); // Une fois dette payé suppression du fichier
         getList();

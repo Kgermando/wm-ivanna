@@ -92,7 +92,10 @@ class CaisseNameController extends GetxController
           addresse:
               (addresseController.text == '') ? '-' : addresseController.text,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
+      );
       await caisseNameStore.insertData(dataItem).then((value) {
         clear();
         caisseNameList.clear();
@@ -118,18 +121,21 @@ class CaisseNameController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = CaisseNameModel(
-          id: data.id,
-          nomComplet: (nomCompletController.text == '')
-              ? data.nomComplet
-              : nomCompletController.text.toUpperCase(),
-          rccm: '-',
-          idNat:
-              (idNatController.text == '') ? data.idNat : idNatController.text,
-          addresse: (addresseController.text == '')
-              ? data.addresse
-              : addresseController.text,
-          created: data.created,
-          business: data.business);
+        id: data.id,
+        nomComplet: (nomCompletController.text == '')
+            ? data.nomComplet
+            : nomCompletController.text.toUpperCase(),
+        rccm: '-',
+        idNat:
+            (idNatController.text == '') ? data.idNat : idNatController.text,
+        addresse: (addresseController.text == '')
+            ? data.addresse
+            : addresseController.text,
+        created: data.created,
+        business: data.business,
+          sync: "update",
+          async: "async"
+      );
       await caisseNameStore.updateData(dataItem).then((value) {
         clear();
         caisseNameList.clear();

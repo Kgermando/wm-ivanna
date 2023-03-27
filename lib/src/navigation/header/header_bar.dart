@@ -1,14 +1,17 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:wm_com_ivanna/src/constants/app_theme.dart';
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
 import 'package:wm_com_ivanna/src/constants/style.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
 import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
 import 'package:wm_com_ivanna/src/models/menu_item.dart';
+import 'package:wm_com_ivanna/src/models/update/update_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/login_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/update/controller/update_controller.dart';
@@ -17,6 +20,7 @@ import 'package:wm_com_ivanna/src/utils/info_system.dart';
 import 'package:wm_com_ivanna/src/utils/menu_items.dart';
 import 'package:wm_com_ivanna/src/utils/menu_options.dart';
 import 'package:wm_com_ivanna/src/widgets/bread_crumb_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/btn_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/loading.dart';
 
 AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
@@ -81,11 +85,13 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
             ),
           ),
     actions: [
-      Obx(() => departementNotifyCOntroller.isLoading ? loadingMini() : IconButton(
-        onPressed: () {
-          departementNotifyCOntroller.syncData();
-        },
-        icon: const Icon(Icons.sync, color: Colors.green))) ,
+      Obx(() => departementNotifyCOntroller.isLoading
+          ? loadingMini()
+          : IconButton(
+              onPressed: () {
+                departementNotifyCOntroller.syncData();
+              },
+              icon: const Icon(Icons.sync, color: Colors.green))),
       Obx(() => (networkController.connectionStatus == 1 &&
               GetPlatform.isWindows &&
               updateController.updateVersionList.isNotEmpty &&
@@ -94,10 +100,14 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
           ? IconButton(
               iconSize: 40,
               tooltip: 'Téléchargement',
-              onPressed: () {
-                // updateController.downloadNetworkSoftware(
-                //     url: updateController.updateVersionList.last.urlUpdate);
-                Get.toNamed(UpdateRoutes.updatePage);
+              onPressed: () async {
+                bool result = await InternetConnectionChecker().hasConnection;
+                if (result == true) {
+                    var updateList =
+                      await updateController.updateVersionApi.getAllData();
+                  UpdateModel updateModel = updateList.last; 
+                  Get.toNamed('/update/${updateModel.id!}', arguments: updateModel);
+                } 
               },
               icon: (updateController.isDownloading)
                   ? (updateController.progressString == "100%")
@@ -149,6 +159,63 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
                   Get.toNamed(MarketingRoutes.marketingAnnuaire);
                 },
                 icon: const Icon(Icons.contact_phone)),
+            if (profilController.user.matricule.contains("Support"))
+              IconButton(
+                  tooltip: 'Add update',
+                  onPressed: () {
+                    Get.bottomSheet(
+                        useRootNavigator: true,
+                        Scaffold(
+                          body: Container(
+                            // color: Colors.amber.shade100,
+                            padding: const EdgeInsets.all(p20),
+                            child: Form(
+                              key: updateController.formKey,
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text("Nouvelle mise à jour",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall)),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: p20,
+                                  ),
+                                  versionWidget(updateController),
+                                  motifWidget(updateController),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      fichierWidget(context, updateController),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: p20,
+                                  ),
+                                  Obx(() => BtnWidget(
+                                      title: 'Soumettre',
+                                      press: () {
+                                        final form = updateController
+                                            .formKey.currentState!;
+                                        if (form.validate()) {
+                                          updateController.submit();
+                                          form.reset();
+                                          Navigator.of(context).pop();
+                                        }
+                                      },
+                                      isLoading: updateController.isLoading))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ));
+                  },
+                  icon: const Icon(Icons.system_update_alt, color: Colors.red)),
             if (!Responsive.isMobile(context))
               const SizedBox(
                 width: p10,
@@ -213,4 +280,76 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
     elevation: 0,
     // backgroundColor: Colors.transparent,
   );
+}
+
+Widget versionWidget(UpdateController updateController) {
+  return Container(
+      margin: const EdgeInsets.only(bottom: p20),
+      child: TextFormField(
+        controller: updateController.versionController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          labelText: "Version",
+        ),
+        keyboardType: TextInputType.text,
+        validator: (value) {
+          if (value != null && value.isEmpty) {
+            return 'Ce champs est obligatoire';
+          } else {
+            return null;
+          }
+        },
+      ));
+}
+
+Widget motifWidget(UpdateController updateController) {
+  return Container(
+      margin: const EdgeInsets.only(bottom: p20),
+      child: TextFormField(
+        controller: updateController.motifController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          labelText: "Motif",
+        ),
+        keyboardType: TextInputType.text,
+        validator: (value) {
+          if (value != null && value.isEmpty) {
+            return 'Ce champs est obligatoire';
+          } else {
+            return null;
+          }
+        },
+      ));
+}
+
+Widget fichierWidget(BuildContext context, UpdateController updateController) {
+  return Container(
+      margin: const EdgeInsets.only(bottom: p20),
+      child: Obx(() => updateController.isUploading
+          ? const SizedBox(
+              height: p20, width: 50.0, child: LinearProgressIndicator())
+          : TextButton.icon(
+              onPressed: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['msix'],
+                );
+                if (result != null) {
+                  updateController.uploadFile(result.files.single.path!);
+                } else {
+                  const Text("Votre fichier n'existe pas");
+                }
+              },
+              icon: updateController.isUploadingDone
+                  ? Icon(Icons.check_circle_outline,
+                      color: Colors.green.shade700)
+                  : const Icon(Icons.upload_file),
+              label: updateController.isUploadingDone
+                  ? Text("Téléchargement terminé",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.green.shade700))
+                  : Text("Selectionner le fichier",
+                      style: Theme.of(context).textTheme.bodyLarge))));
 }

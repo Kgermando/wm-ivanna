@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/constants/app_theme.dart'; 
+import 'package:wm_com_ivanna/src/constants/app_theme.dart';
+import 'package:wm_com_ivanna/src/controllers/network_controller.dart'; 
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
 import 'package:wm_com_ivanna/src/pages/home/components/home_list.dart';
 import 'package:wm_com_ivanna/src/pages/home/controller/home_controller.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final HomeController controller = Get.put(HomeController());
+  final NetworkController networkController = Get.put(NetworkController());
   String title = "Acceuil";
 
   @override
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         const SizedBox(height: p20),
-                        Wrap(
+                        Obx(() => Wrap(
                           runSpacing: p20,
                           spacing: p20,
                           alignment: WrapAlignment.center,
@@ -118,13 +120,23 @@ class _HomePageState extends State<HomePage> {
                                 onPress: () {
                                   Get.toNamed(
                                       FinanceRoutes.transactionsCaisseDashbaord);
-                                }),
+                                }), 
+                            if(!GetPlatform.isWeb && networkController.connectionStatus == 1)
                             ServiceHome(
+                              title: 'Archive',
+                              icon: Icons.archive,
+                              color: Colors.brown,
+                              onPress: () {
+                                Get.toNamed(ArchiveRoutes.archivesFolder);
+                              }),
+                              if (GetPlatform.isWeb)
+                              ServiceHome(
                                 title: 'Archive',
                                 icon: Icons.archive,
                                 color: Colors.brown,
                                 onPress: () {
-                                  Get.toNamed(ArchiveRoutes.archivesFolder);
+                                  Get.toNamed(
+                                      ArchiveRoutes.archivesFolder);
                                 }),
                             ServiceHome(
                                 title: 'RH',
@@ -148,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                             //   }),
                             // ),
                           ],
-                        ),
+                        )) ,
                         
                       ],
                     ),

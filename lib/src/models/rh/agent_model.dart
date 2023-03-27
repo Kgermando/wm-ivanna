@@ -27,6 +27,8 @@ class AgentModel {
   late DateTime created;
   late String isDelete;
   late String business;
+  late String sync;
+  late String async;
 
   AgentModel({
     this.id,
@@ -57,6 +59,8 @@ class AgentModel {
     required this.created,
     required this.isDelete,
     required this.business,
+    required this.sync,
+    required this.async,
   });
 
   factory AgentModel.fromSQL(List<dynamic> row) {
@@ -88,39 +92,44 @@ class AgentModel {
         signature: row[24],
         created: row[25],
         isDelete: row[26],
-        business: row[27]);
+        business: row[27],
+        sync: row[28],
+        async: row[29]);
   }
 
   factory AgentModel.fromJson(Map<String, dynamic> json) {
     return AgentModel(
-        id: json["id"],
-        nom: json["nom"],
-        postNom: json["postNom"],
-        prenom: json["prenom"],
-        email: json["email"],
-        telephone: json["telephone"],
-        adresse: json["adresse"],
-        sexe: json["sexe"],
-        role: json["role"],
-        matricule: json["matricule"],
-        dateNaissance: DateTime.parse(json['dateNaissance']),
-        lieuNaissance: json["lieuNaissance"],
-        nationalite: json["nationalite"],
-        typeContrat: json["typeContrat"],
-        departement: json["departement"],
-        servicesAffectation: json["servicesAffectation"],
-        dateDebutContrat: DateTime.parse(json['dateDebutContrat']),
-        dateFinContrat: DateTime.parse(json['dateFinContrat']),
-        fonctionOccupe: json["fonctionOccupe"],
-        detailPersonnel: json["detailPersonnel"],
-        statutAgent: json['statutAgent'],
-        createdAt: DateTime.parse(json["createdAt"]),
-        photo: json["photo"],
-        salaire: json["salaire"],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        isDelete: json['isDelete'],
-        business: json['business']);
+      id: json["id"],
+      nom: json["nom"],
+      postNom: json["postNom"],
+      prenom: json["prenom"],
+      email: json["email"],
+      telephone: json["telephone"],
+      adresse: json["adresse"],
+      sexe: json["sexe"],
+      role: json["role"],
+      matricule: json["matricule"],
+      dateNaissance: DateTime.parse(json['dateNaissance']),
+      lieuNaissance: json["lieuNaissance"],
+      nationalite: json["nationalite"],
+      typeContrat: json["typeContrat"],
+      departement: json["departement"],
+      servicesAffectation: json["servicesAffectation"],
+      dateDebutContrat: DateTime.parse(json['dateDebutContrat']),
+      dateFinContrat: DateTime.parse(json['dateFinContrat']),
+      fonctionOccupe: json["fonctionOccupe"],
+      detailPersonnel: json["detailPersonnel"],
+      statutAgent: json['statutAgent'],
+      createdAt: DateTime.parse(json["createdAt"]),
+      photo: json["photo"],
+      salaire: json["salaire"],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      isDelete: json['isDelete'],
+      business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -152,7 +161,9 @@ class AgentModel {
       'signature': signature,
       'created': created.toIso8601String(),
       'isDelete': isDelete,
-      'business': business
+      'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
 }

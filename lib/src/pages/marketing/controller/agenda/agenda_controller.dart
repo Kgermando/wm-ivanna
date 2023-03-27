@@ -85,6 +85,8 @@ class AgendaController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await agendaStore.insertData(dataItem).then((value) {
         clear();
@@ -117,6 +119,8 @@ class AgendaController extends GetxController
         signature: profilController.user.matricule,
         created: data.created,
         business: data.business,
+          sync: "update",
+          async: "async"
       );
       await agendaStore.updateData(dataItem).then((value) {
         clear();

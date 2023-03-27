@@ -80,9 +80,12 @@ class PaiementReservationController extends GetxController
         client: reservationModel.client,
         motif: motifController.text,
         montant: montantController.text,
+          succursale: profilController.user.succursale,
         signature: profilController.user.matricule,
         created: DateTime.now(),
-        business: InfoSystem().business()
+        business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await paiementReservationStore.insertData(dataItem).then((value) async {
         clear();
@@ -116,9 +119,12 @@ class PaiementReservationController extends GetxController
           montant: (montantController.text == '')
               ? data.montant
               : montantController.text,
+          succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: data.created,
-          business: data.business
+          business: data.business,
+          sync: "new",
+          async: "async"
       );
       await paiementReservationStore.updateData(dataItem).then((value) {
         clear();

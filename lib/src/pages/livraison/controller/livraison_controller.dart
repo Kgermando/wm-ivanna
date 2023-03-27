@@ -150,7 +150,9 @@ class LivraisonController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await livraisonStore.insertData(dataItem).then((value) async {
         getList();
         // Get.back();
@@ -185,6 +187,8 @@ class LivraisonController extends GetxController
         signature: profilController.user.matricule,
         created: restaurantModel.created,
         business: restaurantModel.business,
+          sync: "update",
+          async: "async"
       );
       await livraisonStore.updateData(dataItem).then((value) {
         getList();
@@ -219,6 +223,8 @@ class LivraisonController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await facturelivraisonStore
           .insertData(factureCartModel)
@@ -256,6 +262,8 @@ class LivraisonController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       List<FactureRestaurantModel> factureList = [];
       factureList.add(factureCartModel);
@@ -299,6 +307,8 @@ class LivraisonController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await creancelivraisonStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
@@ -341,6 +351,8 @@ class LivraisonController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
 
       List<CreanceRestaurantModel> creanceList = [];
@@ -372,6 +384,8 @@ class LivraisonController extends GetxController
       signature: signature,
       created: DateTime.now(),
       business: InfoSystem().business(),
+        sync: "new",
+        async: "async"
     );
     await numberFactureStore.insertData(numberFactureModel);
   }
@@ -391,6 +405,8 @@ class LivraisonController extends GetxController
         signature: item.signature,
         created: item.created,
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await venteEffectuelivraisonStore.insertData(venteCartModel).then((value) async {
         await livraisonStore.deleteData(item.id!);

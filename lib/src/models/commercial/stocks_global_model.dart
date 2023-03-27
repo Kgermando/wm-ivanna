@@ -12,21 +12,26 @@ class StocksGlobalMOdel {
   late String signature; // celui qui fait le document
   late DateTime created;
   late String business;
+  late String sync; // new, update, sync
+  late String async;
 
-  StocksGlobalMOdel(
-      {this.id,
-      required this.idProduct,
-      required this.quantity,
-      required this.quantityAchat,
-      required this.priceAchatUnit,
-      required this.prixVenteUnit,
-      required this.unite,
-      required this.modeAchat,
-      required this.tva,
-      required this.qtyRavitailler,
-      required this.signature,
-      required this.created,
-      required this.business});
+  StocksGlobalMOdel({
+    this.id,
+    required this.idProduct,
+    required this.quantity,
+    required this.quantityAchat,
+    required this.priceAchatUnit,
+    required this.prixVenteUnit,
+    required this.unite,
+    required this.modeAchat,
+    required this.tva,
+    required this.qtyRavitailler,
+    required this.signature,
+    required this.created,
+    required this.business,
+    required this.sync,
+    required this.async,
+  });
 
   factory StocksGlobalMOdel.fromSQL(List<dynamic> row) {
     return StocksGlobalMOdel(
@@ -42,24 +47,29 @@ class StocksGlobalMOdel {
         qtyRavitailler: row[9],
         signature: row[10],
         created: row[11],
-        business: row[12]);
+        business: row[12],
+        sync: row[13],
+        async: row[14]);
   }
 
   factory StocksGlobalMOdel.fromJson(Map<String, dynamic> json) {
     return StocksGlobalMOdel(
-        id: json['id'],
-        idProduct: json['idProduct'],
-        quantity: json['quantity'],
-        quantityAchat: json['quantityAchat'],
-        priceAchatUnit: json['priceAchatUnit'],
-        prixVenteUnit: json['prixVenteUnit'],
-        unite: json['unite'],
-        modeAchat: json['modeAchat'],
-        tva: json["tva"],
-        qtyRavitailler: json["qtyRavitailler"],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        business: json['business']);
+      id: json['id'],
+      idProduct: json['idProduct'],
+      quantity: json['quantity'],
+      quantityAchat: json['quantityAchat'],
+      priceAchatUnit: json['priceAchatUnit'],
+      prixVenteUnit: json['prixVenteUnit'],
+      unite: json['unite'],
+      modeAchat: json['modeAchat'],
+      tva: json["tva"],
+      qtyRavitailler: json["qtyRavitailler"],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -76,7 +86,9 @@ class StocksGlobalMOdel {
       "qtyRavitailler": qtyRavitailler,
       'signature': signature,
       'created': created.toIso8601String(),
-      'business': business
+      'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
 }

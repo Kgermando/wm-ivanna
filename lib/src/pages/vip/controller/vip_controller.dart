@@ -150,7 +150,9 @@ class VipController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await vipStore.insertData(dataItem).then((value) async {
         getList();
         // Get.back();
@@ -185,6 +187,8 @@ class VipController extends GetxController
         signature: profilController.user.matricule,
         created: restaurantModel.created,
         business: restaurantModel.business,
+          sync: "update",
+          async: "async"
       );
       await vipStore.updateData(dataItem).then((value) {
         getList();
@@ -219,6 +223,8 @@ class VipController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+        sync: "new",
+        async: "async"
       );
       await factureVipStore
           .insertData(factureCartModel)
@@ -256,6 +262,8 @@ class VipController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       List<FactureRestaurantModel> factureList = [];
       factureList.add(factureCartModel);
@@ -299,6 +307,8 @@ class VipController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await creanceVipStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
@@ -341,6 +351,8 @@ class VipController extends GetxController
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
 
       List<CreanceRestaurantModel> creanceList = [];
@@ -371,7 +383,9 @@ class VipController extends GetxController
       succursale: succursale,
       signature: signature,
       created: DateTime.now(),
-      business: InfoSystem().business(),
+      business: InfoSystem().business(), 
+          sync: "new",
+          async: "async"
     );
     await numberFactureStore.insertData(numberFactureModel);
   }
@@ -391,6 +405,8 @@ class VipController extends GetxController
         signature: item.signature,
         created: item.created,
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await venteEffectueVipStore.insertData(venteCartModel).then((value) async {
         await vipStore.deleteData(item.id!);

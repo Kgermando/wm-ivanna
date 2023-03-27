@@ -232,7 +232,9 @@ class PersonnelsController extends GetxController
           signature: profilController.user.matricule,
           created: DateTime.now(),
           isDelete: 'true',
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await personnelStore.insertData(agentModel).then((value) async {
         clear();
         getList();
@@ -318,7 +320,9 @@ class PersonnelsController extends GetxController
           signature: profilController.user.matricule.toString(),
           created: DateTime.now(),
           isDelete: personne.isDelete,
-          business: personne.business);
+          business: personne.business,
+          sync: "update",
+          async: "async");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         personnelsList.clear();
@@ -371,7 +375,9 @@ class PersonnelsController extends GetxController
           signature: personne.signature,
           created: personne.created,
           isDelete: personne.isDelete,
-          business: personne.business);
+          business: personne.business,
+          sync: "update",
+          async: "async");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         Get.back();
@@ -422,7 +428,9 @@ class PersonnelsController extends GetxController
           signature: personne.signature,
           created: personne.created,
           isDelete: 'false',
-          business: personne.business);
+          business: personne.business,
+          sync: "update",
+          async: "async");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         Get.back();

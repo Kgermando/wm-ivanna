@@ -13,6 +13,8 @@ class CaisseModel {
   late DateTime created;
   late String montantDecaissement;
   late String business;
+  late String sync;
+  late String async;
 
   CaisseModel({
     this.id,
@@ -28,26 +30,29 @@ class CaisseModel {
     required this.caisseName,
     required this.created,
     required this.montantDecaissement,
-      required this.business
+    required this.business,
+    required this.sync,
+    required this.async,
   });
 
   factory CaisseModel.fromSQL(List<dynamic> row) {
     return CaisseModel(
-      id: row[0],
-      nomComplet: row[1],
-      pieceJustificative: row[2],
-      libelle: row[3],
-      montantEncaissement: row[4],
-      departement: row[5],
-      typeOperation: row[6],
-      numeroOperation: row[7],
-      signature: row[8],
-      reference: row[9],
-      caisseName: row[10],
-      created: row[11],
-      montantDecaissement: row[12],
-        business: row[13]
-    );
+        id: row[0],
+        nomComplet: row[1],
+        pieceJustificative: row[2],
+        libelle: row[3],
+        montantEncaissement: row[4],
+        departement: row[5],
+        typeOperation: row[6],
+        numeroOperation: row[7],
+        signature: row[8],
+        reference: row[9],
+        caisseName: row[10],
+        created: row[11],
+        montantDecaissement: row[12],
+        business: row[13],
+        sync: row[14],
+        async: row[15]);
   }
 
   factory CaisseModel.fromJson(Map<String, dynamic> json) {
@@ -66,6 +71,8 @@ class CaisseModel {
       created: DateTime.parse(json['created']),
       montantDecaissement: json['montantDecaissement'],
       business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
     );
   }
 
@@ -85,7 +92,8 @@ class CaisseModel {
       'created': created.toIso8601String(),
       'montantDecaissement': montantDecaissement,
       'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
-
 }

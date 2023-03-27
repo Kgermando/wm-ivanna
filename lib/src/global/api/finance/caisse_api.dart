@@ -7,6 +7,7 @@ import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
 import 'package:http/http.dart' as http;
 import 'package:wm_com_ivanna/src/models/finance/caisse_model.dart';
+import 'package:wm_com_ivanna/src/models/finance/chart_multi.dart';
 
 class CaisseApi extends GetConnect {
   var client = http.Client();
@@ -27,6 +28,22 @@ class CaisseApi extends GetConnect {
       throw Exception(jsonDecode(resp.body)['message']);
     }
   }
+
+  Future<List<ChartFinanceModel>> getAllDataChart() async {
+    Map<String, String> header = headers;
+
+    var resp = await client.get(caisseChartUrl, headers: header); 
+    if (resp.statusCode == 200) {
+      List<dynamic> bodyList = json.decode(resp.body);
+      List<ChartFinanceModel> data = [];
+      for (var u in bodyList) {
+        data.add(ChartFinanceModel.fromJson(u));
+      }
+      return data;
+    } else {
+      throw Exception(jsonDecode(resp.body)['message']);
+    }
+  } 
 
   Future<CaisseModel> getOneData(int id) async {
     Map<String, String> header = headers;

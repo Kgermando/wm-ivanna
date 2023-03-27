@@ -11,6 +11,7 @@ import 'package:wm_com_ivanna/src/pages/rh/components/dashboard/dash_pie_wdget.d
 import 'package:wm_com_ivanna/src/pages/rh/controller/dashboard_rh_controller.dart';
 import 'package:wm_com_ivanna/src/pages/rh/controller/personnels_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
+import 'package:wm_com_ivanna/src/widgets/barre_connection_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/dash_number_rh_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/responsive_child_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/title_widget.dart'; 
@@ -75,66 +76,71 @@ class _DashboardRHState extends State<DashboardRH> {
                 child: SingleChildScrollView(
                   controller: ScrollController(),
                   physics: const ScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TitleWidget(title: title),
-                          const SizedBox(height: p10),
-                          Wrap(
-                            alignment: WrapAlignment.spaceEvenly,
+                  child: Column(
+                    children: [
+                      const BarreConnectionWidget(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Obx(() => DashNumberRHWidget(
-                                  gestureTapCallback: () {
-                                    Get.toNamed(RhRoutes.rhPersonnelsPage);
-                                  },
-                                  number: '${controller.agentsCount}',
-                                  title: 'Total agents',
-                                  icon: Icons.group,
-                                  color: Colors.blue.shade700)),
-                              Obx(() => DashNumberRHWidget(
-                                  gestureTapCallback: () {
-                                    Get.toNamed(RhRoutes.rhUserActif);
-                                  },
-                                  number: '${controller.agentActifCount}',
-                                  title: 'Agents Actifs',
-                                  icon: Icons.person,
-                                  color: Colors.green.shade700)),
-                              Obx(() => DashNumberRHWidget(
-                                  gestureTapCallback: () {
-                                    Get.toNamed(RhRoutes.rhPersonnelsPage);
-                                  },
-                                  number: '${controller.agentInactifCount}',
-                                  title: 'Agents inactifs',
-                                  icon: Icons.person_off,
-                                  color: Colors.red.shade700)),
-                              Obx(() => DashNumberRHWidget(
-                                  gestureTapCallback: () {
-                                    Get.toNamed(RhRoutes.rhPersonnelsPage);
-                                  },
-                                  number: '${controller.agentFemmeCount}',
-                                  title: 'Femmes',
-                                  icon: Icons.female,
-                                  color: Colors.purple.shade700)),
-                              Obx(() => DashNumberRHWidget(
-                                  gestureTapCallback: () {
-                                    Get.toNamed(RhRoutes.rhPersonnelsPage);
-                                  },
-                                  number: '${controller.agentHommeCount}',
-                                  title: 'Hommes',
-                                  icon: Icons.male,
-                                  color: Colors.grey.shade700)),
-                              
-                            ],
-                          ),
-                          const SizedBox(height: p20),
-                            ResponsiveChildWidget(
-                              child1: DashRHPieWidget(
-                                  controller:
-                                      personnelsController),
-                              child2: const CalendarWidget())  
-                        ]),
+                              TitleWidget(title: title),
+                              const SizedBox(height: p10),
+                              Wrap(
+                                alignment: WrapAlignment.spaceEvenly,
+                                children: [
+                                  Obx(() => DashNumberRHWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(RhRoutes.rhPersonnelsPage);
+                                      },
+                                      number: '${controller.agentsCount}',
+                                      title: 'Total agents',
+                                      icon: Icons.group,
+                                      color: Colors.blue.shade700)),
+                                  Obx(() => DashNumberRHWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(RhRoutes.rhUserActif);
+                                      },
+                                      number: '${controller.agentActifCount}',
+                                      title: 'Agents Actifs',
+                                      icon: Icons.person,
+                                      color: Colors.green.shade700)),
+                                  Obx(() => DashNumberRHWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(RhRoutes.rhPersonnelsPage);
+                                      },
+                                      number: '${controller.agentInactifCount}',
+                                      title: 'Agents inactifs',
+                                      icon: Icons.person_off,
+                                      color: Colors.red.shade700)),
+                                  Obx(() => DashNumberRHWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(RhRoutes.rhPersonnelsPage);
+                                      },
+                                      number: '${controller.agentFemmeCount}',
+                                      title: 'Femmes',
+                                      icon: Icons.female,
+                                      color: Colors.purple.shade700)),
+                                  Obx(() => DashNumberRHWidget(
+                                      gestureTapCallback: () {
+                                        Get.toNamed(RhRoutes.rhPersonnelsPage);
+                                      },
+                                      number: '${controller.agentHommeCount}',
+                                      title: 'Hommes',
+                                      icon: Icons.male,
+                                      color: Colors.grey.shade700)),
+                                  
+                                ],
+                              ),
+                              const SizedBox(height: p20),
+                                ResponsiveChildWidget(
+                                  child1: DashRHPieWidget(
+                                      controller:
+                                          personnelsController),
+                                  child2: const CalendarWidget())  
+                            ]),
+                      ),
+                    ],
                   ),
                 ))
           ],

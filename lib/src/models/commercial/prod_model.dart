@@ -8,6 +8,8 @@ class ProductModel {
   late String signature; // celui qui fait le document
   late DateTime created;
   late String business;
+  late String sync; // new, update, sync
+  late String async;
 
   ProductModel({
     this.id,
@@ -19,6 +21,9 @@ class ProductModel {
     required this.signature,
     required this.created,
     required this.business,
+    required this.sync,
+    required this.async,
+
   });
 
   factory ProductModel.fromSQL(List<dynamic> row) {
@@ -31,7 +36,9 @@ class ProductModel {
         idProduct: row[5],
         signature: row[6],
         created: row[7],
-        business: row[8]
+        business: row[8],
+        sync: row[9],
+        async: row[10]
       );
   }
 
@@ -46,6 +53,8 @@ class ProductModel {
       signature: json['signature'],
       created: DateTime.parse(json['created']),
       business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
     );
   }
 
@@ -59,7 +68,9 @@ class ProductModel {
       'idProduct': idProduct,
       'signature': signature,
       'created': created.toIso8601String(),
-      'business': business
+      'business': business,
+      'sync': sync,
+      'async': async
     };
   }
 }

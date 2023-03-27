@@ -102,7 +102,9 @@ class UsersController extends GetxController with StateMixin<List<UserModel>> {
           createdAt: DateTime.now(),
           passwordHash: '12345678',
           succursale: '-',
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await usersStore.insertData(userModel).then((value) {
         usersList.clear();
         getList();
@@ -140,7 +142,9 @@ class UsersController extends GetxController with StateMixin<List<UserModel>> {
           createdAt: user.createdAt,
           passwordHash: user.passwordHash,
           succursale: succursale.toString(),
-          business: user.business);
+          business: user.business,
+          sync: "update",
+          async: "async");
       await usersStore.updateData(userModel).then((value) {
         clear();
         usersList.clear();

@@ -149,6 +149,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         created: DateTime.now(),
         createdAt: achat.created,
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await cartStore.insertData(cartModel).then((value) async {
         var qty = double.parse(achat.quantity) -
@@ -169,6 +171,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
           signature: achat.signature,
           created: achat.created,
           business: achat.business,
+            sync: "upadte",
+            async: "async"
         );
         await stockStore.updateData(achatModel).then((value) {
           clear();
@@ -202,6 +206,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await factureStore.insertData(factureCartModel).then((value) async {
         // Genere le numero de la facture
@@ -243,6 +249,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       List<FactureCartModel> factureList = [];
       factureList.add(factureCartModel);
@@ -286,6 +294,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await factureCreanceStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
@@ -335,6 +345,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: profilController.user.matricule,
         created: DateTime.now(),
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
 
       List<CreanceCartModel> creanceList = [];
@@ -366,6 +378,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       signature: signature,
       created: DateTime.now(),
       business: InfoSystem().business(),
+        sync: "new",
+        async: "async"
     );
     await numberFactureStore.insertData(numberFactureModel);
   }
@@ -393,6 +407,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         created: item.created,
         createdAt: item.createdAt,
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await venteEffectueStore.insertData(venteCartModel);
     });
@@ -416,6 +432,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: item.signature,
         created: item.created,
         business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await gainStore.insertData(gainModel);
     });
@@ -462,6 +480,8 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
         signature: achatSignature,
         created: achatCreated,
         business: InfoSystem().business(),
+          sync: "update",
+          async: "async"
       );
       await stockStore.updateData(achatModel);
       deleteData(cart);

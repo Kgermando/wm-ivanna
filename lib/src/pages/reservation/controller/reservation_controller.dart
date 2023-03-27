@@ -119,7 +119,9 @@ class ReservationController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(), 
-          business: InfoSystem().business());
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async");
       await reservationStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -169,7 +171,9 @@ class ReservationController extends GetxController
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: reservationModel.created, 
-          business: reservationModel.business);
+          business: reservationModel.business,
+          sync: "update",
+          async: "async");
       await reservationStore.updateData(dataItem).then((value) {
         clear();
         getList();

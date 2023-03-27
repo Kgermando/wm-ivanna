@@ -138,7 +138,9 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: DateTime.now(),
-          business: InfoSystem().business()
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "async"
       );
       await stockStore.insertData(dataItem).then((value) {
         clear();
@@ -182,7 +184,9 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
           created: data.created,
-          business: data.business);
+          business: data.business,
+          sync: "update",
+          async: "async");
       await stockStore.updateData(dataItem).then((value) {
         clear();
         getList();

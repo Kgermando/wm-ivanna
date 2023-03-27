@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/constants/app_theme.dart';
+import 'package:get/get.dart'; 
 import 'package:wm_com_ivanna/src/constants/responsive.dart';
 import 'package:wm_com_ivanna/src/helpers/monnaire_storage.dart';
 import 'package:wm_com_ivanna/src/navigation/drawer/components/drawer_menu_finance.dart';
 import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
-import 'package:wm_com_ivanna/src/pages/finance/controller/caisses/caisse_controller.dart';
-import 'package:wm_com_ivanna/src/pages/finance/controller/caisses/caisse_name_controller.dart';
-import 'package:wm_com_ivanna/src/widgets/loading.dart';
+import 'package:wm_com_ivanna/src/pages/finance/components/caisses/chart_caisse.dart'; 
+import 'package:wm_com_ivanna/src/pages/finance/controller/caisses/chart_caisse_controller.dart';
+import 'package:wm_com_ivanna/src/pages/finance/controller/dashboard/dashboard_finance_controller.dart';
+import 'package:wm_com_ivanna/src/widgets/barre_connection_widget.dart';
+import 'package:wm_com_ivanna/src/widgets/dashboard_card_widget.dart'; 
 
 class DashboardCaisse extends StatefulWidget {
   const DashboardCaisse({super.key});
@@ -17,41 +18,74 @@ class DashboardCaisse extends StatefulWidget {
 }
 
 class _DashboardCaisseState extends State<DashboardCaisse> {
+  final DashboardFinanceController controller = Get.find();
+  final ChartCaisseController chartCaisseController = Get.find();
   final MonnaieStorage monnaieStorage = Get.put(MonnaieStorage());
-  final CaisseNameController caisseNameController = Get.find();
-  final CaisseController controller = Get.find();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   String title = "Finances";
   String subTitle = "Dashboard";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: scaffoldKey,
-        appBar: headerBar(context, scaffoldKey, title, subTitle),
-        drawer: const DrawerMenuFinance(),
-        body: Row(
-          children: [
-            Visibility(
-                visible: !Responsive.isMobile(context),
-                child: const Expanded(flex: 1, child: DrawerMenuFinance())),
-            Expanded(
-                flex: 5,
-                child: controller.obx(
-                    onLoading: loadingPage(context),
-                    onEmpty: const Text('Aucune donnée'),
-                    onError: (error) => loadingError(context, error!),
-                    (data) => Container(
-                        margin: EdgeInsets.only(
-                            top: Responsive.isMobile(context) ? 0.0 : p20,
-                            bottom: p8,
-                            right: Responsive.isDesktop(context) ? p20 : 0,
-                            left: Responsive.isDesktop(context) ? p20 : 0),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Container()))),
-          ],
-        ));
+    return SafeArea(
+      child: Scaffold(
+          key: scaffoldKey,
+          appBar: headerBar(context, scaffoldKey, title, subTitle),
+          drawer: const DrawerMenuFinance(),
+          body: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Visibility(
+                  visible: !Responsive.isMobile(context),
+                  child: const Expanded(flex: 1, child: DrawerMenuFinance())),
+              Expanded(
+                  flex: 5,
+                  child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    physics: const ScrollPhysics(),
+                    child: Obx(() => Column(
+                      children: [
+                        const BarreConnectionWidget(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Wrap(
+                                      alignment: WrapAlignment.spaceEvenly,
+                                      spacing: 12.0,
+                                      runSpacing: 12.0,
+                                      direction: Axis.horizontal,
+                                      children: [
+                                        DashboardCardWidget(
+                                          gestureTapCallback: () {},
+                                          title: 'TOTAL CAISSES',
+                                          icon: Icons.savings,
+                                          montant: '${controller.soldeCaisse}',
+                                          color: Colors.teal.shade700,
+                                          colorText: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Card(
+                                        child: ChartCaisse(
+                                      chartCaisseController:
+                                          chartCaisseController,
+                                      monnaieStorage: monnaieStorage,
+                                    )),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ]),
+                        ),
+                      ],
+                    ),) 
+                  ))
+            ],
+          )),
+    );
   }
 }

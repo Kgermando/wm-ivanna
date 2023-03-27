@@ -9,6 +9,7 @@ import 'package:wm_com_ivanna/src/navigation/header/header_bar.dart';
 import 'package:wm_com_ivanna/src/pages/reservation/components/dash_reservation_pie_wdget.dart';
 import 'package:wm_com_ivanna/src/pages/reservation/controller/dashboard_reservation_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
+import 'package:wm_com_ivanna/src/widgets/barre_connection_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/dash_number_widget.dart';
 import 'package:wm_com_ivanna/src/widgets/loading.dart';
 
@@ -21,6 +22,7 @@ class DashboardReservationPage extends StatefulWidget {
 }
 
 class _DashboardReservationPageState extends State<DashboardReservationPage> {
+  final DashboardReservationController controller = Get.find();
   final MonnaieStorage monnaieStorage = Get.put(MonnaieStorage());
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   String title = "Reservations";
@@ -28,7 +30,7 @@ class _DashboardReservationPageState extends State<DashboardReservationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardReservationController controller = Get.find();
+    
     return Scaffold(
         key: scaffoldKey,
         appBar: headerBar(context, scaffoldKey, title, subTitle),
@@ -41,58 +43,57 @@ class _DashboardReservationPageState extends State<DashboardReservationPage> {
                 child: const Expanded(flex: 1, child: DrawerMenuReservation())),
             Expanded(
                 flex: 5,
-                child: controller.obx(
-                    onLoading: loadingPage(context),
-                    onEmpty: const Text('Aucune donnée'),
-                    onError: (error) => loadingError(context, error!),
-                    (data) => Container(
-                        margin: EdgeInsets.only(
-                            top: Responsive.isMobile(context) ? 0.0 : p20,
-                            bottom: p8,
-                            right: Responsive.isDesktop(context) ? p20 : 0,
-                            left: Responsive.isDesktop(context) ? p20 : 0),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: SingleChildScrollView(
-                          child: Obx(() => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Wrap(
-                              alignment: WrapAlignment.spaceEvenly,
-                              children: [
-                                DashNumberWidget(
-                                    gestureTapCallback: () {
-                                      Get.toNamed(ReservationRoutes.reservation);
-                                    },
-                                    number: "${NumberFormat.decimalPattern('fr').format(controller.montantPayE)} \$",
-                                        // '${NumberFormat.decimalPattern('fr').format(controller.sumVente)} ${monnaieStorage.monney}',
-                                    title: 'Total payés',
-                                    icon: Icons.shopping_cart,
-                                    color: Colors.green.shade700),
-                                DashNumberWidget(
-                                    gestureTapCallback: () {
-                                       Get.toNamed(
-                                          ReservationRoutes.reservation);
-                                    },
-                                    number: "${NumberFormat.decimalPattern('fr').format(controller.montantNonPayE)} \$",
-                                        // '${NumberFormat.decimalPattern('fr').format(controller.sumGain)} ${monnaieStorage.monney}',
-                                    title: 'Total à payés',
-                                    icon: Icons.grain,
-                                    color: Colors.purple.shade700), 
-                              ],
-                            ), 
-                            const SizedBox(
-                              height: 20.0,
+                child: Obx(() => SingleChildScrollView(
+                    child: Column(
+                          children: [
+                            const BarreConnectionWidget(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Wrap(
+                                    alignment: WrapAlignment.spaceEvenly,
+                                    children: [
+                                      DashNumberWidget(
+                                          gestureTapCallback: () {
+                                            Get.toNamed(
+                                                ReservationRoutes.reservation);
+                                          },
+                                          number:
+                                              "${NumberFormat.decimalPattern('fr').format(controller.montantPayE)} \$",
+                                          // '${NumberFormat.decimalPattern('fr').format(controller.sumVente)} ${monnaieStorage.monney}',
+                                          title: 'Total payés',
+                                          icon: Icons.shopping_cart,
+                                          color: Colors.green.shade700),
+                                      DashNumberWidget(
+                                          gestureTapCallback: () {
+                                            Get.toNamed(
+                                                ReservationRoutes.reservation);
+                                          },
+                                          number:
+                                              "${NumberFormat.decimalPattern('fr').format(controller.montantNonPayE)} \$",
+                                          // '${NumberFormat.decimalPattern('fr').format(controller.sumGain)} ${monnaieStorage.monney}',
+                                          title: 'Total à payés',
+                                          icon: Icons.grain,
+                                          color: Colors.purple.shade700),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  DashReservationPieWidget(
+                                    controller: controller,
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                ],
+                              ),
                             ),
-                            DashReservationPieWidget(
-                              controller: controller, 
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ), 
                           ],
-                          )) )))),
+                        )))
+              ),
           ],
         ));
   }

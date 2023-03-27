@@ -45,10 +45,13 @@ import 'package:wm_com_ivanna/src/global/api/vip/table_vip_api.dart';
 import 'package:wm_com_ivanna/src/global/api/vip/vente_effectuee_vip_api.dart';
 import 'package:wm_com_ivanna/src/global/api/vip/vip_api.dart';
 import 'package:wm_com_ivanna/src/global/store/commercial/cart_store.dart';
+import 'package:wm_com_ivanna/src/global/store/finance/caisse_name_store.dart';
+import 'package:wm_com_ivanna/src/global/store/finance/caisse_store.dart';
 import 'package:wm_com_ivanna/src/global/store/marketing/agenda_store.dart';
 import 'package:wm_com_ivanna/src/global/store/marketing/annuaire_store.dart';
 import 'package:wm_com_ivanna/src/global/store/rh/personnel_store.dart';
 import 'package:wm_com_ivanna/src/global/store/rh/users_store.dart';
+import 'package:wm_com_ivanna/src/models/finance/caisse_name_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
@@ -92,17 +95,20 @@ class DepartementNotifyCOntroller extends GetxController {
   final TableLivraisonApi tableLivraisonApi = TableLivraisonApi();
   final VenteEffectueLivraisonApi venteEffectueLivraisonApi =
       VenteEffectueLivraisonApi();
+
   final CreanceRestApi creanceRestApi = CreanceRestApi();
   final FactureRestApi factureRestApi = FactureRestApi();
   final RestaurantApi restaurantApi = RestaurantApi();
   final TableRestApi tableRestApi = TableRestApi();
   final VenteEffectueRestApi venteEffectueRestApi = VenteEffectueRestApi();
+
   final CreanceTerrassApi creanceTerrassApi = CreanceTerrassApi();
   final FactureTerrasseApi factureTerrasseApi = FactureTerrasseApi();
   final TableTerrasseApi tableTerrasseApi = TableTerrasseApi();
   final TerrasseApi terrasseApi = TerrasseApi();
   final VenteEffectueTerrasseApi venteEffectueTerrasseApi =
       VenteEffectueTerrasseApi();
+
   final CreanceVipApi creanceVipApi = CreanceVipApi();
   final FactureVipApi factureVipApi = FactureVipApi();
   final TableVipApi tableVipApi = TableVipApi();
@@ -110,7 +116,9 @@ class DepartementNotifyCOntroller extends GetxController {
   final VipApi vipApi = VipApi();
 
   final CaisseNameApi caisseNameApi = CaisseNameApi();
+  final CaisseNameStore caisseNameStore = CaisseNameStore();
   final CaisseApi caisseApi = CaisseApi();
+  final CaisseStore caisseStore = CaisseStore();
   final ReservationApi reservationApi = ReservationApi();
   final PaiementReservationApi paiementReservationApi =
       PaiementReservationApi();
@@ -179,37 +187,39 @@ class DepartementNotifyCOntroller extends GetxController {
       _isLoading.value = true;
       bool result = await InternetConnectionChecker().hasConnection;
       if (result == true) {
+        print("hasConnection $result");
         String? idToken = getStorge.read(InfoSystem.keyIdToken);
         if (idToken != null) {
+          print("idToken $idToken");
           // Marketing
-          int annuaireStoreCount = await annuaireStore.getCount();
-          var annuaireStoreList = await annuaireStore.getAllData();
-          var annuaireList = await annuaireApi.getAllData();
-          var isUpdateDataList = annuaireStoreList
-              .where((element) =>
-                  element.created.millisecondsSinceEpoch !=
-                  element.updateCreated.millisecondsSinceEpoch)
-              .toList();
-          if (annuaireList.isEmpty || annuaireList.length != annuaireStoreCount ||
-              isUpdateDataList.isNotEmpty) {
-            var annuaireAddList = [];
-            for (final local in annuaireStoreList) {
-              bool found = false;
-              for (final cloud in annuaireList) {
-                if (local.nomPostnomPrenom == cloud.nomPostnomPrenom) {
-                  found = true;
-                  print("annuaire found $found");
-                  break;
-                }
-              }
-              if (!found) {
-                annuaireAddList.add(local);
-                print("annuaire local $local");
-                await annuaireApi.insertData(local);
-              }
-            } 
-          }
-          
+          // int annuaireStoreCount = await annuaireStore.getCount();
+          // var annuaireStoreList = await annuaireStore.getAllData();
+          // var annuaireList = await annuaireApi.getAllData();
+          // var isUpdateDataList = annuaireStoreList
+          //     .where((element) =>
+          //         element.created.millisecondsSinceEpoch !=
+          //         element.updateCreated.millisecondsSinceEpoch)
+          //     .toList();
+          // if (annuaireList.isEmpty ||
+          //     annuaireList.length != annuaireStoreCount ||
+          //     isUpdateDataList.isNotEmpty) {
+          //   var annuaireAddList = [];
+          //   for (final local in annuaireStoreList) {
+          //     bool found = false;
+          //     for (final cloud in annuaireList) {
+          //       if (local.nomPostnomPrenom == cloud.nomPostnomPrenom) {
+          //         found = true;
+          //         print("annuaire found $found");
+          //         break;
+          //       }
+          //     }
+          //     if (!found) {
+          //       annuaireAddList.add(local);
+          //       print("annuaire local $local");
+          //       await annuaireApi.insertData(local);
+          //     }
+          //   }
+          // }
 
           // Commercial
 
@@ -226,6 +236,44 @@ class DepartementNotifyCOntroller extends GetxController {
           // Caisses
 
           // RH & Users
+          var caisseNameLocalList = await caisseNameStore.getAllData();
+          var caisseNameList = caisseNameLocalList
+              .where((element) => element.sync == "new")
+              .toList();
+          var caisseNameUpdateList = caisseNameLocalList
+              .where((element) => element.sync == "update")
+              .toList(); 
+          for (var element in caisseNameList) {
+            final caisseName = CaisseNameModel(
+                nomComplet: element.nomComplet,
+                rccm: element.rccm,
+                idNat: element.idNat,
+                addresse: element.addresse,
+                created: element.created,
+                business: element.business,
+                sync: "sync",
+                async: "async",
+              );
+            await caisseNameApi.insertData(caisseName).then((value) async {
+              await caisseNameStore.updateData(value);
+            });
+          }
+          for (var element in caisseNameUpdateList) {
+            final caisseName = CaisseNameModel(
+              id: element.id,
+              nomComplet: element.nomComplet,
+              rccm: element.rccm,
+              idNat: element.idNat,
+              addresse: element.addresse,
+              created: element.created,
+              business: element.business,
+              sync: "sync",
+              async: "async",
+            );
+            await caisseNameApi.updateData(caisseName).then((value) async {
+              await caisseNameStore.updateData(value);
+            });
+          }
 
           _isLoading.value = false;
         }

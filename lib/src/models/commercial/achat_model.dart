@@ -14,23 +14,28 @@ class AchatModel {
   late String signature;
   late DateTime created;
   late String business;
+  late String sync; // new, update, sync
+  late String async;
 
-  AchatModel(
-      {this.id,
-      required this.idProduct,
-      required this.quantity,
-      required this.quantityAchat,
-      required this.priceAchatUnit,
-      required this.prixVenteUnit,
-      required this.unite,
-      required this.tva,
-      required this.remise,
-      required this.qtyRemise,
-      required this.qtyLivre,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business});
+  AchatModel({
+    this.id,
+    required this.idProduct,
+    required this.quantity,
+    required this.quantityAchat,
+    required this.priceAchatUnit,
+    required this.prixVenteUnit,
+    required this.unite,
+    required this.tva,
+    required this.remise,
+    required this.qtyRemise,
+    required this.qtyLivre,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
+    required this.sync,
+    required this.async,
+  });
 
   factory AchatModel.fromSQL(List<dynamic> row) {
     return AchatModel(
@@ -48,26 +53,31 @@ class AchatModel {
         succursale: row[11],
         signature: row[12],
         created: row[13],
-        business: row[14]);
+        business: row[14],
+        sync: row[15],
+        async: row[16]);
   }
 
   factory AchatModel.fromJson(Map<String, dynamic> json) {
     return AchatModel(
-        id: json['id'],
-        idProduct: json['idProduct'],
-        quantity: json['quantity'],
-        quantityAchat: json['quantityAchat'],
-        priceAchatUnit: json['priceAchatUnit'],
-        prixVenteUnit: json['prixVenteUnit'],
-        unite: json['unite'],
-        tva: json["tva"],
-        remise: json["remise"],
-        qtyRemise: json["qtyRemise"],
-        qtyLivre: json["qtyLivre"],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        business: json['business']);
+      id: json['id'],
+      idProduct: json['idProduct'],
+      quantity: json['quantity'],
+      quantityAchat: json['quantityAchat'],
+      priceAchatUnit: json['priceAchatUnit'],
+      prixVenteUnit: json['prixVenteUnit'],
+      unite: json['unite'],
+      tva: json["tva"],
+      remise: json["remise"],
+      qtyRemise: json["qtyRemise"],
+      qtyLivre: json["qtyLivre"],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
+      sync: json['sync'],
+      async: json['async'],
+    );
   }
 
   Map<String, dynamic> toJson({required int id}) {
@@ -86,7 +96,9 @@ class AchatModel {
       'succursale': succursale,
       'signature': signature,
       'created': created.toIso8601String(),
-      'business': business
+      'business': business,
+      'sync': sync,
+      'async': async,
     };
   }
 }

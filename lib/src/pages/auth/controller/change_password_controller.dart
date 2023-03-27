@@ -26,7 +26,10 @@ class ChangePasswordController extends GetxController {
           createdAt: DateTime.now(),
           passwordHash: '-',
           succursale: '-',
-          business: InfoSystem().business())
+          business: InfoSystem().business(),
+          sync: '-',
+          async: '-',
+      )
       .obs;
 
   UserModel get user => _user.value;
