@@ -98,21 +98,16 @@ class _UpdatePageState extends State<UpdatePage> {
                 child: const Expanded(flex: 1, child: DrawerMenu())),
             Expanded(
                 flex: 5,
-                child: controller.obx(
-                    onLoading: loadingPage(context),
-                    onEmpty: const Text('Aucune donnée'),
-                    onError: (error) => loadingError(context, error!),
-                    (state) => Container(
-                        margin: EdgeInsets.only(
-                            top: Responsive.isMobile(context) ? 0.0 : p20,
-                            bottom: p8,
-                            right: Responsive.isDesktop(context) ? p20 : 0,
-                            left: Responsive.isDesktop(context) ? p20 : 0),
-                        decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: TableUpdate(
-                            updateList: state!, controller: controller)))),
+                child: Container(
+                    margin: EdgeInsets.only(
+                        top: Responsive.isMobile(context) ? 0.0 : p20,
+                        bottom: p8,
+                        right: Responsive.isDesktop(context) ? p20 : 0,
+                        left: Responsive.isDesktop(context) ? p20 : 0),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Obx(() => TableUpdate(
+                        updateList: controller.updateVersionList, controller: controller)) )),
           ],
         ));
   }

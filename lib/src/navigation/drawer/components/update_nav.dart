@@ -21,51 +21,51 @@ class _UpdateNavState extends State<UpdateNav> {
   Widget build(BuildContext context) {
     final bodyMedium = Theme.of(context).textTheme.bodyMedium;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
-    final currentRoute = Get.currentRoute; 
-    var route = currentRoute.split('/'); 
-    return controller.obx(
-    onLoading: loadingPage(context),
-    onEmpty: const Text('Aucune donnée'),
-    (state) => Obx(() => (!GetPlatform.isWeb &&
-                networkController.connectionStatus == 1) ? ExpansionTile(
-          leading: const Icon(Icons.update, size: 20.0),
-          title: Text('Update', style: bodyMedium),
-          initiallyExpanded: (route.elementAt(1) == 'update') ? true : false,
-          onExpansionChanged: (val) {
-            isOpen = !val;
-          },
-          children: state!.map((element) {
-            return DrawerWidget(
-                selected: widget.currentRoute == '/update/${element.id}',
-                icon: Icons.arrow_right,
-                sizeIcon: 15.0,
-                title: element.version.toUpperCase(),
-                style: bodySmall!,
-                onTap: () {
-                  Get.toNamed('/update/${element.id!}', arguments: element);
-                });
-          }).toList(),
-        ) : (GetPlatform.isWeb) ? ExpansionTile(
-                    leading: const Icon(Icons.update, size: 20.0),
-                    title: Text('Update', style: bodyMedium),
-                    initiallyExpanded:
-                        (route.elementAt(1) == 'update') ? true : false,
-                    onExpansionChanged: (val) {
-                      isOpen = !val;
-                    },
-                    children: state!.map((element) {
-                      return DrawerWidget(
-                          selected:
-                              widget.currentRoute == '/update/${element.id}',
-                          icon: Icons.arrow_right,
-                          sizeIcon: 15.0,
-                          title: element.version.toUpperCase(),
-                          style: bodySmall!,
-                          onTap: () {
-                            Get.toNamed('/update/${element.id!}',
-                                arguments: element);
-                          });
-                    }).toList(),
-                  ) : Container()) );
+    final currentRoute = Get.currentRoute;
+    var route = currentRoute.split('/');
+    return Obx(() => (!GetPlatform.isWeb &&
+            networkController.connectionStatus == 1)
+        ? ExpansionTile(
+            leading: const Icon(Icons.update, size: 20.0),
+            title: Text('Update', style: bodyMedium),
+            initiallyExpanded: (route.elementAt(1) == 'update') ? true : false,
+            onExpansionChanged: (val) {
+              isOpen = !val;
+            },
+            children: controller.updateVersionList.map((element) {
+              return DrawerWidget(
+                  selected: widget.currentRoute == '/update/${element.id}',
+                  icon: Icons.arrow_right,
+                  sizeIcon: 15.0,
+                  title: element.version.toUpperCase(),
+                  style: bodySmall!,
+                  onTap: () {
+                    Get.toNamed('/update/${element.id!}', arguments: element);
+                  });
+            }).toList(),
+          )
+        : (GetPlatform.isWeb)
+            ? ExpansionTile(
+                leading: const Icon(Icons.update, size: 20.0),
+                title: Text('Update', style: bodyMedium),
+                initiallyExpanded:
+                    (route.elementAt(1) == 'update') ? true : false,
+                onExpansionChanged: (val) {
+                  isOpen = !val;
+                },
+                children: controller.updateVersionList.map((element) {
+                  return DrawerWidget(
+                      selected: widget.currentRoute == '/update/${element.id}',
+                      icon: Icons.arrow_right,
+                      sizeIcon: 15.0,
+                      title: element.version.toUpperCase(),
+                      style: bodySmall!,
+                      onTap: () {
+                        Get.toNamed('/update/${element.id!}',
+                            arguments: element);
+                      });
+                }).toList(),
+              )
+            : Container());
   }
 }

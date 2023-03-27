@@ -48,92 +48,79 @@ class _DetailUpdateState extends State<DetailUpdate> {
                 child: const Expanded(flex: 1, child: DrawerMenu())),
             Expanded(
                 flex: 5,
-                child: controller.obx(
-                    onLoading: loadingPage(context),
-                    onEmpty: const Text('Aucune donnée'),
-                    onError: (error) => loadingError(context, error!),
-                    (state) => SingleChildScrollView(
-                        controller: ScrollController(),
-                        physics: const ScrollPhysics(),
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              top: Responsive.isMobile(context) ? 0.0 : p20,
-                              bottom: p8,
-                              right: Responsive.isMobile(context) ? 0.0 : p20,
-                              left: Responsive.isMobile(context) ? 0.0 : p20),
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: Column(
-                            children: [
-                              Card(
-                                elevation: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: p20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                child: SingleChildScrollView(
+                    controller: ScrollController(),
+                    physics: const ScrollPhysics(),
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          top: Responsive.isMobile(context) ? 0.0 : p20,
+                          bottom: p8,
+                          right: Responsive.isMobile(context) ? 0.0 : p20,
+                          left: Responsive.isMobile(context) ? 0.0 : p20),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: p20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                      const TitleWidget(title: "Mise à jour"),
+                                      Column(
                                         children: [
-                                          const TitleWidget(
-                                              title: "Mise à jour"),
-                                          Column(
-                                            children: [
-                                              SelectableText(
-                                                  DateFormat("dd-MM-yyyy HH:mm")
-                                                      .format(widget
-                                                          .updateModel.created),
-                                                  textAlign: TextAlign.start),
-                                              const SizedBox(height: p20),
-                                              Obx(() => (controller
-                                                      .isDownloading)
-                                                  ? (controller
-                                                              .progressString ==
-                                                          "100%")
-                                                      ? const Icon(Icons.check,
-                                                          size: p20)
-                                                      : Obx(() => AutoSizeText(
-                                                          controller
-                                                              .progressString,
-                                                          maxLines: 1,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize:
-                                                                      16.0)))
-                                                  : IconButton(
-                                                      iconSize: 60,
-                                                      tooltip:
-                                                          "Télécharger cette version",
-                                                      onPressed: () {
-                                                        controller
-                                                            .downloadNetworkSoftware(
-                                                                url: widget
-                                                                    .updateModel
-                                                                    .urlUpdate);
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.download,
-                                                          color:
-                                                              Colors.green))),
-                                            ],
-                                          ),
+                                          SelectableText(
+                                              DateFormat("dd-MM-yyyy HH:mm")
+                                                  .format(widget
+                                                      .updateModel.created),
+                                              textAlign: TextAlign.start),
+                                          const SizedBox(height: p20),
+                                          Obx(() => (controller.isDownloading)
+                                              ? (controller.progressString ==
+                                                      "100%")
+                                                  ? const Icon(Icons.check,
+                                                      size: p20)
+                                                  : Obx(() => AutoSizeText(
+                                                      controller.progressString,
+                                                      maxLines: 1,
+                                                      style: const TextStyle(
+                                                          fontSize: 16.0)))
+                                              : IconButton(
+                                                  iconSize: 60,
+                                                  tooltip:
+                                                      "Télécharger cette version",
+                                                  onPressed: () {
+                                                    controller
+                                                        .downloadNetworkSoftware(
+                                                            url: widget
+                                                                .updateModel
+                                                                .urlUpdate);
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.download,
+                                                      color: Colors.green))),
                                         ],
                                       ),
-                                      dataWidget(),
                                     ],
                                   ),
-                                ),
+                                  dataWidget(),
+                                ],
                               ),
-                              const SizedBox(
-                                height: p20,
-                              ),
-                            ],
+                            ),
                           ),
-                        ))))
+                          const SizedBox(
+                            height: p20,
+                          ),
+                        ],
+                      ),
+                    )))
           ],
         ));
   }

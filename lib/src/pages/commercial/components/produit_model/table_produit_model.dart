@@ -105,9 +105,6 @@ class _TableProduitModelState extends State<TableProduitModel> {
                   } else if (column.field == 'unite') {
                     return resolver<PlutoFilterTypeContains>()
                         as PlutoFilterType;
-                  } else if (column.field == 'price') {
-                    return resolver<PlutoFilterTypeContains>()
-                        as PlutoFilterType;
                   } else if (column.field == 'created') {
                     return resolver<PlutoFilterTypeContains>()
                         as PlutoFilterType;
@@ -135,7 +132,6 @@ class _TableProduitModelState extends State<TableProduitModel> {
         'idProduct': PlutoCell(value: item.idProduct),
         'identifiant': PlutoCell(value: item.identifiant),
         'unite': PlutoCell(value: item.unite),
-        'price': PlutoCell(value: "${NumberFormat.decimalPattern('fr').format(double.parse(item.price))} ${monnaieStorage.monney}"),
         'created':
             PlutoCell(value: DateFormat("dd-MM-yy HH:mm").format(item.created)),
         'id': PlutoCell(value: item.id)
@@ -206,28 +202,6 @@ class _TableProduitModelState extends State<TableProduitModel> {
         enableContextMenu: false,
         enableDropToResize: true,
         titleTextAlign: PlutoColumnTextAlign.left,
-        width: 200,
-        minWidth: 150,
-      ),
-      PlutoColumn(
-        readOnly: true,
-        title: 'Prix',
-        field: 'price',
-        type: PlutoColumnType.text(),
-        enableRowDrag: true,
-        enableContextMenu: false,
-        enableDropToResize: true,
-        titleTextAlign: PlutoColumnTextAlign.left,
-        renderer: (rendererContext) {
-          return Text(
-            rendererContext.cell.value.toString(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.blueGrey,
-              fontWeight: FontWeight.bold,
-            ),
-          );
-        },
         width: 200,
         minWidth: 150,
       ),

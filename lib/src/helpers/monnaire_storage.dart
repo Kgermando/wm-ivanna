@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:wm_com_ivanna/src/global/api/settings/monnaie_api.dart';
 import 'package:wm_com_ivanna/src/models/settings/monnaie_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
-class MonnaieStorage extends GetxController
-    with StateMixin<List<MonnaieModel>> {
+class MonnaieStorage extends GetxController {
   final MonnaieApi monnaieApi = MonnaieApi();
   final ProfilController profilController = Get.find();
 
@@ -43,19 +43,36 @@ class MonnaieStorage extends GetxController
   }
 
   void getList() async {
-    await monnaieApi.getAllData().then((response) {
-      monnaieList.clear();
-      monnaieActiveList.clear();
-      monnaieList.addAll(response);
-      monnaieActiveList.addAll(
-          response.where((element) => element.isActive == 'true').toList());
-      if (monnaieActiveList.isNotEmpty) {
-        _monney.value = monnaieActiveList.first.monnaie;
+    if (!GetPlatform.isWeb) {
+       bool result = await InternetConnectionChecker().hasConnection;
+      if (result == true) {
+        await monnaieApi.getAllData().then((response) {
+          monnaieList.clear();
+          monnaieActiveList.clear();
+          monnaieList.addAll(response);
+          monnaieActiveList.addAll(
+              response.where((element) => element.isActive == 'true').toList());
+          if (monnaieActiveList.isNotEmpty) {
+            _monney.value = monnaieActiveList.first.monnaie;
+          }
+         
+        });
       }
-      change(monnaieList, status: RxStatus.success());
-    }, onError: (err) {
-      change(null, status: RxStatus.error(err.toString()));
-    });
+    }
+
+    if (GetPlatform.isWeb) {
+      await monnaieApi.getAllData().then((response) {
+        monnaieList.clear();
+        monnaieActiveList.clear();
+        monnaieList.addAll(response);
+        monnaieActiveList.addAll(
+            response.where((element) => element.isActive == 'true').toList());
+        if (monnaieActiveList.isNotEmpty) {
+          _monney.value = monnaieActiveList.first.monnaie;
+        }
+        });
+    }
+    
   }
 
   void deleteData(int id) async {

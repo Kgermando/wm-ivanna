@@ -13,7 +13,7 @@ class BarreConnectionWidget extends StatelessWidget {
           width: double.infinity,
           color: (networkController.connectionStatus == 1)
               ? Colors.green
-              : Colors.black,
+              : Colors.black, 
           child: (networkController.connectionStatus == 1)
               ? Text(
                   "Vous êtes connecté",

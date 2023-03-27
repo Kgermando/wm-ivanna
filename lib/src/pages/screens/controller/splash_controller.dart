@@ -62,6 +62,7 @@ class SplashController extends GetxController {
   final LoginController loginController = Get.put(LoginController());
   final UsersController usersController = Get.put(UsersController());
   final HomeController homeController = Get.put(HomeController());
+  
 
   final getStorge = GetStorage();
 
@@ -72,7 +73,9 @@ class SplashController extends GetxController {
 
     String? idToken = getStorge.read(InfoSystem.keyIdToken);
     if (idToken != null) {
-      Get.lazyPut(() => NetworkController());
+      if (!GetPlatform.isWeb) {
+        Get.lazyPut(() => NetworkController());
+      }
       Get.lazyPut(() => ProfilController());
       Get.lazyPut(() => HomeController(), fenix: true);
       Get.lazyPut(() => ChangePasswordController());
@@ -149,7 +152,14 @@ class SplashController extends GetxController {
       Get.lazyPut(() => AnnuaireController());
 
       // Update Version
-      Get.lazyPut(() => UpdateController());
+      if(GetPlatform.isWindows) {
+        final NetworkController networkController = Get.put(NetworkController());
+        if (networkController.connectionStatus == 1) {
+          Get.lazyPut(() => UpdateController());
+        }
+      }
+      
+      
 
       isLoggIn();
     } else {

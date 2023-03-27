@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:wm_com_ivanna/src/global/api/upload_file_api.dart';
 import 'package:get/get.dart';
 import 'package:open_app_file/open_app_file.dart';
@@ -9,8 +10,7 @@ import 'package:wm_com_ivanna/src/models/update/update_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
-class UpdateController extends GetxController
-    with StateMixin<List<UpdateModel>> {
+class UpdateController extends GetxController {
   final UpdateVersionApi updateVersionApi = UpdateVersionApi();
   final ProfilController profilController = Get.find();
 
@@ -89,6 +89,7 @@ class UpdateController extends GetxController
 
   @override
   void refresh() {
+
     getList();
     super.refresh();
   }
@@ -107,29 +108,28 @@ class UpdateController extends GetxController
   }
 
   void getList() async {
-    await updateVersionApi.getAllData().then((response) {
-      updateVersionList.clear();
-      updateVersionList.addAll(response);
+    if (!GetPlatform.isWeb) {
+        bool result = await InternetConnectionChecker().hasConnection;
+      if (result == true) {
+          await updateVersionApi.getAllData().then((response) {
+          updateVersionList.clear();
+          updateVersionList.addAll(response);
 
-      if (updateVersionList.isNotEmpty) {
-        // // Version actuel
-        var isVersion = isUpdateLocalVersion.split('.');
-        _sumLocalVersion.value = int.parse(isVersion.join());
-        // for (var e in isVersion) {
-        //   _sumLocalVersion.value += double.parse(e);
-        // }
-
-        // Version Cloud
-        var isVersionCloud = updateVersionList.first.version.split('.');
-        _sumVersionCloud.value = int.parse(isVersionCloud.join());
-        // for (var e in isVersionCloud) {
-        //   _sumVersionCloud.value += double.parse(e);
-        // }
+          if (updateVersionList.isNotEmpty) {
+            // // Version actuel
+            var isVersion = isUpdateLocalVersion.split('.');
+            _sumLocalVersion.value = int.parse(isVersion.join()); 
+            // Version Cloud
+            var isVersionCloud = updateVersionList.first.version.split('.');
+            _sumVersionCloud.value = int.parse(isVersionCloud.join()); 
+          }
+           
+        }
+        );
       }
-      change(updateVersionList, status: RxStatus.success());
-    }, onError: (err) {
-      change(null, status: RxStatus.error(err.toString()));
-    });
+      
+    }
+    
   }
 
   detailView(int id) async {

@@ -251,8 +251,8 @@ class DepartementNotifyCOntroller extends GetxController {
                 addresse: element.addresse,
                 created: element.created,
                 business: element.business,
-                sync: "sync",
-                async: "async",
+                sync: "new",
+                async: element.async,
               );
             await caisseNameApi.insertData(caisseName).then((value) async {
               await caisseNameStore.updateData(value);
@@ -267,8 +267,8 @@ class DepartementNotifyCOntroller extends GetxController {
               addresse: element.addresse,
               created: element.created,
               business: element.business,
-              sync: "sync",
-              async: "async",
+              sync: "update",
+              async: element.async,
             );
             await caisseNameApi.updateData(caisseName).then((value) async {
               await caisseNameStore.updateData(value);
