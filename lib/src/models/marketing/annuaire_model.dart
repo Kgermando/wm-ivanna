@@ -19,22 +19,22 @@ class AnnuaireModel {
   late String sync;
   late String async;
 
-  AnnuaireModel(
-      {this.id,
-      required this.categorie,
-      required this.nomPostnomPrenom,
-      required this.email,
-      required this.mobile1,
-      required this.mobile2,
-      required this.secteurActivite,
-      required this.nomEntreprise,
-      required this.grade,
-      required this.adresseEntreprise,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business,
-      required this.updateCreated,
+  AnnuaireModel({
+    this.id,
+    required this.categorie,
+    required this.nomPostnomPrenom,
+    required this.email,
+    required this.mobile1,
+    required this.mobile2,
+    required this.secteurActivite,
+    required this.nomEntreprise,
+    required this.grade,
+    required this.adresseEntreprise,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
+    required this.updateCreated,
     required this.sync,
     required this.async,
   });
@@ -62,27 +62,27 @@ class AnnuaireModel {
 
   factory AnnuaireModel.fromJson(Map<String, dynamic> json) {
     return AnnuaireModel(
-        id: json['id'],
-        categorie: json['categorie'],
-        nomPostnomPrenom: json['nomPostnomPrenom'],
-        email: json['email'],
-        mobile1: json['mobile1'],
-        mobile2: json['mobile2'],
-        secteurActivite: json['secteurActivite'],
-        nomEntreprise: json['nomEntreprise'],
-        grade: json['grade'],
-        adresseEntreprise: json['adresseEntreprise'],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        business: json['business'],
+      id: json['id'],
+      categorie: json['categorie'],
+      nomPostnomPrenom: json['nomPostnomPrenom'],
+      email: json['email'],
+      mobile1: json['mobile1'],
+      mobile2: json['mobile2'],
+      secteurActivite: json['secteurActivite'],
+      nomEntreprise: json['nomEntreprise'],
+      grade: json['grade'],
+      adresseEntreprise: json['adresseEntreprise'],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
       updateCreated: DateTime.parse(json['updateCreated']),
       sync: json['sync'],
       async: json['async'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'categorie': categorie,
@@ -103,8 +103,6 @@ class AnnuaireModel {
       'async': async,
     };
   }
-
-
 }
 
 class AnnuaireColor {

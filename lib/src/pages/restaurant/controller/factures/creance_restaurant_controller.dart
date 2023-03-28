@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/store/restaurant/creance_restaurant_store.dart';
-import 'package:wm_com_ivanna/src/global/store/restaurant/facture_restaurant_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/restaurant/facture_restaurant_store.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/creance_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/facture_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -9,7 +9,8 @@ import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class CreanceRestaurantController extends GetxController
     with StateMixin<List<CreanceRestaurantModel>> {
-  final CreanceRestaurantStore creanceRestaurantStore = CreanceRestaurantStore();
+  final CreanceRestaurantStore creanceRestaurantStore =
+      CreanceRestaurantStore();
   final FactureRestaurantStore factureRestaurantStore =
       FactureRestaurantStore();
   final ProfilController profilController = Get.find();
@@ -25,7 +26,6 @@ class CreanceRestaurantController extends GetxController
     super.onInit();
     getList();
   }
- 
 
   void getList() async {
     await creanceRestaurantStore.getAllData().then((response) {
@@ -65,7 +65,6 @@ class CreanceRestaurantController extends GetxController
     }
   }
 
-
   void submit(CreanceRestaurantModel data) async {
     try {
       _isLoading.value = true;
@@ -79,7 +78,7 @@ class CreanceRestaurantController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await factureRestaurantStore.insertData(dataItem).then((value) {
         deleteData(data.id!); // Une fois dette payé suppression du fichier
         getList();
@@ -99,6 +98,4 @@ class CreanceRestaurantController extends GetxController
           snackPosition: SnackPosition.TOP);
     }
   }
-
-   
 }

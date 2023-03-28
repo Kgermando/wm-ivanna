@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/global/store/vip/table_vip_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/vip/table_vip_store.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/table_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
@@ -83,7 +83,7 @@ class TableVipController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await tableVipStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -115,7 +115,7 @@ class TableVipController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "update",
-          async: "async");
+          async: "new");
       await tableVipStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -147,7 +147,7 @@ class TableVipController extends GetxController
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await tableVipStore.updateData(dataItem).then((value) {
         getList();
         Get.back();

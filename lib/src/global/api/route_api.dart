@@ -168,6 +168,10 @@ var addHistoryLivraisonUrl =
 
 
 // Restaurant
+var prodModelRestUrl =
+    Uri.parse("$mainUrl/prod-mode-rests/${InfoSystem().business()}/");
+var addProdModelRestUrl =
+    Uri.parse("$mainUrl/prod-mode-rests/insert-new-produit-model"); 
 var venteChartRestaurantUrl =
     Uri.parse("$mainUrl/vente-effectuee-rests/vente-chart/${InfoSystem().business()}");
 var venteChartDayRestaurantUrl =
@@ -203,6 +207,10 @@ var addVenteEffectueeRestaurantUrl =
     Uri.parse("$mainUrl/vente-effectuee-rests/insert-new-vente");
 
 // Vip
+var prodModelVipUrl =
+    Uri.parse("$mainUrl/prod-mode-vips/${InfoSystem().business()}/");
+var addProdModelVipUrl =
+    Uri.parse("$mainUrl/prod-mode-vips/insert-new-produit-model"); 
 var venteChartVipUrl = Uri.parse(
     "$mainUrl/vente-effectuee-vips/vente-chart/${InfoSystem().business()}");
 var venteChartDayVipUrl = Uri.parse(
@@ -236,6 +244,10 @@ var addVenteEffectueeVipUrl =
     Uri.parse("$mainUrl/vente-effectuee-vips/insert-new-vente");
 
 // Terrasse
+var prodModelTerrasseUrl =
+    Uri.parse("$mainUrl/prod-mode-terrasses/${InfoSystem().business()}/");
+var addProdModelTerrasseUrl =
+    Uri.parse("$mainUrl/prod-mode-terrasses/insert-new-produit-model"); 
 var venteChartTerrasseUrl = Uri.parse(
     "$mainUrl/vente-effectuee-terrasses/vente-chart/${InfoSystem().business()}");
 var venteChartDayTerrasseUrl = Uri.parse(
@@ -265,6 +277,10 @@ var addVenteEffectueeTerrasseUrl =
     Uri.parse("$mainUrl/vente-effectuee-terrasses/insert-new-vente");
 
 // Livraison
+var prodModelLivraisonUrl =
+    Uri.parse("$mainUrl/prod-mode-livraisons/${InfoSystem().business()}/");
+var addProdModelLivraisonUrl =
+    Uri.parse("$mainUrl/prod-mode-livraisons/insert-new-produit-model"); 
 var venteChartLivraisonUrl = Uri.parse(
     "$mainUrl/vente-effectuee-livraisons/vente-chart/${InfoSystem().business()}");
 var venteChartDayLivraisonUrl = Uri.parse(

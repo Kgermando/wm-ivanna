@@ -162,23 +162,22 @@ class AnnuaireController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = AnnuaireModel(
-        categorie: categorie.toString(),
-        nomPostnomPrenom: nomPostnomPrenomController.text,
-        email: emailController.text,
-        mobile1: mobile1Controller.text,
-        mobile2: mobile2Controller.text,
-        secteurActivite: secteurActiviteController.text,
-        nomEntreprise: nomEntrepriseController.text,
-        grade: gradeController.text,
-        adresseEntreprise: adresseEntrepriseController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
-        updateCreated: DateTime.now(),
+          categorie: categorie.toString(),
+          nomPostnomPrenom: nomPostnomPrenomController.text,
+          email: emailController.text,
+          mobile1: mobile1Controller.text,
+          mobile2: mobile2Controller.text,
+          secteurActivite: secteurActiviteController.text,
+          nomEntreprise: nomEntrepriseController.text,
+          grade: gradeController.text,
+          adresseEntreprise: adresseEntrepriseController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
+          updateCreated: DateTime.now(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await annuaireStore.insertData(dataItem).then((value) {
         clear();
         updateList(dataItem);
@@ -203,24 +202,23 @@ class AnnuaireController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = AnnuaireModel(
-        id: data.id,
-        categorie: categorie.toString(),
-        nomPostnomPrenom: nomPostnomPrenomController.text,
-        email: emailController.text,
-        mobile1: mobile1Controller.text,
-        mobile2: mobile2Controller.text,
-        secteurActivite: secteurActiviteController.text,
-        nomEntreprise: nomEntrepriseController.text,
-        grade: gradeController.text,
-        adresseEntreprise: adresseEntrepriseController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: data.created,
-        business: data.business,
-        updateCreated: DateTime.now(),
+          id: data.id,
+          categorie: categorie.toString(),
+          nomPostnomPrenom: nomPostnomPrenomController.text,
+          email: emailController.text,
+          mobile1: mobile1Controller.text,
+          mobile2: mobile2Controller.text,
+          secteurActivite: secteurActiviteController.text,
+          nomEntreprise: nomEntrepriseController.text,
+          grade: gradeController.text,
+          adresseEntreprise: adresseEntrepriseController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: data.created,
+          business: data.business,
+          updateCreated: DateTime.now(),
           sync: "update",
-          async: "async"
-      );
+          async: "new");
       await annuaireStore.updateData(dataItem).then((value) {
         clear();
         updateList(dataItem);

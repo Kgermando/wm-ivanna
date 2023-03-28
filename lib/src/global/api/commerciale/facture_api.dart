@@ -43,7 +43,7 @@ class FactureApi extends GetConnect {
   Future<FactureCartModel> insertData(FactureCartModel factureCartModel) async {
     Map<String, String> header = headers;
 
-    var data = factureCartModel.toJson(id: factureCartModel.id!);
+    var data = factureCartModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addFacturesUrl, headers: header, body: body);
@@ -60,7 +60,7 @@ class FactureApi extends GetConnect {
   Future<FactureCartModel> updateData(FactureCartModel factureCartModel) async {
     Map<String, String> header = headers;
 
-    var data = factureCartModel.toJson(id: factureCartModel.id!);
+    var data = factureCartModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/factures/update-facture/");
 

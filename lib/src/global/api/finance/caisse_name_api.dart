@@ -42,7 +42,7 @@ class CaisseNameApi extends GetConnect {
   Future<CaisseNameModel> insertData(CaisseNameModel name) async {
     Map<String, String> header = headers;
 
-    var data = name.toJson(id: name.id!);
+    var data = name.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addCaisseNameUrl, headers: header, body: body);
@@ -59,7 +59,7 @@ class CaisseNameApi extends GetConnect {
   Future<CaisseNameModel> updateData(CaisseNameModel name) async {
     Map<String, String> header = headers;
 
-    var data = name.toJson(id: name.id!);
+    var data = name.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse(
         "$mainUrl/finances/transactions/caisses-name/update-transaction-banque/");

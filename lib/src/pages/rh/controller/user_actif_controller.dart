@@ -104,7 +104,7 @@ class UsersController extends GetxController with StateMixin<List<UserModel>> {
           succursale: '-',
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await usersStore.insertData(userModel).then((value) {
         usersList.clear();
         getList();
@@ -144,7 +144,7 @@ class UsersController extends GetxController with StateMixin<List<UserModel>> {
           succursale: succursale.toString(),
           business: user.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await usersStore.updateData(userModel).then((value) {
         clear();
         usersList.clear();

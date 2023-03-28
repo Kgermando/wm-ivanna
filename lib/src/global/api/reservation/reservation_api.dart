@@ -60,7 +60,7 @@ class ReservationApi extends GetConnect {
   Future<ReservationModel> insertData(ReservationModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -78,7 +78,7 @@ class ReservationApi extends GetConnect {
   Future<ReservationModel> updateData(ReservationModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/reservations/update-reservation/");
 

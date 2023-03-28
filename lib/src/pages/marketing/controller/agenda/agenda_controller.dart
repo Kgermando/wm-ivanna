@@ -79,15 +79,14 @@ class AgendaController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = AgendaModel(
-        title: titleController.text,
-        description: descriptionController.text,
-        dateRappel: dateTime!,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          title: titleController.text,
+          description: descriptionController.text,
+          dateRappel: dateTime!,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await agendaStore.insertData(dataItem).then((value) {
         clear();
         updateList(dataItem);
@@ -112,16 +111,15 @@ class AgendaController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = AgendaModel(
-        id: data.id!,
-        title: titleController.text,
-        description: descriptionController.text,
-        dateRappel: dateTime!,
-        signature: profilController.user.matricule,
-        created: data.created,
-        business: data.business,
+          id: data.id!,
+          title: titleController.text,
+          description: descriptionController.text,
+          dateRappel: dateTime!,
+          signature: profilController.user.matricule,
+          created: data.created,
+          business: data.business,
           sync: "update",
-          async: "async"
-      );
+          async: "new");
       await agendaStore.updateData(dataItem).then((value) {
         clear();
         updateList(dataItem);

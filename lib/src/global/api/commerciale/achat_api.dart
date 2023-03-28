@@ -43,7 +43,7 @@ class AchatApi extends GetConnect {
   Future<AchatModel> insertData(AchatModel achatModel) async {
     Map<String, String> header = headers;
 
-    var data = achatModel.toJson(id: achatModel.id!);
+    var data = achatModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addAchatsUrl, headers: header, body: body);
@@ -60,7 +60,7 @@ class AchatApi extends GetConnect {
   Future<AchatModel> updateData(AchatModel achatModel) async {
     Map<String, String> header = headers;
 
-    var data = achatModel.toJson(id: achatModel.id!);
+    var data = achatModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/achats/update-achat/");
 

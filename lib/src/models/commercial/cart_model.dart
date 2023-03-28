@@ -16,24 +16,24 @@ class CartModel {
   late String sync; // new, update, sync
   late String async;
 
-
-  CartModel(
-      {this.id,
-      required this.idProductCart,
-      required this.quantityCart,
-      required this.priceCart,
-      required this.priceAchatUnit,
-      required this.unite,
-      required this.tva,
-      required this.remise,
-      required this.qtyRemise,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.createdAt,
-      required this.business,
+  CartModel({
+    this.id,
+    required this.idProductCart,
+    required this.quantityCart,
+    required this.priceCart,
+    required this.priceAchatUnit,
+    required this.unite,
+    required this.tva,
+    required this.remise,
+    required this.qtyRemise,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.createdAt,
+    required this.business,
     required this.sync,
-    required this.async,});
+    required this.async,
+  });
 
   factory CartModel.fromSQL(List<dynamic> row) {
     return CartModel(
@@ -57,26 +57,26 @@ class CartModel {
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
     return CartModel(
-        id: json['id'],
-        idProductCart: json['idProductCart'],
-        quantityCart: json['quantityCart'],
-        priceCart: json['priceCart'],
-        priceAchatUnit: json['priceAchatUnit'],
-        unite: json['unite'],
-        tva: json["tva"],
-        remise: json["remise"],
-        qtyRemise: json["qtyRemise"],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        createdAt: DateTime.parse(json['createdAt']),
-        business: json['business'],
+      id: json['id'],
+      idProductCart: json['idProductCart'],
+      quantityCart: json['quantityCart'],
+      priceCart: json['priceCart'],
+      priceAchatUnit: json['priceAchatUnit'],
+      unite: json['unite'],
+      tva: json["tva"],
+      remise: json["remise"],
+      qtyRemise: json["qtyRemise"],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      createdAt: DateTime.parse(json['createdAt']),
+      business: json['business'],
       sync: json['sync'],
       async: json['async'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'idProductCart': idProductCart,
@@ -96,6 +96,4 @@ class CartModel {
       'async': async,
     };
   }
-
-  
 }

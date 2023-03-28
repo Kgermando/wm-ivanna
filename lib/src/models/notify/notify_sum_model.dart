@@ -11,7 +11,7 @@ class NotifySumModel {
     return NotifySumModel(sum: json['sum']);
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {'sum': sum};
   }
 }

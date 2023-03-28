@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/store/commercial/cart_store.dart';
-import 'package:wm_com_ivanna/src/global/store/commercial/stock_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/commercial/stock_store.dart';
 import 'package:wm_com_ivanna/src/models/commercial/achat_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/produit_model/produit_model_controller.dart';
-import 'package:wm_com_ivanna/src/utils/info_system.dart'; 
+import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class AchatController extends GetxController with StateMixin<List<AchatModel>> {
   final StockStore stockStore = StockStore();
-  final CartStore cartStore = CartStore(); 
+  final CartStore cartStore = CartStore();
 
   final ProfilController profilController = Get.put(ProfilController());
   final ProduitModelController produitModelController =
@@ -30,18 +30,17 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
   String? idProduct;
   String quantityAchat = '0';
   String priceAchatUnit = '0';
-  double prixVenteUnit = 0; 
+  double prixVenteUnit = 0;
   double remise = 0;
-  double qtyRemise = 0; 
+  double qtyRemise = 0;
   double tva = 0;
- 
+
   @override
   void onInit() {
     super.onInit();
     getList();
     onSearchText('');
   }
- 
 
   @override
   void dispose() {
@@ -53,7 +52,7 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
     idProduct = null;
   }
 
-  void getList() async { 
+  void getList() async {
     await stockStore.getAllData().then((response) async {
       achatList.clear();
       venteFilterQtyList.clear();
@@ -67,7 +66,7 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
               element.succursale == profilController.user.succursale)
           .toList());
       achatList.refresh();
-      venteFilterQtyList.refresh(); 
+      venteFilterQtyList.refresh();
 
       change(achatList, status: RxStatus.success());
     }, onError: (err) {
@@ -140,8 +139,7 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await stockStore.insertData(dataItem).then((value) {
         clear();
         getList();
@@ -186,7 +184,7 @@ class AchatController extends GetxController with StateMixin<List<AchatModel>> {
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await stockStore.updateData(dataItem).then((value) {
         clear();
         getList();

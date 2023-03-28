@@ -44,7 +44,7 @@ class NumberFactureApi extends GetConnect {
       NumberFactureModel numberFactureModel) async {
     Map<String, String> header = headers;
 
-    var data = numberFactureModel.toJson(id: numberFactureModel.id!);
+    var data = numberFactureModel.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -63,7 +63,7 @@ class NumberFactureApi extends GetConnect {
       NumberFactureModel numberFactureModel) async {
     Map<String, String> header = headers;
 
-    var data = numberFactureModel.toJson(id: numberFactureModel.id!);
+    var data = numberFactureModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/number-facts/update-number-fact/");
 

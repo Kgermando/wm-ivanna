@@ -11,14 +11,14 @@ class AgendaModel {
   late String sync;
   late String async;
 
-  AgendaModel(
-      {this.id,
-      required this.title,
-      required this.description,
-      required this.dateRappel,
-      required this.signature,
-      required this.created,
-      required this.business,
+  AgendaModel({
+    this.id,
+    required this.title,
+    required this.description,
+    required this.dateRappel,
+    required this.signature,
+    required this.created,
+    required this.business,
     required this.sync,
     required this.async,
   });
@@ -50,7 +50,7 @@ class AgendaModel {
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'title': title,

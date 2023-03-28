@@ -15,18 +15,18 @@ class CreanceCartModel {
   late String sync; // new, update, sync
   late String async;
 
-  CreanceCartModel(
-      {this.id,
-      required this.cart,
-      required this.client,
-      required this.nomClient,
-      required this.telephone,
-      required this.addresse,
-      required this.delaiPaiement,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business,
+  CreanceCartModel({
+    this.id,
+    required this.cart,
+    required this.client,
+    required this.nomClient,
+    required this.telephone,
+    required this.addresse,
+    required this.delaiPaiement,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
     required this.sync,
     required this.async,
   });
@@ -48,13 +48,13 @@ class CreanceCartModel {
         async: row[12]);
   }
 
-  factory CreanceCartModel.fromJson(Map<String, dynamic> json) { 
+  factory CreanceCartModel.fromJson(Map<String, dynamic> json) {
     return CreanceCartModel(
       id: json['id'],
       cart: json['cart']
-            .map((mapping) => CartModel.fromJson(mapping))
-            .toList()
-            .cast<CartModel>(),
+          .map((mapping) => CartModel.fromJson(mapping))
+          .toList()
+          .cast<CartModel>(),
       client: json['client'],
       nomClient: json['nomClient'],
       telephone: json['telephone'],
@@ -63,13 +63,13 @@ class CreanceCartModel {
       succursale: json['succursale'],
       signature: json['signature'],
       created: DateTime.parse(json['created']),
-        business: json['business'],
+      business: json['business'],
       sync: json['sync'],
       async: json['async'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'cart': cart.map((item) => item.toJson(id: id)).toList(growable: false),
@@ -86,6 +86,4 @@ class CreanceCartModel {
       'async': async,
     };
   }
-
-   
 }

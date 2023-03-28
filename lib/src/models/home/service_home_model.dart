@@ -3,7 +3,7 @@ class ServiceHomeModel {
   late String name;
   late String categorie;
   late String iconPlace;
-  late String signature; 
+  late String signature;
   late DateTime created;
   late String business;
 
@@ -18,14 +18,13 @@ class ServiceHomeModel {
 
   factory ServiceHomeModel.fromSQL(List<dynamic> row) {
     return ServiceHomeModel(
-      id: row[0],
-      name: row[1],
-      categorie: row[2],
-      iconPlace: row[3],
-      signature: row[4],
-      created: row[5],
-      business: row[6]
-    );
+        id: row[0],
+        name: row[1],
+        categorie: row[2],
+        iconPlace: row[3],
+        signature: row[4],
+        created: row[5],
+        business: row[6]);
   }
 
   factory ServiceHomeModel.fromJson(Map<String, dynamic> json) {
@@ -34,22 +33,21 @@ class ServiceHomeModel {
       name: json['name'],
       categorie: json['categorie'],
       iconPlace: json['iconPlace'],
-      signature: json['signature'], 
+      signature: json['signature'],
       created: DateTime.parse(json['created']),
       business: json['business'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'name': name,
       'categorie': categorie,
       'iconPlace': iconPlace,
-      'signature': signature, 
+      'signature': signature,
       'created': created.toIso8601String(),
       'business': business,
     };
   }
 }
- 

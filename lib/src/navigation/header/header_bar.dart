@@ -85,6 +85,7 @@ AppBar headerBar(BuildContext context, GlobalKey<ScaffoldState> scaffoldKey,
             ),
           ),
     actions: [
+      if(!GetPlatform.isWeb && networkController.connectionStatus == 1)
       Obx(() => departementNotifyCOntroller.isLoading
           ? loadingMini()
           : IconButton(

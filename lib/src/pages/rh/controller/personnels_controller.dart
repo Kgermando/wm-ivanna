@@ -234,7 +234,7 @@ class PersonnelsController extends GetxController
           isDelete: 'true',
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await personnelStore.insertData(agentModel).then((value) async {
         clear();
         getList();
@@ -322,7 +322,7 @@ class PersonnelsController extends GetxController
           isDelete: personne.isDelete,
           business: personne.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         personnelsList.clear();
@@ -377,7 +377,7 @@ class PersonnelsController extends GetxController
           isDelete: personne.isDelete,
           business: personne.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         Get.back();
@@ -430,7 +430,7 @@ class PersonnelsController extends GetxController
           isDelete: 'false',
           business: personne.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await personnelStore.updateData(agentModel).then((value) {
         clear();
         Get.back();

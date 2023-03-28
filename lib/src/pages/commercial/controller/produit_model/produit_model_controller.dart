@@ -54,7 +54,8 @@ class ProduitModelController extends GetxController
     achatList.value = await stockStore.getAllData();
     await produitModelStore.getAllData().then((response) {
       produitModelList.clear();
-      produitModelList.addAll(response.where((element) => element.service == 'commercial'));
+      produitModelList
+          .addAll(response.where((element) => element.service == 'commercial'));
       produitModelList.refresh();
       change(produitModelList, status: RxStatus.success());
     }, onError: (err) {
@@ -97,7 +98,7 @@ class ProduitModelController extends GetxController
       _isLoading.value = true;
       String price = (priceController.text == '0') ? '' : priceController.text;
       final idProductform =
-          "${identifiantController.text.trim()}-${uniteController.text.trim()} $price"; 
+          "${identifiantController.text.trim()}-${uniteController.text.trim()} $price";
       final dataItem = ProductModel(
           service: 'commercial',
           identifiant: (identifiantController.text == "")
@@ -112,7 +113,7 @@ class ProduitModelController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await produitModelStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -139,23 +140,25 @@ class ProduitModelController extends GetxController
       _isLoading.value = true;
       String price = (priceController.text == '0') ? '' : priceController.text;
       final idProductform =
-          "${identifiantController.text.trim()}-${uniteController.text.trim()} $price"; 
+          "${identifiantController.text.trim()}-${uniteController.text.trim()} $price";
       final dataItem = ProductModel(
           id: data.id,
           service: data.service,
           identifiant: (identifiantController.text == "")
               ? data.identifiant
               : identifiantController.text.trim(),
-          unite:
-              (uniteController.text == "") ? data.unite : uniteController.text.trim(),
-          price:
-              (priceController.text == "") ? data.price : priceController.text.trim(),
+          unite: (uniteController.text == "")
+              ? data.unite
+              : uniteController.text.trim(),
+          price: (priceController.text == "")
+              ? data.price
+              : priceController.text.trim(),
           idProduct: idProductform.replaceAll(' ', '').toUpperCase(),
           signature: profilController.user.matricule,
           created: DateTime.now(),
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await produitModelStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();

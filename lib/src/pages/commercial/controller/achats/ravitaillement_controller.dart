@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/models/commercial/achat_model.dart';
 import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
 import 'package:wm_com_ivanna/src/models/commercial/history_ravitaillement_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/commercial/controller/achats/achat_controller.dart';
-import 'package:wm_com_ivanna/src/pages/commercial/controller/history/history_ravitaillement_controller.dart'; 
-import 'package:wm_com_ivanna/src/utils/info_system.dart'; 
+import 'package:wm_com_ivanna/src/pages/commercial/controller/history/history_ravitaillement_controller.dart';
+import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class RavitaillementController extends GetxController {
   final AchatController achatController = Get.find();
@@ -89,32 +89,32 @@ class RavitaillementController extends GetxController {
           created: stock.created,
           business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await historyRavitaillementController.historyRavitaillementstore
           .insertData(historyRavitaillementModel)
           .then((value) {
         // Update stock global
         final achatModel = AchatModel(
-          id: stock.id,
-          idProduct: stock.idProduct,
-          quantity: qtyDisponible.toString(),
-          quantityAchat: qtyDisponible.toString(),
-          priceAchatUnit: (controllerpriceAchatUnit.text == '') ? stock.priceAchatUnit
+            id: stock.id,
+            idProduct: stock.idProduct,
+            quantity: qtyDisponible.toString(),
+            quantityAchat: qtyDisponible.toString(),
+            priceAchatUnit: (controllerpriceAchatUnit.text == '')
+                ? stock.priceAchatUnit
                 : controllerpriceAchatUnit.text,
-          prixVenteUnit: (pavTVA == 0) ? stock.prixVenteUnit : pavTVA.toString(),
-          unite: stock.unite,
-          tva: (tva == 0) ? stock.tva : tva.toString(),
-          remise: stock.remise,
-          qtyRemise: stock.qtyRemise,
-          qtyLivre: stock.qtyLivre,
-          succursale: stock.succursale,
-          signature: profilController.user.matricule,
-          created: DateTime.now(),
-          business: InfoSystem().business(),
+            prixVenteUnit:
+                (pavTVA == 0) ? stock.prixVenteUnit : pavTVA.toString(),
+            unite: stock.unite,
+            tva: (tva == 0) ? stock.tva : tva.toString(),
+            remise: stock.remise,
+            qtyRemise: stock.qtyRemise,
+            qtyLivre: stock.qtyLivre,
+            succursale: stock.succursale,
+            signature: profilController.user.matricule,
+            created: DateTime.now(),
+            business: InfoSystem().business(),
             sync: "upadte",
-            async: "async"
-        );
+            async: "new");
         achatController.stockStore.updateData(achatModel).then((value) {
           clear();
           achatController.getList();

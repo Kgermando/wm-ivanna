@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/store/livraison/creance_livraison_store.dart';
-import 'package:wm_com_ivanna/src/global/store/livraison/facture_livraison_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/livraison/facture_livraison_store.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/creance_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/models/restaurant/facture_restaurant_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -10,8 +10,7 @@ import 'package:wm_com_ivanna/src/utils/info_system.dart';
 class CreanceLivraisonController extends GetxController
     with StateMixin<List<CreanceRestaurantModel>> {
   final CreanceLivraisonStore creancelivraisonStore = CreanceLivraisonStore();
-  final FactureLivraisonStore factureRestaurantStore =
-      FactureLivraisonStore();
+  final FactureLivraisonStore factureRestaurantStore = FactureLivraisonStore();
   final ProfilController profilController = Get.find();
 
   var creanceFactureList = <CreanceRestaurantModel>[].obs;
@@ -25,7 +24,6 @@ class CreanceLivraisonController extends GetxController
     super.onInit();
     getList();
   }
- 
 
   void getList() async {
     await creancelivraisonStore.getAllData().then((response) {
@@ -65,7 +63,6 @@ class CreanceLivraisonController extends GetxController
     }
   }
 
-
   void submit(CreanceRestaurantModel data) async {
     try {
       _isLoading.value = true;
@@ -79,7 +76,7 @@ class CreanceLivraisonController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await factureRestaurantStore.insertData(dataItem).then((value) {
         deleteData(data.id!); // Une fois dette payé suppression du fichier
         getList();
@@ -99,6 +96,4 @@ class CreanceLivraisonController extends GetxController
           snackPosition: SnackPosition.TOP);
     }
   }
-
-   
 }

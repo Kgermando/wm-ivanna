@@ -135,45 +135,43 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
     try {
       _isLoading.value = true;
       final cartModel = CartModel(
-        idProductCart: achat.idProduct,
-        quantityCart:
-            quantityCartController.text, // controllerQuantityCart.toString(),
-        priceCart: achat.prixVenteUnit,
-        priceAchatUnit: achat.priceAchatUnit,
-        unite: achat.unite,
-        tva: achat.tva,
-        remise: achat.remise,
-        qtyRemise: achat.qtyRemise,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        createdAt: achat.created,
-        business: InfoSystem().business(),
-          sync: "new",
-          async: "async"
-      );
-      await cartStore.insertData(cartModel).then((value) async {
-        var qty = double.parse(achat.quantity) -
-            double.parse(quantityCartController.text);
-        final achatModel = AchatModel(
-          id: achat.id!,
-          idProduct: achat.idProduct,
-          quantity: qty.toString(),
-          quantityAchat: achat.quantityAchat,
+          idProductCart: achat.idProduct,
+          quantityCart:
+              quantityCartController.text, // controllerQuantityCart.toString(),
+          priceCart: achat.prixVenteUnit,
           priceAchatUnit: achat.priceAchatUnit,
-          prixVenteUnit: achat.prixVenteUnit,
           unite: achat.unite,
           tva: achat.tva,
           remise: achat.remise,
           qtyRemise: achat.qtyRemise,
-          qtyLivre: achat.qtyLivre,
-          succursale: achat.succursale,
-          signature: achat.signature,
-          created: achat.created,
-          business: achat.business,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          createdAt: achat.created,
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "new");
+      await cartStore.insertData(cartModel).then((value) async {
+        var qty = double.parse(achat.quantity) -
+            double.parse(quantityCartController.text);
+        final achatModel = AchatModel(
+            id: achat.id!,
+            idProduct: achat.idProduct,
+            quantity: qty.toString(),
+            quantityAchat: achat.quantityAchat,
+            priceAchatUnit: achat.priceAchatUnit,
+            prixVenteUnit: achat.prixVenteUnit,
+            unite: achat.unite,
+            tva: achat.tva,
+            remise: achat.remise,
+            qtyRemise: achat.qtyRemise,
+            qtyLivre: achat.qtyLivre,
+            succursale: achat.succursale,
+            signature: achat.signature,
+            created: achat.created,
+            business: achat.business,
             sync: "upadte",
-            async: "async"
-        );
+            async: "new");
         await stockStore.updateData(achatModel).then((value) {
           clear();
           cartList.clear();
@@ -196,19 +194,18 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       _isFactureLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final factureCartModel = FactureCartModel(
-        cart: cartListItem,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: cartListItem,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await factureStore.insertData(factureCartModel).then((value) async {
         // Genere le numero de la facture
         numberFactureField(factureCartModel.client, factureCartModel.succursale,
@@ -239,19 +236,18 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       _isFactureLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final factureCartModel = FactureCartModel(
-        cart: cartListItem,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: cartListItem,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       List<FactureCartModel> factureList = [];
       factureList.add(factureCartModel);
       // ignore: unused_local_variable
@@ -276,27 +272,26 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceCartModel(
-        cart: cartListItem,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: cartListItem,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await factureCreanceStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
             creanceCartModel.signature);
@@ -327,27 +322,26 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceCartModel(
-        cart: cartListItem,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: cartListItem,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
 
       List<CreanceCartModel> creanceList = [];
       creanceList.add(creanceCartModel);
@@ -373,18 +367,17 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
   Future<void> numberFactureField(
       String number, String succursale, String signature) async {
     final numberFactureModel = NumberFactureModel(
-      number: number,
-      succursale: succursale,
-      signature: signature,
-      created: DateTime.now(),
-      business: InfoSystem().business(),
+        number: number,
+        succursale: succursale,
+        signature: signature,
+        created: DateTime.now(),
+        business: InfoSystem().business(),
         sync: "new",
-        async: "async"
-    );
+        async: "new");
     await numberFactureStore.insertData(numberFactureModel);
   }
 
-  Future<void> venteHisotory(List<CartModel> cartItemList) async { 
+  Future<void> venteHisotory(List<CartModel> cartItemList) async {
     cartItemList.forEach((item) async {
       double priceTotal = 0;
       if (double.parse(item.quantityCart) >= double.parse(item.qtyRemise)) {
@@ -395,21 +388,20 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
             double.parse(item.quantityCart) * double.parse(item.priceCart);
       }
       final venteCartModel = VenteCartModel(
-        idProductCart: item.idProductCart,
-        quantityCart: item.quantityCart,
-        priceTotalCart: priceTotal.toString(),
-        unite: item.unite,
-        tva: item.tva,
-        remise: item.remise,
-        qtyRemise: item.qtyRemise,
-        succursale: item.succursale,
-        signature: item.signature,
-        created: item.created,
-        createdAt: item.createdAt,
-        business: InfoSystem().business(),
+          idProductCart: item.idProductCart,
+          quantityCart: item.quantityCart,
+          priceTotalCart: priceTotal.toString(),
+          unite: item.unite,
+          tva: item.tva,
+          remise: item.remise,
+          qtyRemise: item.qtyRemise,
+          succursale: item.succursale,
+          signature: item.signature,
+          created: item.created,
+          createdAt: item.createdAt,
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await venteEffectueStore.insertData(venteCartModel);
     });
   }
@@ -427,14 +419,13 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
                 double.parse(item.quantityCart);
       }
       final gainModel = GainModel(
-        sum: gainTotal,
-        succursale: item.succursale,
-        signature: item.signature,
-        created: item.created,
-        business: InfoSystem().business(),
+          sum: gainTotal,
+          succursale: item.succursale,
+          signature: item.signature,
+          created: item.created,
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await gainStore.insertData(gainModel);
     });
   }
@@ -465,24 +456,23 @@ class CartController extends GetxController with StateMixin<List<CartModel>> {
       final achatCreated = achatQtyList.map((e) => e.created).first;
 
       final achatModel = AchatModel(
-        id: achatId!,
-        idProduct: achatIdProduct,
-        quantity: achatQty.toString(),
-        quantityAchat: achatQuantityAchat,
-        priceAchatUnit: achatAchatUnit,
-        prixVenteUnit: achatPrixVenteUnit,
-        unite: achatUnite,
-        tva: achattva,
-        remise: achatRemise,
-        qtyRemise: achatQtyRemise,
-        qtyLivre: achatQtyLivre,
-        succursale: achatSuccursale,
-        signature: achatSignature,
-        created: achatCreated,
-        business: InfoSystem().business(),
+          id: achatId!,
+          idProduct: achatIdProduct,
+          quantity: achatQty.toString(),
+          quantityAchat: achatQuantityAchat,
+          priceAchatUnit: achatAchatUnit,
+          prixVenteUnit: achatPrixVenteUnit,
+          unite: achatUnite,
+          tva: achattva,
+          remise: achatRemise,
+          qtyRemise: achatQtyRemise,
+          qtyLivre: achatQtyLivre,
+          succursale: achatSuccursale,
+          signature: achatSignature,
+          created: achatCreated,
+          business: InfoSystem().business(),
           sync: "update",
-          async: "async"
-      );
+          async: "new");
       await stockStore.updateData(achatModel);
       deleteData(cart);
       _isLoadingCancel.value = false;

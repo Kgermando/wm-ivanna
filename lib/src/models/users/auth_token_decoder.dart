@@ -21,7 +21,7 @@ class AuthTokenDecoder {
         refreshToken: json['refreshToken']);
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {'id': id, 'accessToken': accessToken, 'refreshToken': refreshToken};
   }
 }

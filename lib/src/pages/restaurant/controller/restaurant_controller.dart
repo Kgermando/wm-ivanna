@@ -152,7 +152,7 @@ class RestaurantController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await restaurantStore.insertData(dataItem).then((value) async {
         getList();
         // Get.back();
@@ -176,20 +176,19 @@ class RestaurantController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = RestaurantModel(
-        id: restaurantModel.id,
-        identifiant: restaurantModel.identifiant,
-        table: restaurantModel.table,
-        qty: restaurantModel.qty,
-        price: restaurantModel.price,
-        unite: restaurantModel.unite,
-        statutCommande: statut,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: restaurantModel.created,
-        business: restaurantModel.business,
+          id: restaurantModel.id,
+          identifiant: restaurantModel.identifiant,
+          table: restaurantModel.table,
+          qty: restaurantModel.qty,
+          price: restaurantModel.price,
+          unite: restaurantModel.unite,
+          statutCommande: statut,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: restaurantModel.created,
+          business: restaurantModel.business,
           sync: "update",
-          async: "async"
-      );
+          async: "new");
       await restaurantStore.updateData(dataItem).then((value) {
         getList();
         // Get.back();
@@ -213,19 +212,18 @@ class RestaurantController extends GetxController
     try {
       _isFactureLoading.value = true;
       final factureCartModel = FactureRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await factureRestaurantStore
           .insertData(factureCartModel)
           .then((value) async {
@@ -234,6 +232,7 @@ class RestaurantController extends GetxController
             factureCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
+        restaurants.clear();
         Get.toNamed(RestaurantRoutes.tableConsommationRestaurant);
         restaurantList.clear();
       });
@@ -253,19 +252,18 @@ class RestaurantController extends GetxController
       _isFactureLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final factureCartModel = FactureRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       List<FactureRestaurantModel> factureList = [];
       factureList.add(factureCartModel);
       // ignore: unused_local_variable
@@ -290,32 +288,32 @@ class RestaurantController extends GetxController
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await creanceRestaurantStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
             creanceCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
+        restaurants.clear();
         Get.toNamed(RestaurantRoutes.tableConsommationRestaurant);
         _isCreanceLoading.value = false;
       });
@@ -334,27 +332,26 @@ class RestaurantController extends GetxController
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
 
       List<CreanceRestaurantModel> creanceList = [];
       creanceList.add(creanceCartModel);
@@ -380,14 +377,13 @@ class RestaurantController extends GetxController
   Future<void> numberFactureField(
       String number, String succursale, String signature) async {
     final numberFactureModel = NumberFactureModel(
-      number: number,
-      succursale: succursale,
-      signature: signature,
-      created: DateTime.now(),
-      business: InfoSystem().business(),
+        number: number,
+        succursale: succursale,
+        signature: signature,
+        created: DateTime.now(),
+        business: InfoSystem().business(),
         sync: "new",
-        async: "async"
-    );
+        async: "new");
     await numberFactureStore.insertData(numberFactureModel);
   }
 
@@ -396,19 +392,18 @@ class RestaurantController extends GetxController
       double priceTotal = 0;
       priceTotal = double.parse(item.qty) * double.parse(item.price);
       final venteCartModel = VenteRestaurantModel(
-        identifiant: item.identifiant,
-        table: item.table,
-        priceTotalCart: priceTotal.toString(),
-        qty: item.qty,
-        price: item.price,
-        unite: item.unite,
-        succursale: item.succursale,
-        signature: item.signature,
-        created: item.created,
-        business: InfoSystem().business(),
+          identifiant: item.identifiant,
+          table: item.table,
+          priceTotalCart: priceTotal.toString(),
+          qty: item.qty,
+          price: item.price,
+          unite: item.unite,
+          succursale: item.succursale,
+          signature: item.signature,
+          created: item.created,
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await venteEffectueRestStore
           .insertData(venteCartModel)
           .then((value) async {

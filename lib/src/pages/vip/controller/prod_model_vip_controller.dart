@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/global/store/vip/prod_model_vip_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/vip/prod_model_vip_store.dart';
 import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
@@ -131,8 +131,7 @@ class ProdModelVipController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await prodModelVipStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -176,7 +175,7 @@ class ProdModelVipController extends GetxController
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await prodModelVipStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();

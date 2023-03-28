@@ -11,7 +11,7 @@ class NotifyModel {
     return NotifyModel(count: json['count']);
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {'count': count};
   }
 }

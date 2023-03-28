@@ -72,7 +72,7 @@ class AnnuaireApi extends GetConnect {
   Future<AnnuaireModel> insertData(AnnuaireModel annuaireModel) async {
     Map<String, String> header = headers;
 
-    var data = annuaireModel.toJson(id: annuaireModel.id!);
+    var data = annuaireModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addAnnuairesUrl, headers: header, body: body);
@@ -89,7 +89,7 @@ class AnnuaireApi extends GetConnect {
   Future<AnnuaireModel> updateData(AnnuaireModel annuaireModel) async {
     Map<String, String> header = headers;
 
-    var data = annuaireModel.toJson(id: annuaireModel.id!);
+    var data = annuaireModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/annuaires/update-annuaire/");
 

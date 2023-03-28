@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/store/reservation/reservation_store.dart';
 import 'package:wm_com_ivanna/src/models/reservation/reservation_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -118,10 +118,10 @@ class ReservationController extends GetxController
           montant: montantController.text,
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
-          created: DateTime.now(), 
+          created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await reservationStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -170,10 +170,10 @@ class ReservationController extends GetxController
           montant: montantController.text,
           succursale: profilController.user.succursale,
           signature: profilController.user.matricule,
-          created: reservationModel.created, 
+          created: reservationModel.created,
           business: reservationModel.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await reservationStore.updateData(dataItem).then((value) {
         clear();
         getList();

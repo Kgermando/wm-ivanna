@@ -12,7 +12,6 @@ class DashboardFinanceController extends GetxController {
   double get depensesCaisse => _depensesCaisse.value;
   final _soldeCaisse = 0.0.obs;
   double get soldeCaisse => _soldeCaisse.value;
- 
 
   @override
   void onInit() {
@@ -21,9 +20,9 @@ class DashboardFinanceController extends GetxController {
   }
 
   void getData() async {
-    if (!GetPlatform.isWeb){
-       bool result = await InternetConnectionChecker().hasConnection;
-      if (result == true) {
+    if (!GetPlatform.isWeb) {
+      bool result = await InternetConnectionChecker().hasConnection;
+      if (result == true) { 
         var dataCaisseList = await caisseApi.getAllData();
 
         // Caisse
@@ -64,7 +63,7 @@ class DashboardFinanceController extends GetxController {
       }
 
       _soldeCaisse.value = recetteCaisse - depensesCaisse;
-    } 
+    }
     update();
   }
 }

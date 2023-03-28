@@ -13,16 +13,16 @@ class FactureCartModel {
   late String sync; // new, update, sync
   late String async;
 
-  FactureCartModel(
-      {this.id,
-      required this.cart,
-      required this.client,
-      required this.nomClient,
-      required this.telephone,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business,
+  FactureCartModel({
+    this.id,
+    required this.cart,
+    required this.client,
+    required this.nomClient,
+    required this.telephone,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
     required this.sync,
     required this.async,
   });
@@ -44,24 +44,24 @@ class FactureCartModel {
 
   factory FactureCartModel.fromJson(Map<String, dynamic> json) {
     return FactureCartModel(
-        id: json['id'],
-        cart: json['cart']
-            .map((mapping) => CartModel.fromJson(mapping))
-            .toList()
-            .cast<CartModel>(),
-        client: json['client'],
-        nomClient: json['nomClient'],
-        telephone: json['telephone'],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
-        business: json['business'],
+      id: json['id'],
+      cart: json['cart']
+          .map((mapping) => CartModel.fromJson(mapping))
+          .toList()
+          .cast<CartModel>(),
+      client: json['client'],
+      nomClient: json['nomClient'],
+      telephone: json['telephone'],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
       sync: json['sync'],
       async: json['async'],
     );
   }
- 
-  Map<String, dynamic> toJson({required int id}) {
+
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'cart': cart.map((item) => item.toJson(id: id)).toList(growable: false),
@@ -76,6 +76,4 @@ class FactureCartModel {
       'async': async,
     };
   }
-
-  
 }

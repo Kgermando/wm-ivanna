@@ -44,7 +44,7 @@ class HistoryRavitaillementApi extends GetConnect {
       HistoryRavitaillementModel historyRavitaillementModel) async {
     Map<String, String> header = headers;
 
-    var data = historyRavitaillementModel.toJson(id: historyRavitaillementModel.id!);
+    var data = historyRavitaillementModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addHistoryRavitaillementsUrl,
@@ -63,7 +63,7 @@ class HistoryRavitaillementApi extends GetConnect {
       HistoryRavitaillementModel historyRavitaillementModel) async {
     Map<String, String> header = headers;
 
-    var data = historyRavitaillementModel.toJson(id: historyRavitaillementModel.id!);
+    var data = historyRavitaillementModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse(
         "$mainUrl/history-ravitaillements/update-history-ravitaillement/");

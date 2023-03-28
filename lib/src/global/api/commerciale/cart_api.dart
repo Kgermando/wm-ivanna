@@ -44,7 +44,7 @@ class CartApi extends GetConnect {
   Future<CartModel> insertData(CartModel cartModel) async {
     Map<String, String> header = headers;
 
-    var data = cartModel.toJson(id: cartModel.id!);
+    var data = cartModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addCartsUrl, headers: header, body: body);
@@ -61,7 +61,7 @@ class CartApi extends GetConnect {
   Future<CartModel> updateData(CartModel cartModel) async {
     Map<String, String> header = headers;
 
-    var data = cartModel.toJson(id: cartModel.id!);
+    var data = cartModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/carts/update-cart/");
 

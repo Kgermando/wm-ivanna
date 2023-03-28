@@ -6,7 +6,7 @@ import 'package:wm_com_ivanna/src/global/store/commercial/number_facture_store.d
 import 'package:wm_com_ivanna/src/global/store/vip/creance_vip_store.dart';
 import 'package:wm_com_ivanna/src/global/store/vip/facture_vip_store.dart';
 import 'package:wm_com_ivanna/src/global/store/vip/vente_effectue_vip_store.dart';
-import 'package:wm_com_ivanna/src/global/store/vip/vip_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/vip/vip_store.dart';
 import 'package:wm_com_ivanna/src/helpers/monnaire_storage.dart';
 import 'package:wm_com_ivanna/src/models/commercial/number_facture.dart';
 import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
@@ -17,25 +17,20 @@ import 'package:wm_com_ivanna/src/models/restaurant/vente_restaurant_model.dart'
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/components/factures/pdf_a6/creance_vip_a6_pdf.dart';
 import 'package:wm_com_ivanna/src/pages/vip/components/factures/pdf_a6/facture_vip_a6_pdf.dart';
-import 'package:wm_com_ivanna/src/routes/routes.dart'; 
+import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class VipController extends GetxController
     with StateMixin<List<RestaurantModel>> {
   final VipStore vipStore = VipStore();
-  final CreanceVipStore creanceVipStore =
-      CreanceVipStore();
-  final FactureVipStore factureVipStore =
-      FactureVipStore();
-  final VenteEffectueVipStore venteEffectueVipStore =
-      VenteEffectueVipStore();
+  final CreanceVipStore creanceVipStore = CreanceVipStore();
+  final FactureVipStore factureVipStore = FactureVipStore();
+  final VenteEffectueVipStore venteEffectueVipStore = VenteEffectueVipStore();
   final NumberFactureStore numberFactureStore = NumberFactureStore();
   final MonnaieStorage monnaieStorage = Get.put(MonnaieStorage());
   final ProfilController profilController = Get.find();
-  final CreanceVipPDFA6 creanceVipPDFA6 =
-      Get.put(CreanceVipPDFA6());
-  final FactureVipPDFA6 factureVipPDFA6 =
-      Get.put(FactureVipPDFA6());
+  final CreanceVipPDFA6 creanceVipPDFA6 = Get.put(CreanceVipPDFA6());
+  final FactureVipPDFA6 factureVipPDFA6 = Get.put(FactureVipPDFA6());
 
   var restaurantList = <RestaurantModel>[].obs;
 
@@ -152,7 +147,7 @@ class VipController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await vipStore.insertData(dataItem).then((value) async {
         getList();
         // Get.back();
@@ -176,20 +171,19 @@ class VipController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = RestaurantModel(
-        id: restaurantModel.id,
-        identifiant: restaurantModel.identifiant,
-        table: restaurantModel.table,
-        qty: restaurantModel.qty,
-        price: restaurantModel.price,
-        unite: restaurantModel.unite,
-        statutCommande: statut,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: restaurantModel.created,
-        business: restaurantModel.business,
+          id: restaurantModel.id,
+          identifiant: restaurantModel.identifiant,
+          table: restaurantModel.table,
+          qty: restaurantModel.qty,
+          price: restaurantModel.price,
+          unite: restaurantModel.unite,
+          statutCommande: statut,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: restaurantModel.created,
+          business: restaurantModel.business,
           sync: "update",
-          async: "async"
-      );
+          async: "new");
       await vipStore.updateData(dataItem).then((value) {
         getList();
         // Get.back();
@@ -213,27 +207,25 @@ class VipController extends GetxController
     try {
       _isFactureLoading.value = true;
       final factureCartModel = FactureRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
-        sync: "new",
-        async: "async"
-      );
-      await factureVipStore
-          .insertData(factureCartModel)
-          .then((value) async {
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "new");
+      await factureVipStore.insertData(factureCartModel).then((value) async {
         // Genere le numero de la facture
         numberFactureField(factureCartModel.client, factureCartModel.succursale,
             factureCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
+        restaurants.clear();
         Get.toNamed(VipRoutes.tableConsommationVip);
       });
       _isFactureLoading.value = false;
@@ -252,19 +244,18 @@ class VipController extends GetxController
       _isFactureLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final factureCartModel = FactureRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient:
-            (nomClientController.text == '') ? '-' : nomClientController.text,
-        telephone:
-            (telephoneController.text == '') ? '-' : telephoneController.text,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient:
+              (nomClientController.text == '') ? '-' : nomClientController.text,
+          telephone:
+              (telephoneController.text == '') ? '-' : telephoneController.text,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       List<FactureRestaurantModel> factureList = [];
       factureList.add(factureCartModel);
       // ignore: unused_local_variable
@@ -289,32 +280,32 @@ class VipController extends GetxController
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await creanceVipStore.insertData(creanceCartModel).then((value) {
         numberFactureField(creanceCartModel.client, creanceCartModel.succursale,
             creanceCartModel.signature);
         // Ajout des items dans historique
         venteHisotory(restaurants);
+        restaurants.clear();
         Get.toNamed(VipRoutes.tableConsommationVip);
         _isCreanceLoading.value = false;
       });
@@ -333,27 +324,26 @@ class VipController extends GetxController
       _isCreanceLoading.value = true;
       // final jsonList = jsonEncode(cartListItem);
       final creanceCartModel = CreanceRestaurantModel(
-        cart: restaurants,
-        client: '${numberFacture + 1}',
-        nomClient: (nomClientAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        telephone: (telephoneAcreditController.text == '')
-            ? '-'
-            : nomClientAcreditController.text,
-        addresse: (addresseAcreditController.text == '')
-            ? '-'
-            : addresseAcreditController.text,
-        delaiPaiement: (delaiPaiementAcredit == null)
-            ? DateTime.parse('2050-07-19 00:00:00')
-            : delaiPaiementAcredit!,
-        succursale: profilController.user.succursale,
-        signature: profilController.user.matricule,
-        created: DateTime.now(),
-        business: InfoSystem().business(),
+          cart: restaurants,
+          client: '${numberFacture + 1}',
+          nomClient: (nomClientAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          telephone: (telephoneAcreditController.text == '')
+              ? '-'
+              : nomClientAcreditController.text,
+          addresse: (addresseAcreditController.text == '')
+              ? '-'
+              : addresseAcreditController.text,
+          delaiPaiement: (delaiPaiementAcredit == null)
+              ? DateTime.parse('2050-07-19 00:00:00')
+              : delaiPaiementAcredit!,
+          succursale: profilController.user.succursale,
+          signature: profilController.user.matricule,
+          created: DateTime.now(),
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
 
       List<CreanceRestaurantModel> creanceList = [];
       creanceList.add(creanceCartModel);
@@ -379,14 +369,13 @@ class VipController extends GetxController
   Future<void> numberFactureField(
       String number, String succursale, String signature) async {
     final numberFactureModel = NumberFactureModel(
-      number: number,
-      succursale: succursale,
-      signature: signature,
-      created: DateTime.now(),
-      business: InfoSystem().business(), 
-          sync: "new",
-          async: "async"
-    );
+        number: number,
+        succursale: succursale,
+        signature: signature,
+        created: DateTime.now(),
+        business: InfoSystem().business(),
+        sync: "new",
+        async: "new");
     await numberFactureStore.insertData(numberFactureModel);
   }
 
@@ -395,23 +384,23 @@ class VipController extends GetxController
       double priceTotal = 0;
       priceTotal = double.parse(item.qty) * double.parse(item.price);
       final venteCartModel = VenteRestaurantModel(
-        identifiant: item.identifiant,
-        table: item.table,
-        priceTotalCart: priceTotal.toString(),
-        qty: item.qty,
-        price: item.price,
-        unite: item.unite,
-        succursale: item.succursale,
-        signature: item.signature,
-        created: item.created,
-        business: InfoSystem().business(),
+          identifiant: item.identifiant,
+          table: item.table,
+          priceTotalCart: priceTotal.toString(),
+          qty: item.qty,
+          price: item.price,
+          unite: item.unite,
+          succursale: item.succursale,
+          signature: item.signature,
+          created: item.created,
+          business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
-      await venteEffectueVipStore.insertData(venteCartModel).then((value) async {
+          async: "new");
+      await venteEffectueVipStore
+          .insertData(venteCartModel)
+          .then((value) async {
         await vipStore.deleteData(item.id!);
-        
-      }); 
+      });
     });
   }
 }

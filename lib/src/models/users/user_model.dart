@@ -58,10 +58,9 @@ class UserModel {
         createdAt: row[12],
         passwordHash: row[13],
         succursale: row[14],
-      business: row[15],
+        business: row[15],
         sync: row[16],
-        async: row[17]
-    );
+        async: row[17]);
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -87,7 +86,7 @@ class UserModel {
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'photo': photo,
@@ -110,7 +109,7 @@ class UserModel {
     };
   }
 
-    UserModel.fromDatabase(RecordSnapshot<int, Map<String, dynamic>> snapshot)
+  UserModel.fromDatabase(RecordSnapshot<int, Map<String, dynamic>> snapshot)
       : id = snapshot.key,
         photo = snapshot.value['photo'] as String,
         nom = snapshot.value['nom'] as String,
@@ -129,6 +128,4 @@ class UserModel {
         business = snapshot.value['business'] as String,
         sync = snapshot.value['sync'] as String,
         async = snapshot.value['async'] as String;
-
-
 }

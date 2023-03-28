@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wm_com_ivanna/src/controllers/departement_notify_controller.dart';
+import 'package:wm_com_ivanna/src/controllers/network_controller.dart';
+import 'package:wm_com_ivanna/src/global/api/user/user_api.dart';
 import 'package:wm_com_ivanna/src/global/store/auth/login_store.dart';
-import 'package:wm_com_ivanna/src/models/users/user_model.dart'; 
+import 'package:wm_com_ivanna/src/models/users/user_model.dart';
 import 'package:wm_com_ivanna/src/pages/archives/controller/archive_controller.dart';
 import 'package:wm_com_ivanna/src/pages/archives/controller/archive_folder_controller.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/change_password_controller.dart';
@@ -55,13 +57,13 @@ import 'package:wm_com_ivanna/src/pages/vip/controller/factures/facture_vip_cont
 import 'package:wm_com_ivanna/src/pages/vip/controller/prod_model_vip_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/controller/table_vip_controller.dart';
 import 'package:wm_com_ivanna/src/pages/vip/controller/ventes_effectue_vip_controller.dart';
-import 'package:wm_com_ivanna/src/pages/vip/controller/vip_controller.dart'; 
+import 'package:wm_com_ivanna/src/pages/vip/controller/vip_controller.dart';
 import 'package:wm_com_ivanna/src/routes/routes.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class LoginController extends GetxController {
   final AuthStore authStore = AuthStore();
-  // final UserApi userApi = UserApi();
+  final UserApi userApi = UserApi();
 
   GetStorage getStorge = GetStorage();
 
@@ -101,34 +103,99 @@ class LoginController extends GetxController {
     if (kDebugMode) {
       print("login IDUser $idToken");
     }
-    
-    final UsersController usersController = Get.put(UsersController());
-    if(usersController.usersList.isEmpty) {
-      final user = UserModel(
-      id: 1,
-      photo: "",
-      nom: "admin",
-      prenom: "admin",
-      email: "admin@eventdrc.com",
-      telephone: "0000000000",
-      matricule: "admin",
-      departement: "Commercial",
-      servicesAffectation: "Support",
-      fonctionOccupe: "Support",
-      role: "1",
-      isOnline: "true",
-      createdAt: DateTime.parse("2023-01-05T11:30:06.571153Z"),
-      passwordHash: "1234",
-      succursale: "-",
-      business: "ivanna",
-      sync: '-',
-      async: '-',
-      );
-      usersController.usersStore.insertData(user);
-      if (kDebugMode) {
-        print("login user $user");
-      }
-    } 
+    // final UsersController usersController = Get.put(UsersController());
+    // if (usersController.usersList.isEmpty) {
+    //   if (!GetPlatform.isWeb) {
+    // bool result = await InternetConnectionChecker().hasConnection;
+    //     if (result == true) {
+    //         var users = await userApi.getAllData();
+    //       var userList =
+    //           users.where((element) => element.async == 'async').toList();
+    //       if (userList.isNotEmpty) {
+    //         for (var element in userList) {
+    //           final user = UserModel(
+    //             photo: "-",
+    //             nom: element.nom,
+    //             prenom: element.prenom,
+    //             email: element.email,
+    //             telephone: element.telephone,
+    //             matricule: element.matricule,
+    //             departement: element.departement,
+    //             servicesAffectation: element.servicesAffectation,
+    //             fonctionOccupe: element.fonctionOccupe,
+    //             role: element.role,
+    //             isOnline: element.isOnline,
+    //             createdAt: element.createdAt,
+    //             passwordHash: element.passwordHash,
+    //             succursale: element.succursale,
+    //             business: element.business,
+    //             sync: element.sync,
+    //             async: 'saved',
+    //           );
+    //           await usersController.usersStore.insertData(user);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   if (GetPlatform.isWeb) {
+    //     var users = await userApi.getAllData();
+    //     var userList =
+    //         users.where((element) => element.async == 'async').toList();
+    //     if (userList.isNotEmpty) {
+    //       for (var element in userList) {
+    //         final user = UserModel(
+    //           photo: "-",
+    //           nom: element.nom,
+    //           prenom: element.prenom,
+    //           email: element.email,
+    //           telephone: element.telephone,
+    //           matricule: element.matricule,
+    //           departement: element.departement,
+    //           servicesAffectation: element.servicesAffectation,
+    //           fonctionOccupe: element.fonctionOccupe,
+    //           role: element.role,
+    //           isOnline: element.isOnline,
+    //           createdAt: element.createdAt,
+    //           passwordHash: element.passwordHash,
+    //           succursale: element.succursale,
+    //           business: element.business,
+    //           sync: element.sync,
+    //           async: 'saved',
+    //         );
+    //         await usersController.usersStore.insertData(user);
+    //       }
+    //     }
+    //   }
+
+    // }
+
+    // final UsersController usersController = Get.put(UsersController());
+    // if(usersController.usersList.isEmpty) {
+    //   final user = UserModel(
+    //     id: 1,
+    //     photo: "-",
+    //     nom: "admin",
+    //     prenom: "admin",
+    //     email: "admin@eventdrc.com",
+    //     telephone: "0000000000",
+    //     matricule: "admin",
+    //     departement: "Commercial",
+    //     servicesAffectation: "Support",
+    //     fonctionOccupe: "Support",
+    //     role: "1",
+    //     isOnline: "true",
+    //     createdAt: DateTime.parse("2023-01-05T11:30:06.571153Z"),
+    //     passwordHash: "1234",
+    //     succursale: "-",
+    //     business: "ivanna",
+    //     sync: 'new',
+    //     async: 'new',
+    //   );
+    //   usersController.usersStore.insertData(user);
+    //   if (kDebugMode) {
+    //     print("login user $user");
+    //   }
+    // }
     final form = loginFormKey.currentState!;
     if (form.validate()) {
       try {
@@ -205,7 +272,6 @@ class LoginController extends GetxController {
             Get.lazyPut(() => CreanceLivraisonController());
             Get.lazyPut(() => FactureLivraisonController());
             Get.lazyPut(() => VenteEffectueLivraisonController());
-            
 
             // FInance
             Get.lazyPut(() => CaisseNameController());

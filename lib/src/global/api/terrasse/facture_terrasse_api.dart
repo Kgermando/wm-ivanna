@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:wm_com_ivanna/src/models/restaurant/facture_restaurant_model.dart'; 
+import 'package:wm_com_ivanna/src/models/restaurant/facture_restaurant_model.dart';
 
 class FactureTerrasseApi extends GetConnect {
   var client = http.Client();
@@ -44,7 +44,7 @@ class FactureTerrasseApi extends GetConnect {
       FactureRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -63,7 +63,7 @@ class FactureTerrasseApi extends GetConnect {
       FactureRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/facture-terrasses/update-facture/");
 

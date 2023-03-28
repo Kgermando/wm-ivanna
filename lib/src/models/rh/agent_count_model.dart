@@ -11,7 +11,7 @@ class AgentCountModel {
     return AgentCountModel(count: json['count']);
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {'count': count};
   }
 }
@@ -33,11 +33,10 @@ class AgentPieChartModel {
     return AgentPieChartModel(sexe: json['sexe'], count: json['count']);
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {'sexe': sexe, 'count': count};
   }
 }
-
 
 class ReservationPieChartModel {
   final String eventName;

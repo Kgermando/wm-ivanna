@@ -100,7 +100,7 @@ class PersonnelsApi extends GetConnect {
 
   Future<AgentModel> insertData(AgentModel agentModel) async {
     Map<String, String> header = headers;
-    var data = agentModel.toJson(id: agentModel.id!);
+    var data = agentModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addAgentsUrl, headers: header, body: body);
@@ -117,7 +117,7 @@ class PersonnelsApi extends GetConnect {
   Future<AgentModel> updateData(AgentModel agentModel) async {
     Map<String, String> header = headers;
 
-    var data = agentModel.toJson(id: agentModel.id!);
+    var data = agentModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/rh/agents/update-agent/");
 

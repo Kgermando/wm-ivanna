@@ -16,14 +16,13 @@ class ProductModel {
     required this.service,
     required this.identifiant,
     required this.unite,
-    required this.price, 
+    required this.price,
     required this.idProduct,
     required this.signature,
     required this.created,
     required this.business,
     required this.sync,
     required this.async,
-
   });
 
   factory ProductModel.fromSQL(List<dynamic> row) {
@@ -38,8 +37,7 @@ class ProductModel {
         created: row[7],
         business: row[8],
         sync: row[9],
-        async: row[10]
-      );
+        async: row[10]);
   }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -48,7 +46,7 @@ class ProductModel {
       service: json['service'],
       identifiant: json['identifiant'],
       unite: json['unite'],
-      price: json['price'], 
+      price: json['price'],
       idProduct: json['idProduct'],
       signature: json['signature'],
       created: DateTime.parse(json['created']),
@@ -58,13 +56,13 @@ class ProductModel {
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'service': service,
       'identifiant': identifiant,
       'unite': unite,
-      'price': price, 
+      'price': price,
       'idProduct': idProduct,
       'signature': signature,
       'created': created.toIso8601String(),

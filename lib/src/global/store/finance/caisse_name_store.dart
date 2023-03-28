@@ -40,7 +40,7 @@ class CaisseNameStore {
 
   Future<int> updateData(CaisseNameModel entity) async {
     final finder = Finder(filter: Filter.equals('id', entity.id));
-    var key = await store.update(await _db, entity.toJson(id: entity.id!),
+    var key = await store.update(await _db, entity.toJson(id: entity.id),
         finder: finder);
     return key;
   }

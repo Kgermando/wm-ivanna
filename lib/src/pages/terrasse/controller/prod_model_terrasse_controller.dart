@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/global/store/terrasse/prod_model_terrasse_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/terrasse/prod_model_terrasse_store.dart';
 import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
 import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class ProdModelTerrasseController extends GetxController
     with StateMixin<List<ProductModel>> {
-  final ProdModelTerrasseStore prodModelterrasseStore = ProdModelTerrasseStore();
+  final ProdModelTerrasseStore prodModelterrasseStore =
+      ProdModelTerrasseStore();
   final ProfilController profilController = Get.find();
 
   var produitModelList = <ProductModel>[].obs;
@@ -131,7 +132,7 @@ class ProdModelTerrasseController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await prodModelterrasseStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -175,7 +176,7 @@ class ProdModelTerrasseController extends GetxController
           created: data.created,
           business: data.business,
           sync: "new",
-          async: "async");
+          async: "new");
       await prodModelterrasseStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();

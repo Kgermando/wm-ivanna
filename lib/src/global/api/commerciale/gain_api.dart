@@ -43,7 +43,7 @@ class GainApi extends GetConnect {
   Future<GainModel> insertData(GainModel gainModel) async {
     Map<String, String> header = headers;
 
-    var data = gainModel.toJson(id: gainModel.id!);
+    var data = gainModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addGainsUrl, headers: header, body: body);
@@ -60,7 +60,7 @@ class GainApi extends GetConnect {
   Future<GainModel> updateData(GainModel gainModel) async {
     Map<String, String> header = headers;
 
-    var data = gainModel.toJson(id: gainModel.id!);
+    var data = gainModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/gains/update-gain/");
 

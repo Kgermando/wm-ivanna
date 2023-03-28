@@ -4,27 +4,27 @@ class RestaurantModel {
   late String table;
   late String qty;
   late String price;
-  late String unite;  
+  late String unite;
   late String statutCommande; // Commande deja effectuee true / false
   late String succursale;
   late String signature; // Celui qui fait le document
   late DateTime created;
   late String business;
   late String sync; // new, update, sync
-  late String async; 
+  late String async;
 
-  RestaurantModel(
-      {this.id,
-      required this.identifiant,
-      required this.table,
-      required this.qty,
-      required this.price,
-      required this.unite,
-      required this.statutCommande,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business,
+  RestaurantModel({
+    this.id,
+    required this.identifiant,
+    required this.table,
+    required this.qty,
+    required this.price,
+    required this.unite,
+    required this.statutCommande,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
     required this.sync,
     required this.async,
   });
@@ -48,23 +48,23 @@ class RestaurantModel {
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) {
     return RestaurantModel(
-        id: json['id'],
-        identifiant: json['identifiant'],
-        table: json['table'],
-        qty: json['qty'],
-        price: json['price'],
-        unite: json['unite'],
-        statutCommande: json['statutCommande'],
-        succursale: json['succursale'],
-        signature: json['signature'],
-        created: DateTime.parse(json['created']),
+      id: json['id'],
+      identifiant: json['identifiant'],
+      table: json['table'],
+      qty: json['qty'],
+      price: json['price'],
+      unite: json['unite'],
+      statutCommande: json['statutCommande'],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
       business: json['business'],
       sync: json['sync'],
       async: json['async'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'identifiant': identifiant,
@@ -80,5 +80,5 @@ class RestaurantModel {
       'sync': sync,
       'async': async,
     };
-  } 
+  }
 }

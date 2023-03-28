@@ -83,7 +83,7 @@ class TableRestaurantController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await tableRestaurantStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -115,7 +115,7 @@ class TableRestaurantController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await tableRestaurantStore.insertData(dataItem).then((value) async {
         clear();
         getList();
@@ -147,7 +147,7 @@ class TableRestaurantController extends GetxController
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await tableRestaurantStore.updateData(dataItem).then((value) {
         getList();
         Get.back();

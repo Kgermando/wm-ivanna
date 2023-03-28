@@ -43,47 +43,63 @@ class _DashboardCaisseState extends State<DashboardCaisse> {
                   child: SingleChildScrollView(
                     controller: ScrollController(),
                     physics: const ScrollPhysics(),
-                    child: Obx(() => Column(
+                    child: Column(
                       children: [
                         const BarreConnectionWidget(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Wrap(
-                                      alignment: WrapAlignment.spaceEvenly,
-                                      spacing: 12.0,
-                                      runSpacing: 12.0,
-                                      direction: Axis.horizontal,
-                                      children: [
-                                        DashboardCardWidget(
-                                          gestureTapCallback: () {},
-                                          title: 'TOTAL CAISSES',
-                                          icon: Icons.savings,
-                                          montant: '${controller.soldeCaisse}',
-                                          color: Colors.teal.shade700,
-                                          colorText: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Card(
-                                        child: ChartCaisse(
-                                      chartCaisseController:
-                                          chartCaisseController,
-                                      monnaieStorage: monnaieStorage,
-                                    )),
-                                    const SizedBox(
-                                      height: 20.0,
-                                    ),
-                                  ]),
+                          child: Obx(() => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Wrap(
+                                alignment: WrapAlignment.spaceEvenly,
+                                spacing: 12.0,
+                                runSpacing: 12.0,
+                                direction: Axis.horizontal,
+                                children: [
+                                  DashboardCardWidget(
+                                    gestureTapCallback: () {},
+                                    title: 'TOTAL CAISSES',
+                                    icon: Icons.shopping_cart_checkout,
+                                    montant: '${controller.soldeCaisse}',
+                                    color: Colors.purple.shade700,
+                                    colorText: Colors.white,
+                                  ),
+                                  DashboardCardWidget(
+                                    gestureTapCallback: () {},
+                                    title: 'TOTAL RECETTES',
+                                    icon: Icons.savings,
+                                    montant: '${controller.recetteCaisse}',
+                                    color: Colors.teal.shade700,
+                                    colorText: Colors.white,
+                                  ),
+                                  DashboardCardWidget(
+                                    gestureTapCallback: () {},
+                                    title: 'TOTAL DEPENSES',
+                                    icon: Icons.money_off,
+                                    montant: '${controller.depensesCaisse}',
+                                    color: Colors.red.shade700,
+                                    colorText: Colors.white,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                               Card(
+                                  child: ChartCaisse(
+                                chartCaisseController:
+                                    chartCaisseController,
+                                monnaieStorage: monnaieStorage,
+                              )) ,
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                            ])) ,
                         ),
                       ],
                     ),) 
-                  ))
+                  ) 
             ],
           )),
     );

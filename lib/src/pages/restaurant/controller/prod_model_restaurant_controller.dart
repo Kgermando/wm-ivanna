@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:wm_com_ivanna/src/global/api/restaurant/prod_model_rest_api.dart';
 import 'package:wm_com_ivanna/src/global/store/restaurant/prod_model_rest_store.dart';
 import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
 import 'package:wm_com_ivanna/src/pages/auth/controller/profil_controller.dart';
@@ -8,6 +10,7 @@ import 'package:wm_com_ivanna/src/utils/info_system.dart';
 class ProdModelRestaurantController extends GetxController
     with StateMixin<List<ProductModel>> {
   final ProdModelRestStore produitModelStore = ProdModelRestStore();
+  final ProduitModelRestApi produitModelRestApi = ProduitModelRestApi();
   final ProfilController profilController = Get.find();
 
   var produitModelList = <ProductModel>[].obs;
@@ -131,7 +134,7 @@ class ProdModelRestaurantController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await produitModelStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -175,7 +178,7 @@ class ProdModelRestaurantController extends GetxController
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await produitModelStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -194,6 +197,38 @@ class ProdModelRestaurantController extends GetxController
           backgroundColor: Colors.red,
           icon: const Icon(Icons.check),
           snackPosition: SnackPosition.TOP);
+    }
+  }
+
+  Future<void> syncData() async {
+    if (!GetPlatform.isWeb) {
+      _isLoading.value = true;
+      bool result = await InternetConnectionChecker().hasConnection;
+      if (result == true) {
+        var prodModelList = await produitModelRestApi.getAllData();
+        var dataList =
+            prodModelList.where((element) => element.async == "async").toList();
+        if (dataList.isNotEmpty) {
+          for (var element in dataList) {
+            final prodModel = ProductModel(
+              id: element.id,
+              service: element.service,
+              identifiant: element.identifiant,
+              unite: element.unite,
+              price: element.price,
+              idProduct: element.idProduct,
+              signature: element.signature,
+              created: element.created,
+              business: element.business,
+              sync: element.sync,
+              async: 'saved',
+            );
+            await produitModelStore.insertData(prodModel).then((value) async {
+              await produitModelRestApi.updateData(prodModel);
+            });
+          }
+        }
+      }
     }
   }
 }

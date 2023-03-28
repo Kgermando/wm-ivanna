@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:wm_com_ivanna/src/models/restaurant/vente_restaurant_model.dart'; 
+import 'package:wm_com_ivanna/src/models/restaurant/vente_restaurant_model.dart';
 
 class VenteEffectueTerrasseApi extends GetConnect {
   var client = http.Client();
@@ -40,15 +40,14 @@ class VenteEffectueTerrasseApi extends GetConnect {
     }
   }
 
-  Future<VenteRestaurantModel> insertData(
-      VenteRestaurantModel dataItem) async {
+  Future<VenteRestaurantModel> insertData(VenteRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
 
-    var resp =
-        await client.post(addVenteEffectueeTerrasseUrl, headers: header, body: body);
+    var resp = await client.post(addVenteEffectueeTerrasseUrl,
+        headers: header, body: body);
     if (resp.statusCode == 200) {
       return VenteRestaurantModel.fromJson(json.decode(resp.body));
     } else if (resp.statusCode == 401) {
@@ -59,13 +58,13 @@ class VenteEffectueTerrasseApi extends GetConnect {
     }
   }
 
-  Future<VenteRestaurantModel> updateData(
-      VenteRestaurantModel dataItem) async {
+  Future<VenteRestaurantModel> updateData(VenteRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
-    var updateUrl = Uri.parse("$mainUrl/vente-effectuee-terrasses/update-vente/");
+    var updateUrl =
+        Uri.parse("$mainUrl/vente-effectuee-terrasses/update-vente/");
 
     var res = await client.put(updateUrl, headers: header, body: body);
     if (res.statusCode == 200) {
@@ -78,7 +77,8 @@ class VenteEffectueTerrasseApi extends GetConnect {
   Future<void> deleteData(int id) async {
     Map<String, String> header = headers;
 
-    var deleteUrl = Uri.parse("$mainUrl/vente-effectuee-terrasses/delete-vente/$id");
+    var deleteUrl =
+        Uri.parse("$mainUrl/vente-effectuee-terrasses/delete-vente/$id");
 
     var res = await client.delete(deleteUrl, headers: header);
     if (res.statusCode == 200) {

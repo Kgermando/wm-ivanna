@@ -69,7 +69,7 @@ class CreanceRestaurantModel {
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'cart': cart.map((item) => item.toJson(id: id)).toList(growable: false),

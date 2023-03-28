@@ -117,8 +117,7 @@ class CaisseController extends GetxController
           montantDecaissement: "0",
           business: InfoSystem().business(),
           sync: "new",
-          async: "async"
-      );
+          async: "new");
       await caisseStore.insertData(dataItem).then((value) {
         clear();
         caisseList.clear();
@@ -144,22 +143,21 @@ class CaisseController extends GetxController
     try {
       _isLoading.value = true;
       final dataItem = CaisseModel(
-        nomComplet: nomCompletController.text,
-        pieceJustificative: '-',
-        libelle: libelleController.text,
-        montantEncaissement: "0",
-        departement: '-',
-        typeOperation: 'Decaissement',
-        numeroOperation: 'Transaction-Caisse-${caisseList.length + 1}',
-        signature: profilController.user.matricule,
-        reference: data.id!,
-        caisseName: data.nomComplet,
-        created: DateTime.now(),
-        montantDecaissement: montantController.text,
-        business: InfoSystem().business(),
-        sync: "new",
-        async: "async"
-      );
+          nomComplet: nomCompletController.text,
+          pieceJustificative: '-',
+          libelle: libelleController.text,
+          montantEncaissement: "0",
+          departement: '-',
+          typeOperation: 'Decaissement',
+          numeroOperation: 'Transaction-Caisse-${caisseList.length + 1}',
+          signature: profilController.user.matricule,
+          reference: data.id!,
+          caisseName: data.nomComplet,
+          created: DateTime.now(),
+          montantDecaissement: montantController.text,
+          business: InfoSystem().business(),
+          sync: "new",
+          async: "new");
       await caisseStore.insertData(dataItem).then((value) {
         clear();
         caisseList.clear();

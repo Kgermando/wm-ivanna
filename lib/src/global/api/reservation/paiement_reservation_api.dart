@@ -44,7 +44,7 @@ class PaiementReservationApi extends GetConnect {
       PaiementReservationModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addPaiementReservationUrl,
@@ -63,7 +63,7 @@ class PaiementReservationApi extends GetConnect {
       PaiementReservationModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse(
         "$mainUrl/reservations-paiements/update-reservation-paiement/");

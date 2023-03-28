@@ -43,7 +43,7 @@ class CreanceFactureApi extends GetConnect {
   Future<CreanceCartModel> insertData(CreanceCartModel creanceCartModel) async {
     Map<String, String> header = headers;
 
-    var data = creanceCartModel.toJson(id: creanceCartModel.id!);
+    var data = creanceCartModel.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -61,7 +61,7 @@ class CreanceFactureApi extends GetConnect {
   Future<CreanceCartModel> updateData(CreanceCartModel creanceCartModel) async {
     Map<String, String> header = headers;
 
-    var data = creanceCartModel.toJson(id: creanceCartModel.id!);
+    var data = creanceCartModel.toJson();
     var body = jsonEncode(data);
     var updateUrl =
         Uri.parse("$mainUrl/facture-creances/update-facture-creance/");

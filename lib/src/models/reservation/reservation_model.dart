@@ -17,22 +17,22 @@ class ReservationModel {
   late String sync; // new, update, sync
   late String async;
 
-  ReservationModel(
-      {this.id,
-      required this.client,
-      required this.telephone,
-      required this.email,
-      required this.adresse,
-      required this.nbrePersonne,
-      required this.dureeEvent,
-      required this.createdDay,
-      required this.background,
-      required this.eventName,
-      required this.montant,
-      required this.succursale,
-      required this.signature,
-      required this.created,
-      required this.business,
+  ReservationModel({
+    this.id,
+    required this.client,
+    required this.telephone,
+    required this.email,
+    required this.adresse,
+    required this.nbrePersonne,
+    required this.dureeEvent,
+    required this.createdDay,
+    required this.background,
+    required this.eventName,
+    required this.montant,
+    required this.succursale,
+    required this.signature,
+    required this.created,
+    required this.business,
     required this.sync,
     required this.async,
   });
@@ -60,27 +60,27 @@ class ReservationModel {
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
     return ReservationModel(
-        id: json["id"],
-        client: json["client"],
-        telephone: json["telephone"],
-        email: json["email"],
-        adresse: json["adresse"],
-        nbrePersonne: json["nbrePersonne"],
-        dureeEvent: json["dureeEvent"],
-        createdDay: DateTime.parse(json['createdDay']),
-        background: json["background"],
-        eventName: json["eventName"],
-        montant: json['montant'],
-        succursale: json['succursale'], 
-        signature: json['signature'], 
-        created: DateTime.parse(json['created']),
-        business: json['business'],
+      id: json["id"],
+      client: json["client"],
+      telephone: json["telephone"],
+      email: json["email"],
+      adresse: json["adresse"],
+      nbrePersonne: json["nbrePersonne"],
+      dureeEvent: json["dureeEvent"],
+      createdDay: DateTime.parse(json['createdDay']),
+      background: json["background"],
+      eventName: json["eventName"],
+      montant: json['montant'],
+      succursale: json['succursale'],
+      signature: json['signature'],
+      created: DateTime.parse(json['created']),
+      business: json['business'],
       sync: json['sync'],
       async: json['async'],
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'client': client,
@@ -95,7 +95,7 @@ class ReservationModel {
       'montant': montant,
       'succursale': succursale,
       'signature': signature,
-      'created': created.toIso8601String(), 
+      'created': created.toIso8601String(),
       'business': business,
       'sync': sync,
       'async': async,

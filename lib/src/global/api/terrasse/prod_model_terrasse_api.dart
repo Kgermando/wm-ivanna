@@ -5,22 +5,22 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
+import 'package:wm_com_ivanna/src/models/commercial/prod_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:wm_com_ivanna/src/models/restaurant/table_restaurant_model.dart';
 
-class TableVipApi extends GetConnect {
+class ProduitModelTerrasseApi extends GetConnect {
   var client = http.Client();
 
-  Future<List<TableRestaurantModel>> getAllData() async {
+  Future<List<ProductModel>> getAllData() async {
     Map<String, String> header = headers;
 
-    var resp = await client.get(tableVipUrl, headers: header);
+    var resp = await client.get(prodModelTerrasseUrl, headers: header);
 
     if (resp.statusCode == 200) {
       List<dynamic> bodyList = json.decode(resp.body);
-      List<TableRestaurantModel> data = [];
+      List<ProductModel> data = [];
       for (var u in bodyList) {
-        data.add(TableRestaurantModel.fromJson(u));
+        data.add(ProductModel.fromJson(u));
       }
       return data;
     } else {
@@ -28,45 +28,47 @@ class TableVipApi extends GetConnect {
     }
   }
 
-  Future<TableRestaurantModel> getOneData(int id) async {
+  Future<ProductModel> getOneData(int id) async {
     Map<String, String> header = headers;
 
-    var getUrl = Uri.parse("$mainUrl/table-vips/$id");
+    var getUrl = Uri.parse("$mainUrl/prod-mode-terrasses/$id");
     var resp = await client.get(getUrl, headers: header);
     if (resp.statusCode == 200) {
-      return TableRestaurantModel.fromJson(json.decode(resp.body));
+      return ProductModel.fromJson(json.decode(resp.body));
     } else {
       throw Exception(json.decode(resp.body)['message']);
     }
   }
 
-  Future<TableRestaurantModel> insertData(TableRestaurantModel dataItem) async {
+  Future<ProductModel> insertData(ProductModel productModel) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson();
+    var data = productModel.toJson();
     var body = jsonEncode(data);
 
-    var resp = await client.post(addTableVipUrl, headers: header, body: body);
+    var resp =
+        await client.post(addProdModelTerrasseUrl, headers: header, body: body);
     if (resp.statusCode == 200) {
-      return TableRestaurantModel.fromJson(json.decode(resp.body));
+      return ProductModel.fromJson(json.decode(resp.body));
     } else if (resp.statusCode == 401) {
       // await AuthApi().refreshAccessToken();
-      return insertData(dataItem);
+      return insertData(productModel);
     } else {
-      throw Exception(resp.statusCode);
+      throw Exception(json.decode(resp.body)['message']);
     }
   }
 
-  Future<TableRestaurantModel> updateData(TableRestaurantModel dataItem) async {
+  Future<ProductModel> updateData(ProductModel productModel) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson();
+    var data = productModel.toJson();
     var body = jsonEncode(data);
-    var updateUrl = Uri.parse("$mainUrl/table-vips/update-table/");
+    var updateUrl =
+        Uri.parse("$mainUrl/prod-mode-terrasses/update-produit-model/");
 
     var res = await client.put(updateUrl, headers: header, body: body);
     if (res.statusCode == 200) {
-      return TableRestaurantModel.fromJson(json.decode(res.body));
+      return ProductModel.fromJson(json.decode(res.body));
     } else {
       throw Exception(json.decode(res.body)['message']);
     }
@@ -75,7 +77,8 @@ class TableVipApi extends GetConnect {
   Future<void> deleteData(int id) async {
     Map<String, String> header = headers;
 
-    var deleteUrl = Uri.parse("$mainUrl/table-vips/delete-table/$id");
+    var deleteUrl =
+        Uri.parse("$mainUrl/prod-mode-terrasses/delete-produit-model/$id");
 
     var res = await client.delete(deleteUrl, headers: header);
     if (res.statusCode == 200) {

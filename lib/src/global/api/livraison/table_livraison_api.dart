@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:wm_com_ivanna/src/global/api/header_http.dart';
 import 'package:wm_com_ivanna/src/global/api/route_api.dart';
 import 'package:http/http.dart' as http;
-import 'package:wm_com_ivanna/src/models/restaurant/table_restaurant_model.dart'; 
+import 'package:wm_com_ivanna/src/models/restaurant/table_restaurant_model.dart';
 
 class TableLivraisonApi extends GetConnect {
   var client = http.Client();
@@ -40,11 +40,10 @@ class TableLivraisonApi extends GetConnect {
     }
   }
 
-  Future<TableRestaurantModel> insertData(
-      TableRestaurantModel dataItem) async {
+  Future<TableRestaurantModel> insertData(TableRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -59,11 +58,10 @@ class TableLivraisonApi extends GetConnect {
     }
   }
 
-  Future<TableRestaurantModel> updateData(
-      TableRestaurantModel dataItem) async {
+  Future<TableRestaurantModel> updateData(TableRestaurantModel dataItem) async {
     Map<String, String> header = headers;
 
-    var data = dataItem.toJson(id: dataItem.id!);
+    var data = dataItem.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/table-livraisons/update-table/");
 

@@ -43,7 +43,7 @@ class VenteCartApi extends GetConnect {
   Future<VenteCartModel> insertData(VenteCartModel venteCartModel) async {
     Map<String, String> header = headers;
 
-    var data = venteCartModel.toJson(id: venteCartModel.id!);
+    var data = venteCartModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addVentesUrl, headers: header, body: body);
@@ -60,7 +60,7 @@ class VenteCartApi extends GetConnect {
   Future<VenteCartModel> updateData(VenteCartModel venteCartModel) async {
     Map<String, String> header = headers;
 
-    var data = venteCartModel.toJson(id: venteCartModel.id!);
+    var data = venteCartModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/ventes/update-vente/");
 

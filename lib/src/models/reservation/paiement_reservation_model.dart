@@ -47,7 +47,7 @@ class PaiementReservationModel {
       client: json["client"],
       motif: json["motif"],
       montant: json["montant"],
-      succursale: json['succursale'], 
+      succursale: json['succursale'],
       signature: json['signature'],
       created: DateTime.parse(json['created']),
       business: json['business'],
@@ -56,7 +56,7 @@ class PaiementReservationModel {
     );
   }
 
-  Map<String, dynamic> toJson({required int id}) {
+  Map<String, dynamic> toJson({int? id}) {
     return {
       'id': id,
       'reference': reference,

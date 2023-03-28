@@ -43,7 +43,7 @@ class AgendaApi extends GetConnect {
   Future<AgendaModel> insertData(AgendaModel agendaModel) async {
     Map<String, String> header = headers;
 
-    var data = agendaModel.toJson(id: agendaModel.id!);
+    var data = agendaModel.toJson();
     var body = jsonEncode(data);
 
     var resp = await client.post(addAgendasUrl, headers: header, body: body);
@@ -60,7 +60,7 @@ class AgendaApi extends GetConnect {
   Future<AgendaModel> updateData(AgendaModel agendaModel) async {
     Map<String, String> header = headers;
 
-    var data = agendaModel.toJson(id: agendaModel.id!);
+    var data = agendaModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/agendas/update-agenda/");
 

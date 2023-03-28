@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wm_com_ivanna/src/global/store/commercial/facture_creance_store.dart'; 
+import 'package:wm_com_ivanna/src/global/store/commercial/facture_creance_store.dart';
 import 'package:wm_com_ivanna/src/global/store/commercial/facture_store.dart';
 import 'package:wm_com_ivanna/src/models/commercial/creance_cart_model.dart';
 import 'package:wm_com_ivanna/src/models/commercial/facture_cart_model.dart';
@@ -82,7 +82,7 @@ class FactureCreanceController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await factureStore.insertData(dataItem).then((value) {
         deleteData(data.id!); // Une fois dette payé suppression du fichier
         getList();

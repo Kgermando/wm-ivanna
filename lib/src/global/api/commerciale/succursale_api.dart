@@ -45,7 +45,7 @@ class SuccursaleApi extends GetConnect {
   Future<SuccursaleModel> insertData(SuccursaleModel succursaleModel) async {
     Map<String, String> header = headers;
 
-    var data = succursaleModel.toJson(id: succursaleModel.id!);
+    var data = succursaleModel.toJson();
     var body = jsonEncode(data);
 
     var resp =
@@ -63,7 +63,7 @@ class SuccursaleApi extends GetConnect {
   Future<SuccursaleModel> updateData(SuccursaleModel succursaleModel) async {
     Map<String, String> header = headers;
 
-    var data = succursaleModel.toJson(id: succursaleModel.id!);
+    var data = succursaleModel.toJson();
     var body = jsonEncode(data);
     var updateUrl = Uri.parse("$mainUrl/succursales/update-succursale/");
 

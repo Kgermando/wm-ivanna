@@ -7,7 +7,8 @@ import 'package:wm_com_ivanna/src/utils/info_system.dart';
 
 class ProdModelLivraisonController extends GetxController
     with StateMixin<List<ProductModel>> {
-  final ProdModelLivraisonStore prodModellivraisonStore = ProdModelLivraisonStore();
+  final ProdModelLivraisonStore prodModellivraisonStore =
+      ProdModelLivraisonStore();
   final ProfilController profilController = Get.find();
 
   var produitModelList = <ProductModel>[].obs;
@@ -131,7 +132,7 @@ class ProdModelLivraisonController extends GetxController
           created: DateTime.now(),
           business: InfoSystem().business(),
           sync: "new",
-          async: "async");
+          async: "new");
       await prodModellivraisonStore.insertData(dataItem).then((value) {
         clear();
         produitModelList.clear();
@@ -175,7 +176,7 @@ class ProdModelLivraisonController extends GetxController
           created: data.created,
           business: data.business,
           sync: "update",
-          async: "async");
+          async: "new");
       await prodModellivraisonStore.updateData(dataItem).then((value) {
         clear();
         produitModelList.clear();
