@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                             //     color: Colors.purple,
                             //     onPress: () {}),
                             ServiceHome(
-                                title: 'Caisse',
+                                title: 'Caisses',
                                 icon: Icons.savings,
                                 color: Colors.green,
                                 onPress: () {
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                                 }), 
                             if(!GetPlatform.isWeb && networkController.connectionStatus == 1)
                             ServiceHome(
-                              title: 'Archive',
+                              title: 'Archives',
                               icon: Icons.archive,
                               color: Colors.brown,
                               onPress: () {
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                               }),
                               if (GetPlatform.isWeb)
                               ServiceHome(
-                                title: 'Archive',
+                                title: 'Archives',
                                 icon: Icons.archive,
                                 color: Colors.brown,
                                 onPress: () {

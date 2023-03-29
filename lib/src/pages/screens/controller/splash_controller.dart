@@ -83,9 +83,10 @@ class SplashController extends GetxController {
   void onReady() {
     super.onReady();
     // getStorge.erase();
-
+    // isBackUp();
     String? idToken = getStorge.read(InfoSystem.keyIdToken);
     if (idToken != null) {
+      
       if (!GetPlatform.isWeb) {
         Get.lazyPut(() => NetworkController());
       }
@@ -184,7 +185,7 @@ class SplashController extends GetxController {
           Get.lazyPut(() => UpdateController());
         }
       }
-
+      
       isLoggIn();
     } else {
       Get.offAllNamed(UserRoutes.login);
@@ -192,6 +193,14 @@ class SplashController extends GetxController {
   }
 
   void isLoggIn() async {
+    await loginController.authStore.getUserId().then((userData) async {
+      if (userData.departement == "Commercial") {
+        Get.offAndToNamed(HomeRoutes.home);
+      }
+    });
+  }
+
+  void isBackUp() async {
     final UserApi userApi = UserApi();
     final UsersController usersController = Get.put(UsersController());
     if (usersController.usersList.isEmpty) {
@@ -264,10 +273,5 @@ class SplashController extends GetxController {
         }
       }
     }
-    await loginController.authStore.getUserId().then((userData) async {
-      if (userData.departement == "Commercial") {
-        Get.offAndToNamed(HomeRoutes.home);
-      }
-    });
   }
 }

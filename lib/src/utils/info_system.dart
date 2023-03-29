@@ -2,7 +2,7 @@ class InfoSystem {
   String name() => "Work Management";
   String namelong() => "Solution Work Management";
   String description() => "Work Management pour entreprise priveée et public"; 
-  String version() => "2.2.1.0";
+  String version() => "2.2.1.4";
   String logo() => "assets/images/logo.png";
   String logoSansFond() => "assets/images/logo_sans_fond.png";
   String logoIcon() => "assets/images/logo_icon.png";
@@ -19,8 +19,8 @@ class InfoSystem {
   String iDNat() => "-";
   String email() => "-";
   String phone() => "+243 99 150 93 03";
-   
-  String date() => "23-03-2023";
+
+  String date() => "29-03-2023";
 
 //  Local Storage
   static const variable = 'ivanna';

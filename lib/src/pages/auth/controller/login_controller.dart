@@ -169,33 +169,33 @@ class LoginController extends GetxController {
 
     // }
 
-    // final UsersController usersController = Get.put(UsersController());
-    // if(usersController.usersList.isEmpty) {
-    //   final user = UserModel(
-    //     id: 1,
-    //     photo: "-",
-    //     nom: "admin",
-    //     prenom: "admin",
-    //     email: "admin@eventdrc.com",
-    //     telephone: "0000000000",
-    //     matricule: "admin",
-    //     departement: "Commercial",
-    //     servicesAffectation: "Support",
-    //     fonctionOccupe: "Support",
-    //     role: "1",
-    //     isOnline: "true",
-    //     createdAt: DateTime.parse("2023-01-05T11:30:06.571153Z"),
-    //     passwordHash: "1234",
-    //     succursale: "-",
-    //     business: "ivanna",
-    //     sync: 'new',
-    //     async: 'new',
-    //   );
-    //   usersController.usersStore.insertData(user);
-    //   if (kDebugMode) {
-    //     print("login user $user");
-    //   }
-    // }
+    final UsersController usersController = Get.put(UsersController());
+    if(usersController.usersList.isEmpty) {
+      final user = UserModel(
+        id: 1,
+        photo: "-",
+        nom: "admin",
+        prenom: "admin",
+        email: "admin@eventdrc.com",
+        telephone: "0000000000",
+        matricule: "admin",
+        departement: "Commercial",
+        servicesAffectation: "Support",
+        fonctionOccupe: "Support",
+        role: "1",
+        isOnline: "true",
+        createdAt: DateTime.parse("2023-01-05T11:30:06.571153Z"),
+        passwordHash: "1234",
+        succursale: "-",
+        business: "ivanna",
+        sync: 'new',
+        async: 'new',
+      );
+      usersController.usersStore.insertData(user);
+      if (kDebugMode) {
+        print("login user $user");
+      }
+    }
     final form = loginFormKey.currentState!;
     if (form.validate()) {
       try {
